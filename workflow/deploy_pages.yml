@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Codeberg Private Source
         uses: actions/checkout@v4
         with:
-          repository: "SuchaharCan/你的Codeberg博客私有仓库名" # ⚠️请把这里改成你真实的Codeberg仓库名
+          repository: "SuchaharCan/SuzhaharCan.codeberg.page" # ⚠️请把这里改成你真实的Codeberg仓库名
           token: ${{ secrets.CODEBERG_TOKEN }}
           path: "zola_source"
 
