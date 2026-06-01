@@ -21,11 +21,18 @@ jobs:
       # 2. 从 Codeberg 安全拉取你的私有源码
       # ---------------------------------------------------------
       - name: Checkout Codeberg Private Source
-        uses: actions/checkout@v4
-        with:
-          repository: 'SuzhaharCan/SuzhaharCan.codeberg.page'
-          token: ${{ secrets.CODEBERG_TOKEN }}
-          path: 'zola_source'
+        env:
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          # 1. 确保目标目录干净（可选，防止冲突）
+          rm -rf zola_source
+          
+          # 2. 使用 Token 进行原生 git clone
+          # 这里的路径根据你的报错日志，克隆到了指定的 zola_source 目录
+          git clone https://SuzhaharCan:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/SuzhaharCan/SuzhaharCan.codeberg.page.git zola_source
+          
+          # 3. (可选) 如果后续步骤需要在这个目录下执行，可以验证是否克隆成功
+          ls -la zola_source
 
       # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
       - name: Verify Codeberg Source Checkout
