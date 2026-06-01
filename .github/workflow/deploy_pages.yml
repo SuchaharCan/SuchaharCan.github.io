@@ -1,38 +1,80 @@
 name: Build Zola and Deploy to GitHub Pages
 
 permissions:
-  contents: write # 强行开启写入权限
+  contents: write # 强行开启读写权限
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "1 0 */14 * *"
+  workflow_dispatch: # 开启手动触发按钮
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 临时下载并安装原生 Zola 编译器
-      - name: Install Zola
-        run: |
-          sudo snap install zola --edge
+      # ---------------------------------------------------------
+      # 1. 初始化 GitHub 本地公开库
+      # ---------------------------------------------------------
+      - name: Checkout GitHub Repository
+        uses: actions/checkout@v4
 
+      # ---------------------------------------------------------
       # 2. 从 Codeberg 安全拉取你的私有源码
+      # ---------------------------------------------------------
       - name: Checkout Codeberg Private Source
         uses: actions/checkout@v4
         with:
-          repository: "SuchaharCan/SuzhaharCan.codeberg.page" # ⚠️请把这里改成你真实的Codeberg仓库名
+          # 使用你指定的最新真实私有仓库名
+          repository: "SuchaharCan/SuzhaharCan.codeberg.page"
           token: ${{ secrets.CODEBERG_TOKEN }}
           path: "zola_source"
 
-      # 3. 切换到源码目录，并在内存中编译出静态网页 HTML
+      # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
+      - name: Verify Codeberg Source Checkout
+        run: |
+          echo "=== 正在验证 Codeberg 私有源码拉取情况 ==="
+          if [ -d "zola_source" ] && [ -f "zola_source/zola.toml" ]; then
+            echo "✅ 验证通过：源码文件夹存在，且成功找到了 zola.toml 配置文件！"
+            echo "源码目录列表结构如下："
+            ls -la zola_source
+          else
+            echo "❌ 验证失败：没有找到 zola_source 文件夹或 zola.toml 文件！"
+            echo "请检查你的 CODEBERG_TOKEN 是否配置正确，或者 Codeberg 仓库里是否有源码。"
+            exit 1
+          fi
+
+      # ---------------------------------------------------------
+      # 3. 安装指定版本的 Zola 编译器 (v0.22.1)
+      # ---------------------------------------------------------
+      - name: Setup Zola (v0.22.1)
+        uses: taiki-e/setup-program@v1
+        with:
+          program: zola@0.22.1
+
+      # ---------------------------------------------------------
+      # 4. 切换到源码目录，编译出静态网页
+      # ---------------------------------------------------------
       - name: Build Zola Site
         run: |
           cd zola_source
           zola build --output-dir ../public_html
 
-      # 4. 纯手工精确无污染推送到 GitHub 的 gh-pages 分支
+      # 🛠️ 步骤 4 验证：检查 zola build 是否正常输出了网页文件夹
+      - name: Verify Zola Build Output
+        run: |
+          echo "=== 正在验证 Zola 静态网页编译输出情况 ==="
+          if [ -d "public_html" ] && [ -f "public_html/index.html" ]; then
+            echo "✅ 验证通过：public_html 静态网页文件夹顺利生成，且包含主页 index.html！"
+            echo "生成的纯网页静态文件列表如下："
+            ls -la public_html
+          else
+            echo "❌ 验证失败：zola build 编译异常，public_html 文件夹为空或未生成 index.html！"
+            echo "请检查你的本地模板语法或 zola.toml 中的配置是否正确。"
+            exit 1
+          fi
+
+      # ---------------------------------------------------------
+      # 5. 精确推送纯 HTML 网页到 GitHub 的 gh-pages 分支
+      # ---------------------------------------------------------
       - name: Deploy Pure HTML to gh-pages
         run: |
           cd public_html
@@ -41,5 +83,5 @@ jobs:
           git config --global user.email "action@github.com"
           git add .
           git commit -m "Automated deploy from Codeberg (Pure HTML)"
-          # 使用包含写权限的内部 Token 强行创建并推送到远程的 gh-pages 分支
+          # 强行覆盖推送到远程的 gh-pages 分支
           git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:gh-pages --force
