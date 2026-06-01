@@ -1,0 +1,49 @@
+name: Build Zola and Deploy to GitHub Pages
+
+on:
+  # 1. 允许手动一键触发（在 Actions 页面点击运行）
+  workflow_dispatch:
+
+  # 2. 定时触发：每 15 天自动执行一次
+  schedule:
+    - cron: "1 0 */15 * *"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------------------------------
+      # 1. 拉取 Codeberg 的【私有源码】到本地临时目录
+      # ---------------------------------------------------------
+      - name: Checkout Codeberg Private Source
+        uses: actions/checkout@v4
+        with:
+          # ⚠️请替换为：您的Codeberg用户名/您的Codeberg博客私有仓库名
+          repository: "SuzhaharCan/SuzhaharCan.codeberg.page"
+          token: ${{ secrets.CODEBERG_TOKEN }}
+          path: "zola_source" # 默默下载到名为 zola_source 的隔离文件夹中
+
+      # ---------------------------------------------------------
+      # 2. 在后台安装 Zola 并对隔离的源码进行静态编译
+      # ---------------------------------------------------------
+      - name: Build Zola Site
+        uses: ShalokShalom/zola-deploy-action@v0.19.2
+        env:
+          BUILD_DIR: "zola_source"
+        with:
+          # 指导 Zola 去编译临时源码，并将生成的静态文件输出到 public_html
+          args: --root zola_source --output-dir public_html
+
+      # ---------------------------------------------------------
+      # 3. 将生成的纯 HTML 网页推送到 GitHub 的目标分支，并销毁源码
+      # ---------------------------------------------------------
+      - name: Deploy Pure HTML to GitHub Pages Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 仅仅发布刚才编译生成的纯网页文件夹，源码文件夹（zola_source）直接被抛弃
+          publish_dir: "./public_html"
+          # 强制发布到 GitHub 的 gh-pages 分支，用于驱动静态托管
+          publish_branch: gh-pages
+          commit_message: "Automated deploy from Codeberg (Pure HTML)"
