@@ -14,8 +14,8 @@ jobs:
       # ---------------------------------------------------------
       # 1. 初始化 GitHub 本地公开库
       # ---------------------------------------------------------
-      - name: Checkout GitHub Repository
-        uses: actions/checkout@v4
+      # - name: Checkout GitHub Repository
+      #   uses: actions/checkout@v4
 
       # ---------------------------------------------------------
       # 2. 从 Codeberg 安全拉取你的私有源码
