@@ -1,5 +1,9 @@
 name: Build Zola and Deploy to GitHub Pages
 
+# 🛠️ 核心补充：显式赋予该流水线写入仓库内容的权限，防止被隔离拦截
+permissions:
+  contents: write
+
 on:
   # 1. 允许手动一键触发（在 Actions 页面点击运行）
   workflow_dispatch:
