@@ -1,7 +1,7 @@
 name: Build Zola and Deploy to GitHub Pages
 
 permissions:
-  contents: write # 强行开启读写权限
+  contents: write  # 强行开启读写权限
 
 on:
   workflow_dispatch: # 开启手动触发按钮
@@ -23,10 +23,9 @@ jobs:
       - name: Checkout Codeberg Private Source
         uses: actions/checkout@v4
         with:
-          # 使用你指定的最新真实私有仓库名
-          repository: "SuchaharCan/SuzhaharCan.codeberg.page"
+          repository: 'SuzhaharCan/SuzhaharCan.codeberg.page'
           token: ${{ secrets.CODEBERG_TOKEN }}
-          path: "zola_source"
+          path: 'zola_source'
 
       # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
       - name: Verify Codeberg Source Checkout
@@ -43,12 +42,17 @@ jobs:
           fi
 
       # ---------------------------------------------------------
-      # 3. 安装指定版本的 Zola 编译器 (v0.22.1)
+      # 3. 原生命令安装 Zola (v0.22.1) -> 彻底解决找不到 Action 的问题
       # ---------------------------------------------------------
-      - name: Setup Zola (v0.22.1)
-        uses: taiki-e/setup-program@v1
-        with:
-          program: zola@0.22.1
+      - name: Install Zola v0.22.1 (Native)
+        run: |
+          echo "=== 正在从 Zola 官方 GitHub 镜像下载 v0.22.1 ==="
+          curl -L https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz -o zola.tar.gz
+          tar -xzf zola.tar.gz
+          chmod +x zola
+          sudo mv zola /usr/local/bin/zola
+          echo "✅ Zola 安装成功！当前版本验证："
+          zola --version
 
       # ---------------------------------------------------------
       # 4. 切换到源码目录，编译出静态网页
