@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - 100DaysToOffload</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/100daystooffload/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-06-05T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/100daystooffload/atom.xml</id>
+    <entry xml:lang="en">
+        <title>One</title>
+        <published>2026-06-05T00:00:00+00:00</published>
+        <updated>2024-09-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog/test-one/"/>
+        <id>https://suchaharcan.github.io/01Write_blog/test-one/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog/test-one/">&lt;h2 id=&quot;ce-shi&quot;&gt;测试&lt;&#x2F;h2&gt;
+&lt;p&gt;TL;DR: Fun game.&lt;&#x2F;p&gt;
+&lt;p&gt;As you may know, I occasionally play games, which is shocking in itself, but even more shocking is that I’ve never blogged about it, so let’s change that! (well, I just don’t know what to blog about xD)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ce-shi-1&quot;&gt;测试&lt;&#x2F;h2&gt;
+&lt;p&gt;Teardown is a game released back in 2022, but I have played the early access version released in 2020 on YouTube (as in, I watched let’s plays). Recently I decided to replay it, and it’s been pretty fun, the process of&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ce-shi-de&quot;&gt;测试的&lt;&#x2F;h3&gt;
+&lt;p&gt;carefully coming up with an optimal route and then executing it in under 60 seconds is pretty entertaining. My little brother seems to enjoy watching all this happen as well.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>One</title>
+        <published>2026-06-05T00:00:00+00:00</published>
+        <updated>2024-09-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/02Engineer_blog/test-one/"/>
+        <id>https://suchaharcan.github.io/02Engineer_blog/test-one/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/02Engineer_blog/test-one/">&lt;h2 id=&quot;ce-shi&quot;&gt;测试&lt;&#x2F;h2&gt;
+&lt;p&gt;TL;DR: Fun game.&lt;&#x2F;p&gt;
+&lt;p&gt;As you may know, I occasionally play games, which is shocking in itself, but even more shocking is that I’ve never blogged about it, so let’s change that! (well, I just don’t know what to blog about xD)&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ce-shi-1&quot;&gt;测试&lt;&#x2F;h2&gt;
+&lt;p&gt;Teardown is a game released back in 2022, but I have played the early access version released in 2020 on YouTube (as in, I watched let’s plays). Recently I decided to replay it, and it’s been pretty fun, the process of&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ce-shi-de&quot;&gt;测试的&lt;&#x2F;h3&gt;
+&lt;p&gt;carefully coming up with an optimal route and then executing it in under 60 seconds is pretty entertaining. My little brother seems to enjoy watching all this happen as well.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Third</title>
+        <published>2026-06-03T00:00:00+00:00</published>
+        <updated>2024-09-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog/zola-shu-ju-mo-ban-xi-jie/"/>
+        <id>https://suchaharcan.github.io/01Write_blog/zola-shu-ju-mo-ban-xi-jie/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog/zola-shu-ju-mo-ban-xi-jie/">&lt;p&gt;一、 彻底搞懂 paginator 与 section在 Zola 中，section 和 paginator 是两个最核心的上下文对象，它们决定了数据如何流向模板。1. 什么是 section.pages？是什么：它代表当前目录（Section）下包含的所有文章（Pages）的集合（一个数组）。判定与生效机制：结构判定：无论是单文件 hello.md，还是文件夹包裹的 hello&#x2F;index.md，只要它们躺在 content&#x2F;01Write_blog&#x2F; 目录下，Zola 就会把它们识别为该目录的 Page。致命的过滤判定（为什么你之前会失踪）：Zola 默认是按照时间（Date）对 section.pages 进行排序的。如果你的 .md 文件中：没有写 date 字段。或者 date 格式不规范。或者你没有在 _index.md 中显式指定 sort_by = “date”。Zola 在渲染 section.pages 时，可能会因为排序混乱或未发布（如误识别为草稿），导致计算出的 section.pages | length 变成 0。2. 什么是 paginator.pages？是什么：它是当前分页切片后的文章集合（比如第 1 页的 10 篇文章）。判定与生效机制：它不会自动产生。只有当你在该目录的 _index.md 中，显式地配置了 paginate_by = 数字 时，Zola 才会实例化 paginator 对象。一旦开启，section.pages 的控制权就会移交给 paginator.pages。📊 它们在模板中的各自作用对象属性存在条件主要作用section.pages只要目录下有有效文章就有值用来不分页地一次性循环输出所有文章。paginator.pages必须在 _index.md 中配置 paginate_by用来做翻页导航（上一页&#x2F;下一页），只展示当前页内容。&lt;&#x2F;p&gt;
+&lt;p&gt;在 Zola 中，section.pages 默认只能抓取到当前目录下直属的文章。
+比如，你的归档页面在 content&#x2F;archives&#x2F;_index.md，如果你把博客都放在 content&#x2F;01Write_blog&#x2F; 下，由于它们是平级（兄弟）关系，或者是完全独立的树枝，archives 页面去读取 section.pages 时，拿到的结果必然是空的（长度为 0），因此它什么都渲染不出来。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Third</title>
+        <published>2026-06-03T00:00:00+00:00</published>
+        <updated>2024-09-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/02Engineer_blog/zola-shu-ju-mo-ban-xi-jie/"/>
+        <id>https://suchaharcan.github.io/02Engineer_blog/zola-shu-ju-mo-ban-xi-jie/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/02Engineer_blog/zola-shu-ju-mo-ban-xi-jie/">&lt;p&gt;一、 彻底搞懂 paginator 与 section在 Zola 中，section 和 paginator 是两个最核心的上下文对象，它们决定了数据如何流向模板。1. 什么是 section.pages？是什么：它代表当前目录（Section）下包含的所有文章（Pages）的集合（一个数组）。判定与生效机制：结构判定：无论是单文件 hello.md，还是文件夹包裹的 hello&#x2F;index.md，只要它们躺在 content&#x2F;01Write_blog&#x2F; 目录下，Zola 就会把它们识别为该目录的 Page。致命的过滤判定（为什么你之前会失踪）：Zola 默认是按照时间（Date）对 section.pages 进行排序的。如果你的 .md 文件中：没有写 date 字段。或者 date 格式不规范。或者你没有在 _index.md 中显式指定 sort_by = “date”。Zola 在渲染 section.pages 时，可能会因为排序混乱或未发布（如误识别为草稿），导致计算出的 section.pages | length 变成 0。2. 什么是 paginator.pages？是什么：它是当前分页切片后的文章集合（比如第 1 页的 10 篇文章）。判定与生效机制：它不会自动产生。只有当你在该目录的 _index.md 中，显式地配置了 paginate_by = 数字 时，Zola 才会实例化 paginator 对象。一旦开启，section.pages 的控制权就会移交给 paginator.pages。📊 它们在模板中的各自作用对象属性存在条件主要作用section.pages只要目录下有有效文章就有值用来不分页地一次性循环输出所有文章。paginator.pages必须在 _index.md 中配置 paginate_by用来做翻页导航（上一页&#x2F;下一页），只展示当前页内容。&lt;&#x2F;p&gt;
+&lt;p&gt;在 Zola 中，section.pages 默认只能抓取到当前目录下直属的文章。
+比如，你的归档页面在 content&#x2F;archives&#x2F;_index.md，如果你把博客都放在 content&#x2F;01Write_blog&#x2F; 下，由于它们是平级（兄弟）关系，或者是完全独立的树枝，archives 页面去读取 section.pages 时，拿到的结果必然是空的（长度为 0），因此它什么都渲染不出来。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

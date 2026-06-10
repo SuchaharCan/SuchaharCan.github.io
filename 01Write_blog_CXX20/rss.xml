@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - CMake 4.0 技术细节整理 专栏</title>
+      <link>https://suchaharcan.github.io/01Write_blog_CXX20/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/01Write_blog_CXX20/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>高等数学 前置章节</title>
+          <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/first-base-chater/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/first-base-chater/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/first-base-chater/">&lt;h1 id=&quot;luo-ji&quot;&gt;逻辑&lt;&#x2F;h1&gt;
+&lt;p&gt;略&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;ji-ben-han-shu&quot;&gt;基本函数&lt;&#x2F;h1&gt;
+&lt;h1 id=&quot;tu-xing&quot;&gt;图形&lt;&#x2F;h1&gt;
+&lt;h1 id=&quot;ji-chu&quot;&gt;基础&lt;&#x2F;h1&gt;
+</description>
+      </item>
+    </channel>
+</rss>

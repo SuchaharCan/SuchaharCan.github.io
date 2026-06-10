@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Nanolog</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/nanolog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/nanolog/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-06-04T05:14:12+00:00</updated>
+    <id>https://suchaharcan.github.io/nanolog/atom.xml</id>
+    <entry xml:lang="en">
+        <title></title>
+        <published>2026-06-04T05:14:12+00:00</published>
+        <updated>2026-06-04T05:14:12+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/nanolog/2026-06-04t05-14-12z/"/>
+        <id>https://suchaharcan.github.io/nanolog/2026-06-04t05-14-12z/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/nanolog/2026-06-04t05-14-12z/">&lt;h1 id=&quot;done&quot;&gt;Done&lt;&#x2F;h1&gt;
+&lt;ol&gt;
+&lt;li&gt;归档功能 - 适配 多分类下的 综合展示 跳转&lt;&#x2F;li&gt;
+&lt;li&gt;移植 Blog - Article 核心功能可用状态&lt;&#x2F;li&gt;
+&lt;li&gt;尝试 产品展示页面 浮动特效 失败&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h1 id=&quot;undo&quot;&gt;Undo&lt;&#x2F;h1&gt;
+&lt;ol&gt;
+&lt;li&gt;模板数据 未移除&lt;&#x2F;li&gt;
+&lt;li&gt;电子屏的ASCII 有软件进行生成&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h1 id=&quot;doing&quot;&gt;Doing&lt;&#x2F;h1&gt;
+&lt;ol&gt;
+&lt;li&gt;今天就动手学习 CMake&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title></title>
+        <published>2026-06-03T10:02:29+00:00</published>
+        <updated>2026-06-03T10:02:29+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/nanolog/2026-06-03t10-02-29z/"/>
+        <id>https://suchaharcan.github.io/nanolog/2026-06-03t10-02-29z/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/nanolog/2026-06-03t10-02-29z/">&lt;p&gt;碎碎念&lt;&#x2F;p&gt;
+&lt;p&gt;目前环境网络波动， 容易损耗 镜面屏电容寿命，心疼。
+购买华为UPS800W(间接限定后续服务器的瓦数)&lt;&#x2F;p&gt;
+&lt;p&gt;目前基础 后端服务 搭载在公网上， 流水线借助GitHub(编译后清空源码信息)
+后面 使用 自有服务器；
+暂定的DIY方案&lt;&#x2F;p&gt;
+&lt;p&gt;🛠 EPYC 7502 编译服务器搭建方案📊 硬件配置与预算清单部件推荐型号&#x2F;规格价格 (元)选型理由CPUAMD EPYC 7502 (正代正式版)~100032核64线程，并行编译的绝对主力，Zen2 架构。主板永擎 (Asrock Rack) ROMED8-2T 或 超微 H12SSL-i~900SP3插槽（支持7002系列）。自带 IPMI 远程管理，带双千兆或万兆网口。内存DDR4 2666MHz ECC REG 16G × 4 (共64G)~280C++ 编译大型项目非常吃内存，先上 4 根跑满 4 通道，后期可补满 8 根。系统&#x2F;编译盘三星 PM9A1 1TB 或 致态 TiPro7000 1TB~450编译时会产生密集的 I&#x2F;O 读写，必须用高质量、高性能的 PCIe 4.0 NVMe 固态。散热器拓普龙&#x2F;超微 SP3 4热管&#x2F;6热管风冷~120专为服务器 LGA4094&#x2F;SP3 接口设计的散热器。电源长城巨龙 1250W 或 海韵&#x2F;全汉 750W 品牌二手~150 - 2007502 的 TDP 是 180W，满载编译加上主板内存，额定 650W - 750W 比较稳妥。机箱普通 ATX 兼容大机箱 &#x2F; 4U 工业机箱~80只要能塞下 ATX 主板和服务器散热器即可。总计约 2980 元万元以内无敌的编译生产力工具&lt;&#x2F;p&gt;
+&lt;p&gt;💡 方案深度解析与注意事项&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么主板这么贵？（服务器主板的灵魂：IPMI）
+服务器主板（如永擎、超微）自带一颗特殊的芯片叫 IPMI（远程管理卡）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;不需要显卡： 这颗 CPU 没有核显，主板自带了基础显示芯片，你甚至不需要插独立显卡。&lt;&#x2F;p&gt;
+&lt;p&gt;盲操远程： 只要插上电源和网线，你在你日常用的笔记本上，通过浏览器输入服务器的 IP 地址，就能远程看屏幕、进 BIOS、挂载本地 ISO 镜像重装 Linux 系统、远程开断电。这才是纯正的服务器体验。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;为什么选 16G × 4 内存？
+C++ 并行编译的黄金法则是：每个编译线程（Thread）至少分配 2GB - 4GB 的内存。
+你现在有 64 个线程：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;如果只给 16G&#x2F;32G 内存，当 make -j64 全开时，内存会瞬间爆掉，导致触发 Linux 的 OOM Killer 机制直接崩溃。&lt;&#x2F;p&gt;
+&lt;p&gt;64G 内存是这颗 32 核处理器的及格线。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;网络与存储扩展
+这类工业级主板上通常带有 SlimSAS 或 Oculink 接口，以及大量的 PCIe 插槽。这意味着，如果你以后想让它兼顾 NAS 存储功能，你不需要买任何转换卡，直接可以挂载 8-16 块大容量机械硬盘，或者插满 4 块 NVMe 固态硬盘做高速编译缓存。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;选项 A：AMD EPYC 7502（推荐：更先进、带宽高）
+核心参数： 32核 64线程，基础频率 2.5GHz，加速 3.3GHz。&lt;&#x2F;p&gt;
+&lt;p&gt;CPU价格： ~1000 元（随着 7002&#x2F;7003 系列退役，目前性价比极高）。&lt;&#x2F;p&gt;
+&lt;p&gt;为什么选它： 它是 Zen 2 架构（7nm），单核性能比老一代大涨。更恐怖的是它支持 8通道 DDR4 内存。C++ 编译在链接（Linking）阶段需要极高的内存吞吐，8通道是无敌的存在。&lt;&#x2F;p&gt;
+&lt;p&gt;围绕 AMD EPYC 7502 这颗 CPU 搭建的服务器，整机的功耗（瓦数）需要分三个场景来看：待机功耗、日常轻载功耗、以及最关键的多核全满载编译功耗。以下是具体的瓦数测算和电源选型建议：📊 整机功耗（瓦数）实测预估运行场景CPU 自身功耗整机总功耗（含主板&#x2F;内存&#x2F;SSD）10小时电费估算 (按0.6元&#x2F;度)1. 远程待机 (挂机&#x2F;写代码不编译)~30W - 40W约 70W - 90W~0.5 元2. 日常轻载 (跑几个Docker&#x2F;轻量运行)~50W - 60W约 100W - 120W~0.7 元3. C++ 多核全满载编译 (make -j64)180W (满TDP)约 240W - 260W~1.5 元&lt;&#x2F;p&gt;
+&lt;p&gt;总计 3000 元;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title></title>
+        <published>2026-06-01T23:05:22+00:00</published>
+        <updated>2026-06-01T23:05:22+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/nanolog/2026-06-01t23-05-22z/"/>
+        <id>https://suchaharcan.github.io/nanolog/2026-06-01t23-05-22z/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/nanolog/2026-06-01t23-05-22z/">&lt;p&gt;2026年06月02日&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;xiu-fu&quot;&gt;修复&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;修复 Nanolog Edit编辑 不在 源代码的问题 (直接 编辑源码,但 不 立即推送更新到 公开仓库)&lt;&#x2F;li&gt;
+&lt;li&gt;重置 Nanolog 内容, 书写 自己的 网站 维护内容&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;xi-jie-da-mo&quot;&gt;细节打磨&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;博客网页 Nanolog处 添加 ReDeplog 按钮，同 Edit Post 一致 （编辑 源码，重编译推送） 已添加&lt;&#x2F;li&gt;
+&lt;li&gt;定时发送邮件 提醒自己 手动更新博客 待添加&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;kai-fa-jin-du&quot;&gt;开发进度&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;done&quot;&gt;Done&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;源码推送在Codeberg, 网站15天后自动拉取编译更新网站github.io ; 实现 源码&#x2F;网站 分离 (优点: 高频推送隐私信息剥离,后续可加装 密码解锁网页;  缺点: 构建  与  推送 分离 需 单独管理)&lt;&#x2F;li&gt;
+&lt;li&gt;拆分一级板块:&lt;code&gt;Read&lt;&#x2F;code&gt;, &lt;code&gt;Write&lt;&#x2F;code&gt;,&lt;code&gt;Share&lt;&#x2F;code&gt;,&lt;code&gt;Project&lt;&#x2F;code&gt;, &lt;code&gt;Site Dev Log&lt;&#x2F;code&gt; ; 及其 二级分类&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Nanolog&lt;&#x2F;code&gt; 模块开发完成 . 处于可用状态 (展示,可 直接 Edit)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Blog&lt;&#x2F;code&gt;模块 未完成(需 编写 index.html 及 blog.html 2个模板文件)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Basb&lt;&#x2F;code&gt;模块开发完成,并处于 可用状态, 暂定 该模块 用来进行 周记录 ,  考虑 将  EditPost&#x2F;ReDeplog功能同步过去 ;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;undo&quot;&gt;UnDo&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;熟悉 该主题文件 的MD 博客编辑模式(该模式 精细,具有观赏性)&lt;&#x2F;li&gt;
+&lt;li&gt;搜索功能 待开发(index.html 自有功能)&lt;&#x2F;li&gt;
+&lt;li&gt;密码封锁 爬虫 和 无关访客 (该模块优先 开发 ,最小可用方案推出,后续迭代)&lt;&#x2F;li&gt;
+&lt;li&gt;在Nanolog 中 添加 固定 格式： 约定更新时间， 考虑 添加 网页倒计时，并提前1小时 发送邮件提醒 给自己 该功能 可考虑&lt;&#x2F;li&gt;
+&lt;li&gt;Codeberg 中 补充 CI&#x2F;CD 流水线, 该功能 还是必要的;&lt;&#x2F;li&gt;
+&lt;li&gt;后续添加后端服务 (C++编写 核心模块,  Go&#x2F;.NET 进行Web后端API开发) 在 Vercel 或者 Cloudflare 中 进行 部署&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;doing&quot;&gt;Doing&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Blog&lt;&#x2F;code&gt; 模块 正在开发调试中&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;xi-jie-bu-chong&quot;&gt;细节补充&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;完整流程阐述:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本地拉取 私有源码仓库 Codeberg, 更新构建成功后推送(Zed 编辑 模板, Obsidian 编辑 MD); 手动触发公开博客网站Github.io仓库workflow拉取编译最新源码; 菜单栏Deplog 提醒 构建推送状态;  NetNewWire 对网站进行RSS订阅&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;熟悉 了解 Zola功能 及 Ametrine主题功能&lt;&#x2F;li&gt;
+&lt;li&gt;对其他博主博客有趣 基础刚性功能 务必添加,但柔和功能考虑添加&lt;&#x2F;li&gt;
+&lt;li&gt;补充 CICD 流水线, 虽然本地是编译成功, github跨网站拉取codeberg 私有库也成功, 但 还是有必要进行构建cicd流水线的 熟悉流水线搭建,还有保证 环境搭建的流程 能够复现出来 ,例如 拉取主题仓库,更新依赖git模块, mac环境模拟zola 等细节 ;  该功能属于基础自动化功能,一旦实现,后续受益&lt;&#x2F;li&gt;
+&lt;li&gt;评论区? 自认为有价值 适合分享的文章, 我会 主动发布到 HackerNew 上的; 我个人 不加载 和存储 评论数据, 使用HackerNew 足够了;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;chang-yong-ming-ling&quot;&gt;常用 命令&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; pull&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;    #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 拉取最新代码，因为Nanolog 存在线上Edit Post，所以 本地修改需谨慎，优先拉取最新代码&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; add&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; .&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 添加所有修改的文件&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; status&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;  #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 查看修改状态&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; commit&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;m&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;update nanolog&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;  #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 提交修改&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; push&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;    #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 推送修改&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt;上述操作 均是在本地编辑Codeberg仓库 ，与 公开网站Github无关&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 若基础信息更改， github 的编译流水线yml文件需同步修改，否则拉取编译失败&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;yue-ding-yu-ding-xia-ci-geng-xin-shi-jian&quot;&gt;约定&#x2F;预订 下次更新时间&lt;&#x2F;h2&gt;
+&lt;p&gt;本周六&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

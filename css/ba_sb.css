@@ -1,0 +1,176 @@
+/* 容器外层 */
+.basb-container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+}
+
+/* 大白背景卡片 */
+.basb-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015);
+}
+
+/* 模拟网格树表格 */
+.basb-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* 表头：名称与上次修改对齐线 */
+.basb-thead {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 0.5rem 1rem;
+    border-bottom: 2px solid #f1f3f5;
+    color: #6a737d;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.th-name {
+    flex: 1;
+    text-align: left;
+}
+.th-date {
+    width: 120px;
+    text-align: right;
+}
+
+/* 核心条目行：像素级复刻图1、图3中每个项目的独立独立包裹长条块 */
+.basb-tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    padding: 0.65rem 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 鼠标划过时的悬浮凸起与阴影反应 */
+.basb-tr:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border-color: #b5bbc1;
+    background-color: #fafbfc;
+}
+
+/* 单元格控制 */
+.basb-td {
+    display: flex;
+    align-items: center;
+}
+
+.td-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+.td-date {
+    width: 120px;
+    justify-content: flex-end;
+}
+
+/* 图标间距微调 */
+.basb-icon {
+    margin-right: 10px;
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+/* 超链接颜色去下划线，保持系统原生感 */
+.basb-item-link {
+    color: #24292e;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.basb-item-link:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+/* 文件夹高亮（可选差异化） */
+.folder-link {
+    color: #24292e;
+}
+
+/* 日期胶囊：完美对齐原版的圆角微章 */
+.basb-date-badge {
+    background-color: #f1f3f5;
+    color: #474f57;
+    font-family:
+        "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.82rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 返回上级专门行的额外样式调整 */
+.is-back-row {
+    background-color: #fafbfc !important; /* 给返回行一个淡淡的灰色打底，更具层次感 */
+    border-style: dashed !important; /* 虚线边框，提示它是一个功能操作按钮而非具体内容 */
+}
+
+.is-back-row:hover {
+    background-color: #f1f3f5 !important;
+    border-color: #a0aec0 !important;
+}
+
+/* 链接文本样式 */
+/* ==================== 🛠️ 核心：文字悬浮下划线动态特效 ==================== */
+
+/* 1. 初始化链接的基础样式 */
+.basb-item-link,
+.basb-back-link {
+    color: #2d3748 !important;
+    text-decoration: none !important; /* 彻底移除系统生硬的默认下划线 */
+    font-weight: 500 !important;
+    display: inline-block !important; /* 必须是块级或内联块级，才能精准计算背景线宽度 */
+    position: relative !important;
+
+    /* 使用渐变底色来模拟动画线条 */
+    background-image: linear-gradient(
+        #3182ce,
+        #3182ce
+    ) !important; /* 线条的颜色（这里使用的是蓝色，可根据主题自行调整） */
+    background-size: 0% 2px !important; /* 默认线条宽度为 0%，粗细为 2px */
+    background-position: 0% 100% !important; /* 让线条贴在文字的最底部左侧 */
+    background-repeat: no-repeat !important;
+
+    /* 控制下划线展开和缩回的过渡时间 */
+    transition:
+        background-size 0.25s ease-in-out,
+        color 0.2s ease !important;
+}
+
+/* 返回徽章的独立色彩 */
+.back-badge {
+    background-color: #e2e8f0 !important;
+    color: #4a5568 !important;
+}
+
+/* 2. 当光标划过或在条目内移动时（条目容器 hover 或链接自身 hover） */
+.basb-tr:hover .basb-item-link,
+.basb-tr:hover .basb-back-link,
+.basb-item-link:hover,
+.basb-back-link:hover {
+    color: #3182ce !important; /* 悬浮时文字变成高亮蓝 */
+    background-size: 100% 2px !important; /* 线条由 0% 丝滑延展至 100% 撑满文字宽度 */
+}

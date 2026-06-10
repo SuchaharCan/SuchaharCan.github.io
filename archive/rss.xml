@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Archive Post</title>
+      <link>https://suchaharcan.github.io/archive/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/archive/rss.xml" rel="self" type="application/rss+xml"/>
+      
+    </channel>
+</rss>
