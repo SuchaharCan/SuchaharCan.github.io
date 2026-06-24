@@ -1,7 +1,7 @@
 name: Build Zola and Deploy to GitHub Pages
 
 permissions:
-  contents: write  # 强行开启读写权限
+  contents: write # 强行开启读写权限
 
 on:
   workflow_dispatch: # 开启手动触发按钮
@@ -11,24 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       # ---------------------------------------------------------
-      # 2. 从 Codeberg 安全拉取你的私有源码
+      # 1. 从 Codeberg 安全拉取你的私有源码
       # ---------------------------------------------------------
       - name: Checkout Codeberg Private Source
         env:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
         run: |
-          # 1. 确保目标目录干净（可选，防止冲突）
+         # 1. 确保目标目录干净（可选，防止冲突）
           rm -rf zola_source
           
           # 2. 使用 Token 进行原生 git clone
           # 这里的路径根据你的报错日志，克隆到了指定的 zola_source 目录
-          git clone https://SuzhaharCan:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/SuzhaharCan/SuzhaharCan.codeberg.page.git zola_source
+          git clone "https://SuzhaharCan:${CODEBERG_TOKEN}@codeberg.org/SuzhaharCan/SuzhaharCan.codeberg.page.git" zola_source
           
           # 3. (可选) 如果后续步骤需要在这个目录下执行，可以验证是否克隆成功
           ls -la zola_source
-
+      
       # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
       - name: Verify Codeberg Source Checkout
         run: |
@@ -43,10 +42,13 @@ jobs:
             exit 1
           fi
 
+          test -f zola_source/zola.toml
+          ls -la zola_source/content/kanban/
+
       # ---------------------------------------------------------
       # 3. 原生命令安装 Zola (v0.22.1) -> 彻底解决找不到 Action 的问题
       # ---------------------------------------------------------
-      - name: Install Zola v0.22.1 (Native)
+      - name: Install Zola v0.22.1
         run: |
           echo "=== 正在从 Zola 官方 GitHub 镜像下载 v0.22.1 ==="
           curl -L https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz -o zola.tar.gz
@@ -56,26 +58,36 @@ jobs:
           echo "✅ Zola 安装成功！当前版本验证："
           zola --version
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       # ---------------------------------------------------------
       # 4. 切换到源码目录，编译出静态网页
       # ---------------------------------------------------------
-      - name: Build Zola Site
+      - name: Init theme submodule and build
         run: |
           cd zola_source
           # 【核心修复】创建并清理主题目录，强制把开源主题 clone 进来
           rm -rf themes/ametrine
           git clone https://codeberg.org/daudix/ametrine.git themes/ametrine
           git submodule update --init --recursive
+          
           # 💡 验证：看一眼主题配置文件到底在不在
           echo "=== 检查主题文件是否成功下载 ==="
           ls -la themes/ametrine/
           
           # 执行编译，并将输出目录指定到上层的 public_html
-          zola build --output-dir ../public_html
-
-      # 🛠️ 步骤 4 验证：检查 zola build 是否正常输出了网页文件夹
-      - name: Verify Zola Build Output
+          chmod +x build-site.sh
+          ./build-site.sh --output-dir ../public_html
+      # ---------------------------------------------------------
+      # 5. 验证：检查 zola build 是否正常输出了网页文件夹
+      # ---------------------------------------------------------
+      - name: Verify Kanban build output
         run: |
+          cd zola_source
+          ZOLA_OUTPUT_DIR=../public_html node scripts/verify-kanban-build.mjs
+
           echo "=== 正在验证 Zola 静态网页编译输出情况 ==="
           if [ -d "public_html" ] && [ -f "public_html/index.html" ]; then
             echo "✅ 验证通过：public_html 静态网页文件夹顺利生成，且包含主页 index.html！"
@@ -88,14 +100,14 @@ jobs:
           fi
 
       # ---------------------------------------------------------
-      # 5. 精确推送纯 HTML 网页到 GitHub 的 gh-pages 分支
+      # 6. 精确推送纯 HTML 网页到 GitHub 的 gh-pages 分支
       # ---------------------------------------------------------
       - name: Deploy Pure HTML to gh-pages
         run: |
           cd public_html
           git init
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           git add .
           git commit -m "Automated deploy from Codeberg (Pure HTML)"
           # 强行覆盖推送到远程的 gh-pages 分支
