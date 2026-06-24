@@ -89,10 +89,10 @@ jobs:
           ZOLA_OUTPUT_DIR=../public_html node scripts/verify-kanban-build.mjs
 
           echo "=== 正在验证 Zola 静态网页编译输出情况 ==="
-          if [ -d "public_html" ] && [ -f "public_html/index.html" ]; then
+          if [ -d "../public_html" ] && [ -f "../public_html/index.html" ]; then
             echo "✅ 验证通过：public_html 静态网页文件夹顺利生成，且包含主页 index.html！"
             echo "生成的纯网页静态文件列表如下："
-            ls -la public_html
+            ls -la ../public_html
           else
             echo "❌ 验证失败：zola build 编译异常，public_html 文件夹为空或未生成 index.html！"
             echo "请检查你的本地模板语法或 zola.toml 中的配置是否正确。"
