@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - CMake 4.0 技术细节整理 专栏</title>
+      <link>https://suchaharcan.github.io/01Write_blog_CMake/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/01Write_blog_CMake/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate>
+    </channel>
+</rss>

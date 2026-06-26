@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - 周计划</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/kanban/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/kanban/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-06-25T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/kanban/atom.xml</id>
+    <entry xml:lang="en">
+        <title>6.25 – 6.30 验证计划</title>
+        <published>2026-06-25T00:00:00+00:00</published>
+        <updated>2026-06-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/kanban/2026-06-25/"/>
+        <id>https://suchaharcan.github.io/kanban/2026-06-25/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/kanban/2026-06-25/">&lt;h1 id=&quot;dai-ban&quot;&gt;待办&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;professional-cmake-a-practical-guide-tong-du&quot;&gt;Professional CMake: A Practical Guide 通读&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-25
+@due 2026-06-26
+@priority 5
+@labels red, orange,green,blue
+@top red&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+基础通识&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+下载与导出&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+库（接口，静态，动态）&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+etc&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;先通读，再精读。
+生词后续纳入Eudic
+最后 在本地 重写 理解，编写XMind 文档&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;c-20-yu-yan&quot;&gt;C++20 预研&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-28
+@priority 3
+@labels blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+第一章节&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;第一章节的内容就很多&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;408-dong-shou&quot;&gt;408 动手&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-30
+@priority 3
+@labels blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+408 - 数据结构&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;408 备考是最重要的
+下半年的核心事项。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ying-yu-dan-ci&quot;&gt;英语 单词&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-29
+@priority 3
+@labels blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+墨墨记单词&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+Eudic&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;单词重新捡起来&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;yi-wan-cheng&quot;&gt;已完成&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;ben-di-cang-ku-da-jian&quot;&gt;本地仓库搭建&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-25
+@due 2026-06-25
+@priority 5
+@labels red, blue
+@bg #FFF8E1
+@top orange&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+01_cmake&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+02_cpp_syntax&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+03_algorithms&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Codeberg仓库建立 ok
+架构设计完成 ok
+初次版本 已推送 ok
+2026-06-25 19:05:12&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;zi-yuan&quot;&gt;资源&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;ben-di-cang-ku-da-jian-1&quot;&gt;本地仓库搭建&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-15
+@priority 2&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+Zola 本地 &lt;code&gt;build --force&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+Codeberg 仓库写入权限&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;content&#x2F;kanban&#x2F;&lt;&#x2F;code&gt; 目录、ReDeplog 流水线。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;can-kao-su-cai&quot;&gt;参考素材&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 1&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+article_details 图标行&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Trello 列布局截图&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;mu-biao&quot;&gt;目标&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;wan-cheng-hou-jin-ru-zhuang-tai&quot;&gt;完成后：进入状态&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 5
+@goal complete&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+进入学习状态&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+远离 小说 熬夜 虚度光阴的 环节&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;实现 Trello 式五列看板，替代纯 Markdown 表格维护。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wei-wan-cheng-jin-du-shi-kong-yu-shi-xiao&quot;&gt;未完成：进度失控与失效&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 4
+@goal risk&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+继续 沉迷，浪费时间&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;jin-du-hui-bao&quot;&gt;进度 汇报&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;2026nian-06yue-25ri-di-yi-tian&quot;&gt;2026年06月25日 第一天&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 5
+@goal complete
+@bg #FFF8E1&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;CMAKE，C++，Algo 前置环境 代码搭建&lt;&#x2F;li&gt;
+&lt;li&gt;小说卸载，家务打扫，决定 不再点外卖， 自己做。&lt;&#x2F;li&gt;
+&lt;li&gt;游戏， 熬夜等 不再参与， 晚上11点后就休息&lt;&#x2F;li&gt;
+&lt;li&gt;无关事项：刷新更新， 看无意义的内容 拒绝&lt;&#x2F;li&gt;
+&lt;li&gt;主动有意思的使用博客进行记录和整理&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+远离 小说 熬夜 虚度光阴的 环节&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;第一天， 坚持下去
+今天剩余的时间：
+1小时单词
+1小时 技术文档通读
+1小时 原子习惯阅读&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>6.22 – 6.23 验证计划</title>
+        <published>2026-06-22T00:00:00+00:00</published>
+        <updated>2026-06-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/kanban/2026-06-22/"/>
+        <id>https://suchaharcan.github.io/kanban/2026-06-22/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/kanban/2026-06-22/">&lt;h1 id=&quot;dai-ban&quot;&gt;待办&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;gao-deng-shu-xue-di-yi-zhang&quot;&gt;高等数学第一章&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-22
+@due 2026-06-23
+@priority 4
+@labels red, orange
+@top red&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+极限与连续&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+导数基础习题&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;第一章精读，配合习题巩固。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;cmake-wen-dang-yue-du&quot;&gt;CMake 文档阅读&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-23
+@priority 3
+@labels blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+install &#x2F; target 章节&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+与 Zola 构建脚本对照&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;通读官方文档，记录与当前项目相关的要点。&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;jin-xing-zhong&quot;&gt;进行中&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;wang-zhan-ban-ben-1-0-fa-bu&quot;&gt;网站版本 1.0 发布&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-22
+@due 2026-06-23
+@priority 5
+@labels green, yellow, purple
+@bg #E8F5E9
+@top green&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+架构文档&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+部署流水线确认&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+发布公告&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;汇总加解密、统计、热力图等模块，准备对外发布。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;c-20-yu-yan&quot;&gt;C++20 预研&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-22
+@due 2026-06-23
+@priority 3
+@labels sky, pink&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+concepts 语法速览&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+ranges 与现有代码对照&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;为后续工程化改造做技术储备。&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;yi-wan-cheng&quot;&gt;已完成&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;jia-jie-mi-mo-kuai&quot;&gt;加解密模块&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 4
+@labels green&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+构建时加密 content&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+访客幸运解密与管理端解锁&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;wang-zhan-liu-liang-tong-ji-mo-kuai&quot;&gt;网站流量统计模块&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 3
+@labels sky, blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Umami Cloud 接入&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+CSP connect-src 放行&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;re-li-tu-mo-kuai&quot;&gt;热力图模块&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 4
+@labels orange, blue&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+年度按周 · 部分填充&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+月份按天视图&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;guan-li-yuan-mo-shi-yin-cang-an-niu&quot;&gt;管理员模式隐藏按钮&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 3
+@labels pink&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+六连击侧边栏标题&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Edit Post 按钮门控&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;ben-zhou-jia-wu&quot;&gt;本周家务&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 2
+@labels lime&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+整理桌面与备份&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;kan-ban-gong-neng-kai-fa&quot;&gt;看板功能开发&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 5
+@labels yellow, purple&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+规则引擎映射&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Trello 明细页与列表进度条&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>看板 Markdown 映射说明</title>
+        <published>2026-06-21T00:00:00+00:00</published>
+        <updated>2026-06-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/kanban/kanban-mapping/"/>
+        <id>https://suchaharcan.github.io/kanban/kanban-mapping/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/kanban/kanban-mapping/">&lt;h1 id=&quot;zhou-ji-hua-kan-ban-markdown-ying-she-shuo-ming&quot;&gt;周计划看板 · Markdown 映射说明&lt;&#x2F;h1&gt;
+&lt;p&gt;看板数据统一存放在 &lt;strong&gt;&lt;code&gt;content&#x2F;kanban&#x2F;&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;（&lt;strong&gt;一个 &lt;code&gt;.md&lt;&#x2F;code&gt; 文件 = 一个自然周&lt;&#x2F;strong&gt;）。&lt;br &#x2F;&gt;
+Zola 构建时将原始 Markdown 内嵌到页面，规则引擎直接解析，无需 &lt;code&gt;static&#x2F;&lt;&#x2F;code&gt; 副本。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wen-jian-ming-ming&quot;&gt;文件命名&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;规则&lt;&#x2F;th&gt;&lt;th&gt;示例&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;以本周&lt;strong&gt;周一&lt;&#x2F;strong&gt;日期命名&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;2026-06-16.md&lt;&#x2F;code&gt;（对应 6.16 – 6.22）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;路径&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;content&#x2F;kanban&#x2F;2026-06-16.md&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;front-matter-ye-mian-yuan-shu-ju&quot;&gt;Front Matter（页面元数据）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-invalid&quot;&gt;+++&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;title&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;6.16 – 6.22 周计划&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;description&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;列表页摘要，可选&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;date&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; 2026-06-16&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;template&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kanban.html&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt;extra&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;week_start&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;2026-06-16&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;week_end&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;2026-06-22&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;core_tasks&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;本周核心任务一句话&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;stats&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; total&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 8&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; done&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 3&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; todo&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 3&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; doing&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-invalid&quot;&gt;+++&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;字段&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;week_start&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;week_end&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;可编辑窗口（含首尾日；截止日 23:00 前仍可编辑，时区见 &lt;code&gt;zola.toml&lt;&#x2F;code&gt; &lt;code&gt;extra.timezone&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;core_tasks&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;列表卡片展示的核心任务&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;stats&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;进度统计（按列名自动计算）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;jie-gou-ying-she&quot;&gt;结构映射&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Markdown&lt;&#x2F;th&gt;&lt;th&gt;看板元素&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;# 列表名&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;一列&lt;&#x2F;strong&gt;（待办 &#x2F; 进行中 &#x2F; 已完成 &#x2F; 资源 &#x2F; 目标）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;## 卡片标题&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;一张卡片&lt;&#x2F;strong&gt;，归属上方最近的 &lt;code&gt;#&lt;&#x2F;code&gt; 列表&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;列顺序 = 文件中 &lt;code&gt;#&lt;&#x2F;code&gt; 出现顺序。&lt;br &#x2F;&gt;
+卡片顺序 = 各列内 &lt;code&gt;##&lt;&#x2F;code&gt; 出现顺序。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;qia-pian-shu-xing-gui-ze-yin-qing-zhi-ling&quot;&gt;卡片属性 · 规则引擎指令&lt;&#x2F;h2&gt;
+&lt;p&gt;指令单独占一行，写在 &lt;code&gt;## 标题&lt;&#x2F;code&gt; 之后、正文之前。以 &lt;code&gt;@&lt;&#x2F;code&gt; 开头，&lt;strong&gt;大小写不敏感&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指令&lt;&#x2F;th&gt;&lt;th&gt;语法&lt;&#x2F;th&gt;&lt;th&gt;看板表现&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;截止日期&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@due 2026-06-20&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;卡片底部截止图标 + 日期&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;开始日期&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@start 2026-06-16&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;卡片底部开始图标 + 日期&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;重要等级&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@priority 4&lt;&#x2F;code&gt; 或 &lt;code&gt;@importance 4&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;1–5 星（淡黄色，满星填充）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;目标类型&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@goal complete&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;@goal risk&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;目标看板：完成效果（淡蓝）&#x2F; 未完成后果（灰爆）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;颜色标签&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@labels red, blue&lt;&#x2F;code&gt; 或 &lt;code&gt;@label green&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;明细页顶栏色条（权重 n）；列表页不显示&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;顶栏色&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@top red&lt;&#x2F;code&gt; 或 &lt;code&gt;@top orange&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;明细页卡片顶部粗色条（Trello 顶栏）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;背景色&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@bg orange&lt;&#x2F;code&gt; 或 &lt;code&gt;@bg #FFE0B2&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;整卡背景色&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;顶栏色&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;@top red&lt;&#x2F;code&gt; 或 &lt;code&gt;@top #E53935&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;卡片顶部色块（Trello 顶栏）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;勾选框&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;- [ ] 未完成&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;- [x] 已完成&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;卡片内 checklist&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;yu-zhi-biao-qian-se-ming&quot;&gt;预置标签色名&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;red&lt;&#x2F;code&gt; · &lt;code&gt;orange&lt;&#x2F;code&gt; · &lt;code&gt;yellow&lt;&#x2F;code&gt; · &lt;code&gt;green&lt;&#x2F;code&gt; · &lt;code&gt;blue&lt;&#x2F;code&gt; · &lt;code&gt;purple&lt;&#x2F;code&gt; · &lt;code&gt;pink&lt;&#x2F;code&gt; · &lt;code&gt;sky&lt;&#x2F;code&gt; · &lt;code&gt;lime&lt;&#x2F;code&gt; · &lt;code&gt;black&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;也支持 &lt;code&gt;#RGB&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;#RRGGBB&lt;&#x2F;code&gt; 十六进制。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;miao-shu-zheng-wen&quot;&gt;描述正文&lt;&#x2F;h3&gt;
+&lt;p&gt;除 &lt;code&gt;@&lt;&#x2F;code&gt; 指令与 checkbox 行以外的 Markdown（段落、列表、加粗等）→ 卡片&lt;strong&gt;描述区&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wan-zheng-shi-li&quot;&gt;完整示例&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;markdown&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 待办&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;##&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 规则引擎文档&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@due 2026-06-18&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@labels blue, green&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@top purple&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; [ ] 编写 kanban-rules.js&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; [ ] 补充映射说明&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;完成 &lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;**&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt;Markdown ↔ 看板&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;**&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; 双向转换说明。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 进行中&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;##&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 看板 UI&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@bg #FFF3E0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@top orange&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@due 2026-06-20&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; [&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-other z-link z-title&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; Trello 列布局&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; [ ] 拖拽交互&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 已完成&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;##&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-section&quot;&gt; 需求梳理&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-text&quot;&gt;@labels green&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; [&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-other z-link z-title&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-text&quot;&gt; 对齐 article &#x2F; nanolog 结构&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;bian-ji-fang-shi&quot;&gt;编辑方式&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;状态&lt;&#x2F;th&gt;&lt;th&gt;行为&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;锁定&lt;&#x2F;strong&gt;（默认）&lt;&#x2F;td&gt;&lt;td&gt;不可拖拽；隐藏 ReDeplog &#x2F; Edit Post &#x2F; 映射说明&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;解锁&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;仅在 &lt;code&gt;week_start&lt;&#x2F;code&gt;～&lt;code&gt;week_end&lt;&#x2F;code&gt; 窗口内可切换；可拖拽卡片跨列（本地预览）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;保存&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;点击 &lt;strong&gt;Edit Post&lt;&#x2F;strong&gt;：先将当前看板按映射规则序列化写入 &lt;code&gt;content&#x2F;kanban&#x2F;_edit-buffer.md&lt;&#x2F;code&gt;（缓冲），再覆盖 &lt;code&gt;content&#x2F;kanban&#x2F;&amp;lt;周&amp;gt;.md&lt;&#x2F;code&gt;；无 Token 时复制到剪贴板并在 Codeberg 编辑器粘贴&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;超期&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;截止日 &lt;code&gt;week_end&lt;&#x2F;code&gt; 当日 &lt;strong&gt;23:00&lt;&#x2F;strong&gt;（站点 &lt;code&gt;zola.toml&lt;&#x2F;code&gt; → &lt;code&gt;extra.timezone&lt;&#x2F;code&gt;）之后永久只读，无法解锁&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;lie-biao-ye-jin-du-se&quot;&gt;列表页进度色&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;仅「待办 &#x2F; 进行中 &#x2F; 已完成」三列参与进度；「资源 &#x2F; 目标」不参与。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;bei-jing-se-gui-ze&quot;&gt;背景色规则&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;条件&lt;&#x2F;th&gt;&lt;th&gt;卡片背景&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;todo &amp;gt; 3&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;全红 &lt;code&gt;#FFEBEE&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;done == total&lt;&#x2F;code&gt; 且 total &amp;gt; 0&lt;&#x2F;td&gt;&lt;td&gt;浅绿 &lt;code&gt;#E8F5E9&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;其余&lt;&#x2F;td&gt;&lt;td&gt;按加权进度百分比渐变（红 → 黄 → 绿）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;jia-quan-jin-du-gong-shi&quot;&gt;加权进度公式&lt;&#x2F;h3&gt;
+&lt;p&gt;以 &lt;strong&gt;50%&lt;&#x2F;strong&gt; 为基准，逐卡片累加（标签数 &lt;code&gt;n&lt;&#x2F;code&gt; 为权重，无标签时 &lt;code&gt;n = 1&lt;&#x2F;code&gt;）：&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;所在列&lt;&#x2F;th&gt;&lt;th&gt;单项贡献&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;待办&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;−10% × n&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;进行中&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;+5% × n&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;已完成&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;+15% × n&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;例：进行中列卡片有 2 个 &lt;code&gt;@labels&lt;&#x2F;code&gt; → &lt;strong&gt;+5% × 2 = +10%&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;结果 clamp 至 0–100%，写入 front matter &lt;code&gt;stats.progress_pct&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;列表页标题显示 &lt;code&gt;core_tasks&lt;&#x2F;code&gt;（非日期）；元信息行含开始 &#x2F; 截止 &#x2F; 剩余天数 &#x2F; 星级（&lt;code&gt;importance&lt;&#x2F;code&gt; 字段，1–5）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;xiang-guan-wen-jian&quot;&gt;相关文件&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;文件&lt;&#x2F;th&gt;&lt;th&gt;作用&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;content&#x2F;kanban&#x2F;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;看板 Markdown 唯一维护目录&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;static&#x2F;js&#x2F;kanban-rules.js&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;解析 &#x2F; 序列化规则引擎&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;static&#x2F;js&#x2F;kanban-board.js&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;看板 UI、锁定、拖拽、Edit Post 缓冲写入&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;static&#x2F;js&#x2F;kanban-list.js&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;列表页剩余天数、动态刷新进度&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;content&#x2F;kanban&#x2F;_edit-buffer.md&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Edit Post 前的 Markdown 缓冲文件&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;templates&#x2F;kanban.html&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;周计划明细（Trello 风格）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;templates&#x2F;kanban_list.html&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;周计划列表&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;示例看板：&lt;code&gt;content&#x2F;kanban&#x2F;2026-06-16.md&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>6.16 – 6.22 周计划</title>
+        <published>2026-06-16T00:00:00+00:00</published>
+        <updated>2026-06-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/kanban/2026-06-16/"/>
+        <id>https://suchaharcan.github.io/kanban/2026-06-16/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/kanban/2026-06-16/">&lt;h1 id=&quot;dai-ban&quot;&gt;待办&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;gui-ze-yin-qing-dan-yuan-ce-shi&quot;&gt;规则引擎单元测试&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-16
+@due 2026-06-18
+@priority 4
+@labels blue, purple&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+parseMarkdown 覆盖全部指令&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+serializeMarkdown 往返无损&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;编写 &lt;code&gt;kanban-rules.js&lt;&#x2F;code&gt; 的解析与序列化测试用例。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ying-she-shuo-ming-wen-dang&quot;&gt;映射说明文档&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-17
+@priority 3
+@labels green&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+补充颜色名对照表&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+增加边界情况说明&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;见 &lt;code&gt;content&#x2F;kanban&#x2F;kanban-mapping.md&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;lie-biao-jin-du-tiao-yang-shi&quot;&gt;列表进度条样式&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-19
+@priority 3
+@labels orange&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+待办 &amp;gt; 3 全红&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+加权进度公式&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+图标 + 星级元信息&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;jin-xing-zhong&quot;&gt;进行中&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;kan-ban-ming-xi-ye-ui&quot;&gt;看板明细页 UI&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-16
+@due 2026-06-20
+@priority 5
+@labels yellow, blue
+@bg #FFF8E1
+@top orange&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Trello 多列布局&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+拖拽跨列&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+锁定 &#x2F; 解锁&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;参考 Trello 列 + 卡片顶栏色；标签仅参与权重计算。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tong-bu-hui-xie-codeberg&quot;&gt;同步回写 Codeberg&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-21
+@priority 4
+@labels sky
+@top sky&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+读取 raw markdown&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+PUT 更新 content&#x2F;kanban 路径&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;nanolog-gong-neng-gong-gao&quot;&gt;Nanolog 功能公告&lt;&#x2F;h2&gt;
+&lt;p&gt;@due 2026-06-22
+@priority 2
+@labels pink&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+东八区时间&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+附映射文档链接&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;yi-wan-cheng&quot;&gt;已完成&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;xu-qiu-yu-mu-lu-jie-gou&quot;&gt;需求与目录结构&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 3
+@labels green&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+看板 Markdown 统一放在 &lt;code&gt;content&#x2F;kanban&#x2F;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+一级标题 = 列表，二级 = 卡片&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;article-nanolog-jie-gou-dui-qi&quot;&gt;article &#x2F; nanolog 结构对齐&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 2
+@labels lime&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+列表 + 明细模板分离&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Edit Post &#x2F; ReDeplog 链接&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;zi-yuan&quot;&gt;资源&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;kai-fa-huan-jing-yu-quan-xian&quot;&gt;开发环境与权限&lt;&#x2F;h2&gt;
+&lt;p&gt;@start 2026-06-16
+@priority 2&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+Zola 本地 &lt;code&gt;build --force&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+Codeberg 仓库写入权限&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;content&#x2F;kanban&#x2F;&lt;&#x2F;code&gt; 目录、ReDeplog 流水线。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;can-kao-su-cai&quot;&gt;参考素材&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 1&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+article_details 图标行&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+Trello 列布局截图&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;mu-biao&quot;&gt;目标&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;wan-cheng-hou-zhou-ji-hua-ke-shi-hua-guan-li&quot;&gt;完成后：周计划可视化管理&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 5
+@goal complete&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+列表页一眼看清加权进度&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+明细页拖拽预览 + Edit Post 回写&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;实现 Trello 式五列看板，替代纯 Markdown 表格维护。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wei-wan-cheng-jin-du-shi-kong-yu-shi-xiao&quot;&gt;未完成：进度失控与失效&lt;&#x2F;h2&gt;
+&lt;p&gt;@priority 4
+@goal risk&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+待办堆积超过 3 条&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+长期不更新周计划&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;列表页标红警示；周计划失去追踪意义，部署与开发节奏脱节。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

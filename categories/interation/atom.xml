@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Interation</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/categories/interation/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-06-25T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/categories/interation/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Habit Rebuild</title>
+        <published>2026-06-25T00:00:00+00:00</published>
+        <updated>2026-06-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/habit-rebuild/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/habit-rebuild/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/habit-rebuild/">&lt;blockquote class=&quot;markdown-alert-note&quot;&gt;
+&lt;p&gt;抛去 旧习惯， 在 立刻行动  中 寻找 意义&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;bo-ke-kan-ban-blog-kanban&quot;&gt;博客看板 - Blog Kanban&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;每天主动编写博客， 根据你的活动 和 规划， 有意识的去 编写看板，
+看板并非 随意编写，请 郑重对待， 那是 你的承诺， 言之有物，&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;自己做了什么，就写什么。
+量化 自己的行为， 直观的感受 自己的变化；&lt;&#x2F;p&gt;
+&lt;p&gt;每天在 kanban&#x2F;中 进行更新 当日的完成的核心事项；&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ruan-jian-kan-ban-stacks&quot;&gt;软件看板 - Stacks&lt;&#x2F;h2&gt;
+&lt;p&gt;自己主动的有意识 推进和 记录 进步地方， 后续 可 进行 整理复盘；&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;focus-zhuan-zhu-mo-shi&quot;&gt;Focus - 专注模式&lt;&#x2F;h2&gt;
+&lt;p&gt;自己在 SnippetsLab -&amp;gt; DevonThink 中 基于 专注模式的产品想法
+自己就 培养 这样的 工作习惯，
+精简自己的工作环境。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zai-hou-xu-dong-yao-shi-can-yu-lao-dong&quot;&gt;在后续 动摇时 参与劳动&lt;&#x2F;h2&gt;
+&lt;p&gt;去跑个外卖 或 出门 跑一跑 ，清醒下脑袋&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;xi-guan-zhu-dong-qu-yue-du-kai-yuan-dai-ma&quot;&gt;习惯： 主动去阅读开源代码&lt;&#x2F;h2&gt;
+&lt;p&gt;搜狗C++后台项目， 腾讯广告C++ 项目， 等都是优秀的项目 去阅读吸收理解， 提高自己的代码架构理解和设计；&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;xi-guan-yin-le-tao-ye-xin-xu-pi-bei-shi-lian-lian-ji-ta&quot;&gt;习惯： 音乐， 陶冶心绪， 疲惫时 练练吉他&lt;&#x2F;h2&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - MacLog</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/maclog/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 23 Jun 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Mac Chrome ReOpen</title>
+          <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/02Engineer_blog_Debug/chrome-reopen/</link>
+          <guid>https://suchaharcan.github.io/02Engineer_blog_Debug/chrome-reopen/</guid>
+          <description xml:base="https://suchaharcan.github.io/02Engineer_blog_Debug/chrome-reopen/">&lt;p&gt;问题描述：&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Chrome 用 Command+Q 强制关闭程序后，程序在 Dock 栏自己弹了弹又重新弹起来了。&lt;&#x2F;p&gt;
+&lt;p&gt;每次都要强制关闭两次以上才能真正把 Chrome 关掉。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Mac 本身的日志功能要多使用，有时能够反应出一定的问题&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;查看系统的终端报错日志（揪出幕后黑手）&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;eventMessage CONTAINS[c] &amp;quot;launch&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;运行后，终端会进入监听状态。此时你去对 Chrome 执行 &lt;code&gt;Command + Q&lt;&#x2F;code&gt;。 * 观察 Chrome 自动弹起的那一瞬间，终端里跳出来的日志。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;bat&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-source&quot;&gt;2026-06-23 09:21:30.454905+0800 ... loginwindow: [com.apple.loginwindow.logging:TAL] -[PersistentAppsSupport appShouldBeRelaunched:] &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;|&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; entered. checking app: Google Chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-source&quot;&gt;2026-06-23 09:21:30.454921+0800 ... loginwindow: [com.apple.loginwindow.logging:TAL] -[PersistentAppsSupport saveLogoutPersistentState:finalSnapshot:] &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;|&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;            Adding to relaunchArray: Google Chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;解释：&lt;&#x2F;strong&gt; &lt;strong&gt;&lt;code&gt;loginwindow&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; 是 macOS 的登录窗口及会话管理进程。这里的 &lt;strong&gt;&lt;code&gt;TAL&lt;&#x2F;code&gt; (Transparent App Lifecycle)&lt;&#x2F;strong&gt; 和 &lt;strong&gt;&lt;code&gt;PersistentAppsSupport&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; 是 macOS 的“窗口恢复&#x2F;持久化应用”机制。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;翻译成白话：&lt;&#x2F;strong&gt; 在 09:21:30 时，macOS 的系统级进程 &lt;code&gt;loginwindow&lt;&#x2F;code&gt; 介入，检测了 Chrome 的状态。它认为 Chrome &lt;strong&gt;“应该被重新拉起（appShouldBeRelaunched）”&lt;&#x2F;strong&gt;，并直接把它塞进了重启队列（Adding to relaunchArray）里。&lt;&#x2F;p&gt;
+&lt;p&gt;随后在 09:21:34 左右，系统底层的 &lt;code&gt;duetexpertd&lt;&#x2F;code&gt;（苹果的智能预测&#x2F;行为建议服务）和 &lt;code&gt;runningboardd&lt;&#x2F;code&gt; 协同，再次把 Chrome 给捞了起来。&lt;&#x2F;p&gt;
+&lt;p&gt;日志时间线（08:41:01）
+时间	事件	含义
+.637
+checkAgainstApp: Google Chrome
+TAL 开始评估 Chrome 是否该被恢复
+.638
+appShouldBeRelaunched → Adding to relaunchArray
+系统判定：Chrome 退出后应被重新拉起
+.827
+自动填充 (Google Chrome) state 3→4, quit
+Chrome 密码自动填充助手先退出
+.855
+appDeath for com.google.Chrome
+Chrome 主进程死亡
+.855–.848
+Google Chrome state 3→4, quit
+主程序走完退出流程
+.850（+6s）
+previouslyRunningApps 仍含 Chrome
+TAL 快照里 Chrome 未被清除
+关键：relaunchArray 写入发生在 Chrome 真正退出之前（.638 vs .855）。说明 macOS 在退出流程早期就决定了要恢复 Chrome，不是事后误判。&lt;&#x2F;p&gt;
+&lt;p&gt;两个直接原因&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;TAL 持久列表里已有 Chrome
+你的 ~&#x2F;Library&#x2F;Preferences&#x2F;ByHost&#x2F;com.apple.loginwindow.*.plist 中：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;BundleID = “com.google.chrome”
+BackgroundState = 3
+Path = “&#x2F;Applications&#x2F;Google Chrome.app”
+BackgroundState = 2：前台运行、有窗口 → 应恢复
+BackgroundState = 3：后台&#x2F;hidden 状态 → 仍会被记录&lt;&#x2F;p&gt;
+&lt;p&gt;每次 CMD+Q，loginwindow 都会重新评估并再次写入 relaunchArray。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;NSQuitAlwaysKeepsWindows 未设置
+defaults read com.google.Chrome NSQuitAlwaysKeepsWindows&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h1 id=&quot;key-not-found&quot;&gt;→ key not found&lt;&#x2F;h1&gt;
+&lt;p&gt;未设置时，macOS 默认行为是 退出时保留窗口状态（Resume）。有窗口的 Chrome 退出 → appShouldBeRelaunched 返回 YES → 进 relaunchArray。&lt;&#x2F;p&gt;
+&lt;p&gt;exit_type: Normal 已修复，但 TAL 仍会因「有窗口 + 保留状态」而恢复。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;自动填充 (Google Chrome) 是什么？
+这是 Chrome 的密码自动填充系统组件，在 loginwindow 里被当作独立 Application 跟踪。退出时它先于主进程退出，可能让 TAL 认为 Chrome 生态尚未完全结束，加剧恢复判定。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;针对这份日志的修复（按顺序）
+第一步：强制 Chrome 退出时不保留窗口
+Chrome 必须正在运行时执行：&lt;&#x2F;p&gt;
+&lt;p&gt;defaults write com.google.Chrome NSQuitAlwaysKeepsWindows -bool false
+然后 按住 Option 再按 CMD+Q（或菜单：Chrome → 退出时按住 Option 变为「退出并保留窗口关闭」）。&lt;&#x2F;p&gt;
+&lt;p&gt;第二步：从 TAL 持久列表移除 Chrome
+killall “Google Chrome” 2&amp;gt;&#x2F;dev&#x2F;null
+python3 &amp;lt;&amp;lt; ‘PY’
+import plistlib, os, subprocess, re
+uuid = re.search(r’“IOPlatformUUID” = “([^”]+)“’,
+subprocess.check_output([“ioreg”,“-rd1”,“-c”,“IOPlatformExpertDevice”], text=True)).group(1)
+path = os.path.expanduser(f“~&#x2F;Library&#x2F;Preferences&#x2F;ByHost&#x2F;com.apple.loginwindow.{uuid}.plist“)
+with open(path, “rb”) as f: d = plistlib.load(f)
+before = len(d.get(“TALAppsToRelaunchAtLogin”, []))
+d[“TALAppsToRelaunchAtLogin”] = [
+a for a in d.get(“TALAppsToRelaunchAtLogin”, [])
+if “chrome” not in a.get(“BundleID”, “”).lower()
+]
+with open(path, “wb”) as f: plistlib.dump(d, f)
+print(f“Removed Chrome from TAL: {before} -&amp;gt; {len(d[‘TALAppsToRelaunchAtLogin’])} apps“)
+PY
+第三步：关闭 Chrome 密码自动填充系统扩展
+系统设置 → 密码 → 密码选项 → 自动填充
+取消勾选 Google Chrome（或 Chrome 相关自动填充项）。&lt;&#x2F;p&gt;
+&lt;p&gt;这会让 自动填充 (Google Chrome) 不再作为独立进程被 loginwindow 跟踪。&lt;&#x2F;p&gt;
+&lt;p&gt;第四步：验证
+log stream –predicate ‘process == “loginwindow” AND eventMessage CONTAINS[c] “Chrome”’ –style compact
+CMD+Q 后，不应再出现 Adding to relaunchArray: Google Chrome。&lt;&#x2F;p&gt;
+&lt;p&gt;与之前分析的关系
+项目	当前状态
+Yandex Mail.app
+已删除 ✓
+exit_type
+已是 Normal ✓
+系统后台项
+已关闭 ✓
+TAL 持久列表
+仍有 Chrome ← 当前主因
+NSQuitAlwaysKeepsWindows
+未设置 ← 触发 appShouldBeRelaunched
+自动填充助手
+日志中可见，建议关闭
+这份日志说明：不是 Chrome 崩溃重启，而是 macOS TAL 正常的窗口恢复机制在 CMD+Q 时主动标记 Chrome 为「应 relaunch」。根因是 TAL 列表 + 退出时保留窗口，而非后台项或 flags。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;macos-pai-cha-chang-yong-cli-su-cha&quot;&gt;macOS 排查常用 CLI 速查&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;排查 Chrome 自动拉起时用到的主要是 sfltool、log、pgrep。下面按工具整理常见用法。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;sfltool — 后台项 &#x2F; 登录项
+注意：不是 stltool，正确命令是 sfltool（Shared File List tool）。
+主要用于查看 Login Items 和 Allow in the Background（后台允许） 注册信息。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;基本命令&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查看帮助
+&lt;code&gt;sfltool&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;最常用：导出所有 Background Task Management (BTM) 条目
+&lt;code&gt;sfltool dumpbtm&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;筛选 Chrome &#x2F; Google 相关
+&lt;code&gt;sfltool dumpbtm | grep -i -A12 &quot;Google Chrome&quot;&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;只看后台任务类型
+&lt;code&gt;sfltool dumpbtm | grep -i -B2 -A8 &quot;background tasks&quot;&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;其他子命令（较少用）&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sfltool&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; list&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;          #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 列出 shared file list&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sfltool&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; list-info&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;     #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 详细信息&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sfltool&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; csinfo&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;        #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; codesign 信息&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sfltool&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; resetbtm&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;      #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; ⚠️ 重置全部 BTM，慎用&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;典型排查场景&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;确认 Chrome 是否在系统后台项中注册 &lt;br&#x2F;&gt;
+&lt;code&gt;sfltool dumpbtm 2&amp;gt;&#x2F;dev&#x2F;null | grep -i -E &#x27;chrome|google&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;对比：传统登录项（osascript 方式）&lt;br&#x2F;&gt;
+&lt;code&gt;osascript -e &#x27;tell application &quot;System Events&quot; to get the name of every login item&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;log — 统一日志系统（Unified Logging）
+macOS 10.12+ 的日志不再散落在文本文件里，主要靠 log stream（实时）和 log show（历史）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;实时监听&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; —&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; 基础：监听&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; loginwindow&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 所有日志&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;排查&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 被&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; TAL&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 拉起（我们用的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot; AND eventMessage CONTAINS[c] &amp;quot;Chrome&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;更宽：任何含&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; launch&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 的日志，再&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; Chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;eventMessage CONTAINS[c] &amp;quot;launch&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;监听&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; TAL&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 子系统&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;subsystem == &amp;quot;com.apple.loginwindow.logging&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;多进程联合监听&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot; OR process == &amp;quot;runningboardd&amp;quot; OR process == &amp;quot;duetexpertd&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;历史查询&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; —&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;最近&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 小时&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; loginwindow&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 里含&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 的日志&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-last&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 2h&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot; AND eventMessage CONTAINS[c] &amp;quot;Chrome&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;最近&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 7&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 天：quit&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; relaunch&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; unexpectedly&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 相关&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-last&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 7d&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;eventMessage CONTAINS &amp;quot;Google Chrome&amp;quot; AND (eventMessage CONTAINS &amp;quot;quit&amp;quot; OR eventMessage CONTAINS &amp;quot;relaunch&amp;quot; OR eventMessage CONTAINS &amp;quot;unexpectedly&amp;quot;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;只看错误级别&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-last&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 1h&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-level&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; error&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;–predicate 语法要点
+写法	说明
+process == “loginwindow”
+精确匹配进程名
+eventMessage CONTAINS[c] “Chrome”
+消息含 Chrome，[c] = 忽略大小写
+subsystem == “com.apple.talagent”
+按子系统过滤
+messageType == error
+只看 error
+AND &#x2F; OR
+组合条件
+实用技巧
+输出到文件，避免刷屏
+log stream –predicate ‘process == “loginwindow” AND eventMessage CONTAINS[c] “Chrome”’ &lt;br &#x2F;&gt;
+–style compact &amp;gt; ~&#x2F;Desktop&#x2F;chrome-quit.log&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;shi-jian-fan-wei-li-shi&quot;&gt;时间范围（历史）&lt;&#x2F;h1&gt;
+&lt;p&gt;log show –start “2026-06-25 08:40:00” –end “2026-06-25 08:42:00” &lt;br &#x2F;&gt;
+–predicate ‘process == “loginwindow”’ –style compact
+我们抓到的关键日志模式
+appShouldBeRelaunched: Google Chrome
+Adding to relaunchArray: Google Chrome
+applicationQuit: for app:Google Chrome
+appDeath for com.google.Chrome
+previouslyRunningApps: ( … com.google.chrome … )
+3. pgrep — 按名称查进程
+比 ps aux | grep 更干净（不会 grep 到自己）。&lt;&#x2F;p&gt;
+&lt;p&gt;基本用法&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 进程是否存在（静默，适合脚本判断）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Chrome 在运行&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 列出 PID + 完整命令行（排查最有用）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 不区分大小写&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;chrome|google chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 只输出 PID&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;常见组合&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; CMD+Q 后确认是否还有残留&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;|&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;已完全退出&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 看 Chrome 各 Helper 进程&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Chrome Helper&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 统计 Chrome 相关进程数&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; wc&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;l&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 配合 killall 做彻底退出&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;killall&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;dev&#x2F;null&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sleep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 应无输出&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;pgrep 常用选项
+选项	含义
+-l
+显示进程名
+-f
+匹配完整命令行（而不只是进程名）
+-i
+忽略大小写
+-x
+精确匹配进程名
+-u $USER
+只查当前用户的进程
+4. 配套命令（同一套排查里常用）
+TAL 持久恢复列表&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 读取「注销&#x2F;重启时重新打开的应用」列表&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;UUID&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;$(&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;ioreg&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;rd1&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;c&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; IOPlatformExpertDevice&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; awk&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;F&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;IOPlatformUUID&#x2F;{print $4}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;currentHost&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; read&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; com.apple.loginwindow&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; TALAppsToRelaunchAtLogin&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 或直接看 plist&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;plutil&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;Library&#x2F;Preferences&#x2F;ByHost&#x2F;com.apple.loginwindow.&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;UUID&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt;}&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;.plist&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;A5&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;launchctl&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; —&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 启动项&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 服务&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 当前用户已加载的服务，筛 Chrome&#x2F;Google&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;launchctl&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; list&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;chrome|google&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 查看 LaunchAgent 内容&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;plutil&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;Library&#x2F;LaunchAgents&#x2F;com.google.GoogleUpdater.wake.plist&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; —&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 应用偏好&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; Chrome 是否保留退出时的窗口&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; read&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; com.google.Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; NSQuitAlwaysKeepsWindows&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 强制关闭保留窗口（Chrome 运行中执行）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; write&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; com.google.Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; NSQuitAlwaysKeepsWindows&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language&quot;&gt; false&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 全局：退出时是否关闭窗口&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; read&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; NSGlobalDomain&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; NSQuitAlwaysKeepsWindows&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pluginkit&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; —&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 系统扩展&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 自动填充&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 查看 Chrome 相关系统插件（如自动填充）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pluginkit&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;m&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;A&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;chrome|google|autofill&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;5.&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 一套完整排查流程（可复制）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; === 1. 静态状态 ===&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sfltool&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; dumpbtm&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;A10&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;defaults&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;currentHost&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; read&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; com.apple.loginwindow&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; TALAppsToRelaunchAtLogin&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; chrome&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; === 2. 开终端 A：实时日志 ===&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; stream&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot; AND eventMessage CONTAINS[c] &amp;quot;Chrome&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; === 3. 对 Chrome 执行 CMD+Q ===&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; === 4. 终端 B：确认进程 ===&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;pgrep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;lf&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Google Chrome&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;|&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;OK: 无残留&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; === 5. 历史补查 ===&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-last&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 5m&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;process == &amp;quot;loginwindow&amp;quot; AND eventMessage CONTAINS[c] &amp;quot;relaunch&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-style&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; compact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;6&quot;&gt;
+&lt;li&gt;常见坑
+问题	说明
+log stream 刷屏
+必须加 –predicate，否则 I&#x2F;O 日志量极大
+log show 很慢
+务必加 –last 1h 或 –start&#x2F;–end 限定范围
+pgrep 匹配过宽
+-i chrome 会匹配到 Cursor 的 chrome_crashpad_handler，必要时加 |Google Chrome 精确匹配
+sfltool 与系统设置不一致
+UI 显示 Google Chrome.app，dumpbtm 可能还有独立的 background tasks 条目
+defaults read 报 key not found
+不等于 false，可能意味着「未设置、走系统默认」&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;xi-tong-ri-zhi-hen-hao-yong&quot;&gt;系统日志 很好用&lt;&#x2F;h2&gt;
+&lt;p&gt;需求 1：macOS 系统日志功能（Unified Logging）使用要点整理
+macOS 自 10.12 引进 统一日志系统 (Unified Logging System) 后，日志不再零散存储于各个文本文件中，而是由 diagnosticd 统一收集并二进制压缩存储。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;核心命令工具：log
+实时流监控 (log stream)：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;要点：它类似于传统 Linux 的 tail -f，但必须配合 –predicate（谓词过滤器）使用，否则海量的系统级 I&#x2F;O 日志会瞬间刷屏，导致终端卡死。&lt;&#x2F;p&gt;
+&lt;p&gt;历史日志检索 (log show)：&lt;&#x2F;p&gt;
+&lt;p&gt;要点：用于查看过去发生的事情。必须限定时间范围，否则检索极其缓慢。&lt;&#x2F;p&gt;
+&lt;p&gt;示例：查看过去 10 分钟内关于 Chrome 的报错：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; show&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-last&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 10m&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-predicate&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;eventMessage CONTAINS[c] &amp;quot;Chrome&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-level&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; error&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;谓词过滤 (–predicate) 的高级语法
+谓词基于 Apple 的 NSPredicate 架构，大小写敏感（除非加 [c] 表示忽略大小写）：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;process == “loginwindow”：精准匹配进程名。&lt;&#x2F;p&gt;
+&lt;p&gt;processImageUUID CONTAINS[c] “Chrome”：匹配进程路径或动态库中包含 Chrome 的行为（对抓取 Helper 应用极有效）。&lt;&#x2F;p&gt;
+&lt;p&gt;messageType == error 或 messageType == fault：只看错误或严重故障（fault）。&lt;&#x2F;p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;日志等级的隐蔽陷阱
+macOS 日志分为五个等级：Default、Info、Debug、Error、Fault。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;痛点：出于性能和隐私考虑，Info 和 Debug 等级的日志默认是不写入磁盘，也不在实时流中展示的。&lt;&#x2F;p&gt;
+&lt;p&gt;解决办法：如果你在调自建脚本（如你的自定义自动化脚本）发现看不到详细日志，需要手动为该进程开启 Debug 级写入：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; log&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; config&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-mode&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;level:debug&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-subsystem&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; com.your.app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;需求 2：开源 macOS (Darwin xnu) 代码架构与设计思路
+你拉取的仓库实际上是 Darwin（macOS 的开源核心），其内核名为 XNU（X is Not Unix）。XNU 是一个独特的混合内核 (Hybrid Kernel)，它融合了 Mach 的灵活性和 BSD 的成熟稳定性。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;核心代码架构（目录结构解密）
+在官方开源的 xnu 仓库中，核心架构主要由以下四大板块交织而成：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;xnu&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── mach&#x2F;               # Mach 微内核层（核心调度与 IPC）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   ├── kern&#x2F;           # 线程调度、时钟、任务管理&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   └── vm&#x2F;             # 虚拟内存管理 (VM Object, Pager)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── bsd&#x2F;                # BSD 层（提供 POSIX 标准与上层抽象）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   ├── kern&#x2F;           # 进程管理 (PID)、credentials、sysent&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   ├── vfs&#x2F;            # 虚拟文件系统切换 (Virtual File System)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   └── netinet&#x2F;        # TCP&#x2F;IP 网络协议栈&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── iokit&#x2F;              # I&#x2F;O Kit（C++ 驱动框架，负责硬件交互）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;│   └── Drivers&#x2F;        # 磁盘、网络、USB 等基础驱动抽象&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── libkern&#x2F;            # 内核基础库（C++ 运行时支持、容器类）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;└── pexpert&#x2F;            # 平台专家层（处理不同硬件架构如 ARM64&#x2F;Intel 的引导初始化）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;核心设计思路
+⚙️ 思路一：微内核与宏内核的“双管齐下”（混合内核）
+Mach（微内核）：只负责最底层、最极致的单一任务——进程间通信 (IPC&#x2F;Mach Ports)、进程隔离、底层线程调度。Mach 认为万物皆为 “Port”（端口）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;BSD（宏内核）：由于微内核频繁进行上下文切换（Context Switch）会导致性能低下，苹果在内核空间里直接嵌套了一个改版的 BSD。BSD 把 Mach 的底层概念包装成 POSIX 标准。&lt;&#x2F;p&gt;
+&lt;p&gt;逻辑关系：系统调用进来，上层看到的是 BSD 的 PID（进程 ID），但 BSD 底层其实映射的是 Mach 的 Task。&lt;&#x2F;p&gt;
+&lt;p&gt;🔒 思路二：严格的权限与资源断言机制（RunningBoard 的由来）
+为什么你会在前面的日志里频繁看到 runningboardd、ttl 和 assertion（断言）？&lt;&#x2F;p&gt;
+&lt;p&gt;在 XNU 的设计进化中（特别是引入 iOS 和 Apple Silicon 移动架构后），内核极其看重功耗与生命周期管理。&lt;&#x2F;p&gt;
+&lt;p&gt;XNU 引入了 Assertion（资源断言） 机制。一个应用（如 Chrome）在前台时，runningboardd 会向内核申请一个 frontmost 强断言，内核据此分配高优先级 CPU 和能效核心（E-cores&#x2F;P-cores）。当应用转入后台或准备退出时，断言被 Invalidating（作废），内核会瞬间限制或冻结其 Helper 进程，这也是导致多页面 Chrome 回收假死而被系统强制拉起的底层诱因。&lt;&#x2F;p&gt;
+&lt;p&gt;💻 思路三：面向对象的驱动安全（I&#x2F;O Kit &amp;amp; DriverKit）
+传统的 Unix 驱动是用 C 语言写的，一死全死。XNU 独辟蹊径，在内核中实现了一个受限的 C++ 运行时 (libkern)。&lt;&#x2F;p&gt;
+&lt;p&gt;设计目的：利用 C++ 的面向对象特性（如依托 OSMetaClass 管理生命周期），让驱动程序对象化。如今苹果正逐步将 I&#x2F;O Kit 迁移到用户空间（DriverKit），让绝大多数驱动在内核外运行，即使崩溃也不会导致 Mac 蓝屏&#x2F;紫屏。&lt;&#x2F;p&gt;
+&lt;p&gt;通过结合这两点，你会发现：你用 log stream 抓到的每一行状态，其实都是 XNU 内核中 Mach Task、BSD 进程状态以及 RunningBoard 断言在系统层面的具象化表现。&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
