@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - DiscreteMath</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/discretemath/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-11T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/discretemath/atom.xml</id>
+    <entry xml:lang="en">
+        <title>离散数学 · 核心章节</title>
+        <published>2026-08-11T00:00:00+00:00</published>
+        <updated>2026-08-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/00Read_blog_Math/math-discrete/"/>
+        <id>https://suchaharcan.github.io/00Read_blog_Math/math-discrete/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/00Read_blog_Math/math-discrete/">&lt;h1 id=&quot;chi-san-shu-xue-he-xin-zhang-jie&quot;&gt;离散数学 · 核心章节&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;计算机科学的基础数学：&lt;strong&gt;逻辑 → 集合 → 关系&#x2F;函数 → 图论 → 代数系统 → 组合计数&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-shu-li-luo-ji&quot;&gt;1. 数理逻辑&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ming-ti-luo-ji&quot;&gt;命题逻辑&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;联结词&lt;&#x2F;th&gt;&lt;th&gt;记号&lt;&#x2F;th&gt;&lt;th&gt;读法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;否定&lt;&#x2F;td&gt;&lt;td&gt;¬p&lt;&#x2F;td&gt;&lt;td&gt;非 p&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;合取&lt;&#x2F;td&gt;&lt;td&gt;p∧q&lt;&#x2F;td&gt;&lt;td&gt;p 且 q&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;析取&lt;&#x2F;td&gt;&lt;td&gt;p∨q&lt;&#x2F;td&gt;&lt;td&gt;p 或 q&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;蕴含&lt;&#x2F;td&gt;&lt;td&gt;p→q&lt;&#x2F;td&gt;&lt;td&gt;若 p 则 q&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;等价&lt;&#x2F;td&gt;&lt;td&gt;p↔q&lt;&#x2F;td&gt;&lt;td&gt;p 当且仅当 q&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;&#x2F;strong&gt;：&lt;code&gt;p→q&lt;&#x2F;code&gt; 只有 &lt;code&gt;p 真 q 假&lt;&#x2F;code&gt; 时为假；&lt;code&gt;p→q ≡ ¬p∨q&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;deng-zhi-shi-chang-yong&quot;&gt;等值式（常用）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;双重否定：¬¬p ≡ p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;德摩根：¬(p∧q) ≡ ¬p∨¬q；¬(p∨q) ≡ ¬p∧¬q&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;吸收律：p∨(p∧q) ≡ p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;蕴涵等值式：p→q ≡ ¬p∨q&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;tui-li-gui-ze&quot;&gt;推理规则&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;假言推理（MP）：p→q，p ⇒ q&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;拒取式（MT）：p→q，¬q ⇒ ¬p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;析取三段论：p∨q，¬p ⇒ q&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;假言三段论：p→q，q→r ⇒ p→r&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;wei-ci-luo-ji&quot;&gt;谓词逻辑&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∀x P(x)：全称量词；∃x P(x)：存在量词&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;¬∀x P(x) ≡ ∃x ¬P(x)；¬∃x P(x) ≡ ∀x ¬P(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-ji-he-lun&quot;&gt;2. 集合论&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;yun-suan&quot;&gt;运算&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;并 A∪B；交 A∩B；差 A−B；补 ∁A&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;对称差 A⊕B = (A−B)∪(B−A)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;heng-deng-shi&quot;&gt;恒等式&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;德摩根：∁(A∩B) = ∁A∪∁B；∁(A∪B) = ∁A∩∁B&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A∪(B∩C) = (A∪B)∩(A∪C)（分配律）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ji-shu&quot;&gt;基数&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|A∪B| = |A|+|B|−|A∩B|&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|A∪B∪C| = |A|+|B|+|C|−|A∩B|−|A∩C|−|B∩C|+|A∩B∩C|（容斥）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-guan-xi&quot;&gt;3. 关系&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;er-yuan-guan-xi-xing-zhi&quot;&gt;二元关系性质&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;性质&lt;&#x2F;th&gt;&lt;th&gt;定义&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;自反&lt;&#x2F;td&gt;&lt;td&gt;所有 x，(x,x)∈R&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;反自反&lt;&#x2F;td&gt;&lt;td&gt;所有 x，(x,x)∉R&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;对称&lt;&#x2F;td&gt;&lt;td&gt;(x,y)∈R ⇒ (y,x)∈R&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;反对称&lt;&#x2F;td&gt;&lt;td&gt;(x,y)∈R 且 (y,x)∈R ⇒ x=y&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;传递&lt;&#x2F;td&gt;&lt;td&gt;(x,y),(y,z)∈R ⇒ (x,z)∈R&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;deng-jia-guan-xi-yu-hua-fen&quot;&gt;等价关系与划分&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;自反 + 对称 + 传递 = 等价关系&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;等价类 [x] = {y | xRy}；等价类集合构成集合的划分&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;pian-xu-guan-xi&quot;&gt;偏序关系&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;自反 + 反对称 + 传递 = 偏序（≤）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;哈斯图（Hasse 图）画法：去掉自反环与传递边&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;极大&#x2F;极小元、最大&#x2F;最小元、上&#x2F;下界、上&#x2F;下确界&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;guan-xi-bi-bao&quot;&gt;关系闭包&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;自反闭包 r(R) = R ∪ E&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;对称闭包 s(R) = R ∪ R⁻¹&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;传递闭包 t(R) = R ∪ R² ∪ R³ ∪ …（Warshall 算法）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-han-shu&quot;&gt;4. 函数&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;f: A → B&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;单射（一一）：不同自变量 → 不同函数值&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;满射（到上）：值域 = B&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;双射：既单又满&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;鸽巢原理&lt;&#x2F;strong&gt;：&lt;code&gt;n+1&lt;&#x2F;code&gt; 个物体放入 &lt;code&gt;n&lt;&#x2F;code&gt; 个盒子，至少一个盒子 ≥ 2 个。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-tu-lun&quot;&gt;5. 图论&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ji-ben-gai-nian&quot;&gt;基本概念&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;G = (V, E)；无向图 &#x2F; 有向图&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;握手定理：Σdeg(v) = 2|E|（无向）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;有向图：Σdeg⁺ = Σdeg⁻ = |E|&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;te-shu-tu&quot;&gt;特殊图&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;图&lt;&#x2F;th&gt;&lt;th&gt;判定&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;完全图 Kₙ&lt;&#x2F;td&gt;&lt;td&gt;n(n−1)&#x2F;2 条边&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;二部图&lt;&#x2F;td&gt;&lt;td&gt;顶点可二分，边只跨部（无奇圈）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;欧拉图&lt;&#x2F;td&gt;&lt;td&gt;所有顶点度数为偶（有向：出入相等）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;哈密顿图&lt;&#x2F;td&gt;&lt;td&gt;必要条件（割点&#x2F;度条件），充分条件 Dirac：&lt;code&gt;deg ≥ n&#x2F;2&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;shu&quot;&gt;树&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;n 个顶点的树：n−1 条边，连通无圈&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;生成树：连通图包含全部顶点的树&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;最小生成树：Prim（加点）&#x2F; Kruskal（加边，并查集判环）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ping-mian-tu&quot;&gt;平面图&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;欧拉公式：V − E + F = 2（连通平面图）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;K₅ 与 K₃,₃ 是非平面图&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;tu-zhao-se&quot;&gt;图着色&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;四色定理：平面图 4 色足够&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;图着色 = 相邻顶点不同色，最少色数 χ(G)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-dai-shu-xi-tong&quot;&gt;6. 代数系统&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;系统&lt;&#x2F;th&gt;&lt;th&gt;公理&lt;&#x2F;th&gt;&lt;th&gt;例子&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;半群&lt;&#x2F;td&gt;&lt;td&gt;封闭 + 结合&lt;&#x2F;td&gt;&lt;td&gt;(N,+)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;独异点&lt;&#x2F;td&gt;&lt;td&gt;半群 + 单位元&lt;&#x2F;td&gt;&lt;td&gt;(N,·)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;群&lt;&#x2F;td&gt;&lt;td&gt;独异点 + 逆元&lt;&#x2F;td&gt;&lt;td&gt;(Z,+)、(Zₙ,+)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;阿贝尔群&lt;&#x2F;td&gt;&lt;td&gt;群 + 交换&lt;&#x2F;td&gt;&lt;td&gt;(Z,+)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;环&lt;&#x2F;td&gt;&lt;td&gt;(R,+) 阿贝尔群 + 乘法结合&#x2F;分配&lt;&#x2F;td&gt;&lt;td&gt;(Z,+,·)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;域&lt;&#x2F;td&gt;&lt;td&gt;环 + 乘法可逆（除零外）&lt;&#x2F;td&gt;&lt;td&gt;(R,+,·)、(Zₚ,+,·) p 素数&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;拉格朗日定理&lt;&#x2F;strong&gt;：有限群中子群的阶整除群的阶。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-zu-he-ji-shu&quot;&gt;7. 组合计数&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;pai-lie-yu-zu-he&quot;&gt;排列与组合&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(n,r) = n!&#x2F;(n−r)!&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;C(n,r) = n!&#x2F;[r!(n−r)!]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;chang-yong-heng-deng-shi&quot;&gt;常用恒等式&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;C(n,r) = C(n, n−r)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;C(n+1,r) = C(n,r) + C(n,r−1)（帕斯卡）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Σ C(n,k) = 2ⁿ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ji-shu-ji-qiao&quot;&gt;计数技巧&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;隔板法：&lt;code&gt;n&lt;&#x2F;code&gt; 个相同物分 &lt;code&gt;k&lt;&#x2F;code&gt; 组非空：&lt;code&gt;C(n−1, k−1)&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;错排数：&lt;code&gt;Dₙ = n!·Σ(−1)^k&#x2F;k!&lt;&#x2F;code&gt;，如 &lt;code&gt;D₃=2, D₄=9&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;生成函数 &#x2F; 母函数处理受限组合。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-kao-yan-ji-shi-chang-kao-ti-xing&quot;&gt;8. 考研 &#x2F; 机试常考题型&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;命题公式等值演算与主范式；&lt;&#x2F;li&gt;
+&lt;li&gt;关系性质判断、等价类与划分；&lt;&#x2F;li&gt;
+&lt;li&gt;哈斯图与偏序元；&lt;&#x2F;li&gt;
+&lt;li&gt;图论：握手定理、欧拉&#x2F;哈密顿判定、着色；&lt;&#x2F;li&gt;
+&lt;li&gt;最小生成树（Prim&#x2F;Kruskal）与最短路（Dijkstra&#x2F;Floyd）；&lt;&#x2F;li&gt;
+&lt;li&gt;群判定与子群；&lt;&#x2F;li&gt;
+&lt;li&gt;排列组合与容斥、错排。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;li-ti-su-lan&quot;&gt;例题速览&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;&#x2F;strong&gt;：证明 &lt;code&gt;(p→q) ∧ p ⇒ q&lt;&#x2F;code&gt;（假言推理）：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;p→q ≡ ¬p∨q；(¬p∨q)∧p ≡ q∧p ⇒ q&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;&#x2F;strong&gt;：&lt;code&gt;K₅&lt;&#x2F;code&gt; 的边数：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;5·4&#x2F;2 = 10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;例 3&lt;&#x2F;strong&gt;：4 封信全装错信封的方法数：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;D₄ = 4!·(1 − 1 + 1&#x2F;2 − 1&#x2F;6 + 1&#x2F;24) = 9&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;9-yi-cuo-dian-qing-dan&quot;&gt;9. 易错点清单&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;蕴含联结词 &lt;code&gt;→&lt;&#x2F;code&gt; 与日常“因果“含义不同；&lt;&#x2F;li&gt;
+&lt;li&gt;自反&#x2F;反自反、对称&#x2F;反对称不互斥；&lt;&#x2F;li&gt;
+&lt;li&gt;握手定理两边都算；&lt;&#x2F;li&gt;
+&lt;li&gt;欧拉图关注“一笔画“，哈密顿关注“回路遍历所有顶点“；&lt;&#x2F;li&gt;
+&lt;li&gt;群必须封闭、结合、有单位元、有逆元四条件齐备；&lt;&#x2F;li&gt;
+&lt;li&gt;错排与隔板法别套错模型。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_Math&#x2F;math-probability&#x2F;&quot;&gt;概率论&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

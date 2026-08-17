@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Tree</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/tree/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-11T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/tree/atom.xml</id>
+    <entry xml:lang="en">
+        <title>考研 408 · 树核心知识点</title>
+        <published>2026-08-11T00:00:00+00:00</published>
+        <updated>2026-08-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-tree/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-tree/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-tree/">&lt;h1 id=&quot;kao-yan-408-shu-he-xin-zhi-shi-dian&quot;&gt;考研 408 · 树核心知识点&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;树是 408 数据结构大题高发区：&lt;strong&gt;性质 → 遍历 → BST&#x2F;AVL → 哈夫曼 → 并查集&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-er-cha-shu-ji-ben-xing-zhi&quot;&gt;1. 二叉树基本性质&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;① 第 i 层至多 2^(i−1) 个结点&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;② 深度为 k 的二叉树至多 2^k − 1 个结点&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;③ 叶子数 n₀ = 度为 2 结点数 n₂ + 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;④ 完全二叉树 n 个结点：深度 = ⌊log₂n⌋ + 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;⑤ 顺序存储（完全二叉树）：i 的左孩子 2i、右孩子 2i+1、父 ⌊i&#x2F;2⌋&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;er-cha-shu-de-xing-tai-shu&quot;&gt;二叉树的形态数&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;n 个结点的不同二叉树形态数 = 卡特兰数 C(n) = C(2n,n)&#x2F;(n+1)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-bian-li&quot;&gt;2. 遍历&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;di-gui-xu-xian-zhong-hou&quot;&gt;递归序（先&#x2F;中&#x2F;后）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;先序：根 → 左 → 右     DLR&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;中序：左 → 根 → 右     LDR&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;后序：左 → 右 → 根     LRD&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;层序：逐层从左到右&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;tu-shi&quot;&gt;图示&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;          1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;         &#x2F; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        2   3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;       &#x2F; \   \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      4   5   6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;先序: 1 2 4 5 3 6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;中序: 4 2 5 1 3 6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;后序: 4 5 2 6 3 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;层序: 1 2 3 4 5 6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;you-bian-li-xu-lie-que-ding-er-cha-shu&quot;&gt;由遍历序列确定二叉树&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;必须知道中序 + （先序 或 后序 之一）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;先序&#x2F;后序确定根，中序划分左右子树&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;层序 + 中序亦可&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;fei-di-gui-bian-li-yao-dian&quot;&gt;非递归遍历要点&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 先序非递归：栈&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;push&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;root&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;!&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;stack&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;empty&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-source&quot;&gt;    node &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; pop&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; visit&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;right&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; push&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;right&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;left&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;  push&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;left&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 层序：队列&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;enqueue&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;root&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;!&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;queue&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;empty&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-source&quot;&gt;    node &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; dequeue&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; visit&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;left&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;  enqueue&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;left&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;right&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; enqueue&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;node&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-property&quot;&gt;right&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-xian-suo-er-cha-shu&quot;&gt;3. 线索二叉树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;利用空指针域：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ltag = 0 左孩子 &#x2F; 1 前驱；rtag = 0 右孩子 &#x2F; 1 后继&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;中序线索化后，可快速找某结点的&lt;strong&gt;中序前驱&#x2F;后继&lt;&#x2F;strong&gt;，遍历不需要栈。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-er-cha-pai-xu-shu-bst&quot;&gt;4. 二叉排序树 BST&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;左子树 &amp;lt; 根 &amp;lt; 右子树&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;操作&lt;&#x2F;th&gt;&lt;th&gt;平均复杂度&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;查找 &#x2F; 插入 &#x2F; 删除&lt;&#x2F;td&gt;&lt;td&gt;O(log n)（树高）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;最坏（退化为链）&lt;&#x2F;td&gt;&lt;td&gt;O(n)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;删除三种情况：叶子直接删；单孩子提升；双孩子用&lt;strong&gt;前驱或后继&lt;&#x2F;strong&gt;替换。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-ping-heng-er-cha-shu-avl&quot;&gt;5. 平衡二叉树 AVL&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;平衡因子&lt;&#x2F;strong&gt; = 左子树高 − 右子树高，绝对值 ≤ 1。&lt;&#x2F;p&gt;
+&lt;p&gt;插入后失衡四种调整：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;LL：右旋           RR：左旋&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;LR：先左旋再右旋   RL：先右旋再左旋&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;tu-shi-ll-you-xuan&quot;&gt;图示（LL 右旋）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      3                   2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     &#x2F;       右旋        &#x2F; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    2       ─────▶      1   3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;   &#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;最小失衡子树调整后，整棵树恢复平衡；AVL 查找&#x2F;插入&#x2F;删除均 O(log n)。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-hong-hei-shu-408-yao-qiu-zhang-wo-xing-zhi-yu-cha-ru-guo-cheng&quot;&gt;6. 红黑树（408 要求掌握性质与插入过程）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;① 结点非红即黑&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;② 根是黑色&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;③ 叶子（外部空结点）黑色&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;④ 红结点的两个孩子必为黑（无连续红）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;⑤ 任一结点到其所有后代叶子的路径含相同数目的黑结点（黑高相等）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;插入调整：先染红新结点，再按叔结点颜色分情况 &lt;strong&gt;变色 &#x2F; 旋转&lt;&#x2F;strong&gt;；根始终染黑。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;红黑树高度 ≤ 2·log₂(n+1)，保证 O(log n) 平衡查找。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-ha-fu-man-shu-yu-bian-ma&quot;&gt;7. 哈夫曼树与编码&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;gou-zao&quot;&gt;构造&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;每次取权值最小的两棵树合并，新根权 = 两者之和，重复至一棵树。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;xing-zhi&quot;&gt;性质&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;WPL = Σ(叶权 × 路径长度) 最小&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;只有度为 0 和 2 的结点：n 个叶子 ⇒ 2n−1 个结点&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;shi-li-quan-7-5-2-4&quot;&gt;示例（权 7 5 2 4）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      18&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     &#x2F;  \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    7   11&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;       &#x2F;  \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      5    6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;          &#x2F; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;         2   4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;编码（左 0 右 1）：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;7 → 0    5 → 10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2 → 110  4 → 111&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;WPL = 7×1 + 5×2 + 2×3 + 4×3 = 35&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;哈夫曼编码是最优前缀编码&lt;&#x2F;strong&gt;（任一编码不是另一编码的前缀）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-shu-sen-lin-er-cha-shu&quot;&gt;8. 树 &#x2F; 森林 ↔ 二叉树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;孩子兄弟表示法：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;左孩子指针 = 第一个孩子；右孩子指针 = 下一个兄弟&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;森林转二叉树：各树根依次作为右子树连接&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;树的先序 = 对应二叉树的先序；树的后序 = 对应二叉树的中序。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;9-bing-cha-ji&quot;&gt;9. 并查集&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; find&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;parent&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; !=&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; x &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; parent&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;void&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; unionSet&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; b&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;    int&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; ra &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; find&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; rb &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; find&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;b&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;ra &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;!=&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; parent&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;ra&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   &#x2F;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 可加按秩合并&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;用途：判断连通分量、Kruskal 判环、集合合并。路径压缩 + 按秩合并后近似 O(α(n))。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;10-dui&quot;&gt;10. 堆&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;大根堆：parent ≥ children；小根堆：parent ≤ children&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;存储：完全二叉树顺序存储，下标 1 开始&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;操作&lt;&#x2F;th&gt;&lt;th&gt;复杂度&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;建堆&lt;&#x2F;td&gt;&lt;td&gt;O(n)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;插入 &#x2F; 删除堆顶&lt;&#x2F;td&gt;&lt;td&gt;O(log n)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;堆排序&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;11-chang-kao-ti-xing&quot;&gt;11. 常考题型&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;由先序+中序还原二叉树并求后序；&lt;&#x2F;li&gt;
+&lt;li&gt;完全二叉树结点编号与父子关系；&lt;&#x2F;li&gt;
+&lt;li&gt;AVL 插入旋转过程；&lt;&#x2F;li&gt;
+&lt;li&gt;哈夫曼树构造与 WPL、编码；&lt;&#x2F;li&gt;
+&lt;li&gt;树转二叉树后的遍历关系；&lt;&#x2F;li&gt;
+&lt;li&gt;并查集查找次数与路径压缩；&lt;&#x2F;li&gt;
+&lt;li&gt;判断是否为 BST &#x2F; AVL &#x2F; 堆。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_AlgorithmDesign&#x2F;408-string&#x2F;&quot;&gt;字符串&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_AlgorithmDesign&#x2F;408-graph&#x2F;&quot;&gt;图&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

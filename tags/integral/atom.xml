@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Integral</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/integral/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-11T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/integral/atom.xml</id>
+    <entry xml:lang="en">
+        <title>高等数学 · 一元微积分（积分学 + 微分方程）</title>
+        <published>2026-08-11T00:00:00+00:00</published>
+        <updated>2026-08-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/00Read_blog_Math/math-calculus-one/"/>
+        <id>https://suchaharcan.github.io/00Read_blog_Math/math-calculus-one/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/00Read_blog_Math/math-calculus-one/">&lt;h1 id=&quot;gao-deng-shu-xue-yi-yuan-wei-ji-fen-ji-fen-xue-wei-fen-fang-cheng&quot;&gt;高等数学 · 一元微积分（积分学 + 微分方程）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;考研高频板块：一元函数积分学 + 常微分方程。掌握 &lt;strong&gt;基本积分表 → 换元&#x2F;分部 → 定积分工具 → 应用&lt;&#x2F;strong&gt; 的主线。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-yuan-han-shu-yu-bu-ding-ji-fen&quot;&gt;1. 原函数与不定积分&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ f(x) dx = F(x) + C   （其中 F&amp;#39;(x) = f(x)）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;性质：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ [f(x) ± g(x)] dx = ∫ f dx ± ∫ g dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ k·f(x) dx = k·∫ f(x) dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[∫ f(x) dx]&amp;#39; = f(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ji-ben-ji-fen-biao-bi-bei&quot;&gt;基本积分表（必背）&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;被积函数&lt;&#x2F;th&gt;&lt;th&gt;积分&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;x^μ&lt;&#x2F;code&gt;（μ≠−1）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;x^(μ+1)&#x2F;(μ+1) + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;1&#x2F;x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;`ln&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;e^x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;e^x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;a^x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;a^x&#x2F;ln a + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;sin x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;−cos x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;cos x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;sin x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;sec²x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;tan x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;csc²x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;−cot x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;1&#x2F;(1+x²)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;arctan x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;1&#x2F;√(1−x²)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;arcsin x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;sec x·tan x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;sec x + C&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;tan x&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;`ln&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-huan-yuan-ji-fen-fa&quot;&gt;2. 换元积分法&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;di-yi-lei-huan-yuan-cou-wei-fen&quot;&gt;第一类换元（凑微分）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ f(φ(x))·φ&amp;#39;(x) dx = ∫ f(u) du，u = φ(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;常见凑微分：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;x dx = ½ d(x²)；1&#x2F;x dx = d(ln x)；e^x dx = d(e^x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cos x dx = d(sin x)；1&#x2F;√(1−x²) dx = d(arcsin x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;di-er-lei-huan-yuan-qu-gen-hao&quot;&gt;第二类换元（去根号）&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;含根式&lt;&#x2F;th&gt;&lt;th&gt;换元&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;√(a²−x²)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;x = a·sin t&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;√(a²+x²)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;x = a·tan t&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;√(x²−a²)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;x = a·sec t&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;√(ax+b)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;t = √(ax+b)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-fen-bu-ji-fen-fa&quot;&gt;3. 分部积分法&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ u dv = uv − ∫ v du&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;选择 u 的口诀（反对幂指三）&lt;&#x2F;strong&gt;：反三角函数 &amp;gt; 对数 &amp;gt; 幂函数 &amp;gt; 指数 &amp;gt; 三角，越靠前越优先当 u。&lt;&#x2F;p&gt;
+&lt;p&gt;典型：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ x·e^x dx = x·e^x − e^x + C&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ ln x dx = x·ln x − x + C&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ x·sin x dx = −x·cos x + sin x + C&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-you-li-han-shu-ji-fen&quot;&gt;4. 有理函数积分&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫ P(x)&#x2F;Q(x) dx：先真分式，再部分分式分解：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;1&#x2F;(x−a)(x−b) = A&#x2F;(x−a) + B&#x2F;(x−b)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;常用技巧：分母配方 + 凑微分。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-ding-ji-fen&quot;&gt;5. 定积分&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ding-yi-li-man-he&quot;&gt;定义（黎曼和）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫(a..b) f(x) dx = lim(λ→0) Σ f(ξᵢ)·Δxᵢ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ji-ben-xing-zhi&quot;&gt;基本性质&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫(a..b) f dx = −∫(b..a) f dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫(a..b) [f±g] dx = ∫f dx ± ∫g dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫(a..b) f dx = ∫(a..c) f dx + ∫(c..b) f dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;f ≤ g ⇒ ∫f dx ≤ ∫g dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|∫(a..b) f dx| ≤ ∫(a..b) |f| dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ji-fen-zhong-zhi-ding-li&quot;&gt;积分中值定理&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∃ξ∈[a,b]：∫(a..b) f(x) dx = f(ξ)·(b−a)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;niu-dun-lai-bu-ni-ci-gong-shi&quot;&gt;牛顿–莱布尼茨公式&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;F&amp;#39;(x) = f(x) ⇒ ∫(a..b) f(x) dx = F(b) − F(a)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;bian-shang-xian-ji-fen&quot;&gt;变上限积分&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Φ(x) = ∫(a..x) f(t) dt  ⇒  Φ&amp;#39;(x) = f(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[∫(a..φ(x)) f(t) dt]&amp;#39; = f(φ(x))·φ&amp;#39;(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;chang-yong-dui-cheng-xing&quot;&gt;常用对称性&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;f 为奇函数：∫(−a..a) f dx = 0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;f 为偶函数：∫(−a..a) f dx = 2·∫(0..a) f dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;hua-li-shi-dian-huo-gong-shi&quot;&gt;华里士（点火）公式&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∫(0..π&#x2F;2) sinⁿx dx = ∫(0..π&#x2F;2) cosⁿx dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  n 为奇数：(n−1)!!&#x2F;n!!&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  n 为偶数：(n−1)!!&#x2F;n!! · π&#x2F;2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-fan-chang-ji-fen&quot;&gt;6. 反常积分&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;类型&lt;&#x2F;th&gt;&lt;th&gt;定义&lt;&#x2F;th&gt;&lt;th&gt;收敛条件举例&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;无穷限&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;∫(a..+∞) f dx = lim(b→+∞)∫(a..b) f dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;∫(1..∞) 1&#x2F;x^p dx&lt;&#x2F;code&gt;：p&amp;gt;1 收敛，p≤1 发散&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;瑕积分&lt;&#x2F;td&gt;&lt;td&gt;无界点处取极限&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;∫(0..1) 1&#x2F;x^p dx&lt;&#x2F;code&gt;：p&amp;lt;1 收敛，p≥1 发散&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;比较判别法 &#x2F; 极限比较法&lt;&#x2F;strong&gt;：与 &lt;code&gt;1&#x2F;x^p&lt;&#x2F;code&gt; 比较。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-ding-ji-fen-ying-yong&quot;&gt;7. 定积分应用&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;应用&lt;&#x2F;th&gt;&lt;th&gt;公式&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;平面面积&lt;&#x2F;td&gt;&lt;td&gt;`A = ∫(a..b)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;旋转体体积（绕 x 轴）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;V = π∫(a..b) [f(x)]² dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;旋转体体积（柱壳）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;V = 2π∫(a..b) x·f(x) dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;曲线弧长&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;s = ∫(a..b) √(1+[f&#x27;(x)]²) dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;旋转体侧面积&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;S = 2π∫(a..b) f(x)·√(1+[f&#x27;(x)]²) dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;变力做功 &#x2F; 水压力&lt;&#x2F;td&gt;&lt;td&gt;微元法：&lt;code&gt;dW = F(x) dx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-chang-wei-fen-fang-cheng&quot;&gt;8. 常微分方程&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;yi-jie-fang-cheng&quot;&gt;一阶方程&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;类型&lt;&#x2F;th&gt;&lt;th&gt;形式&lt;&#x2F;th&gt;&lt;th&gt;解法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;可分离变量&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;dy&#x2F;dx = f(x)·g(y)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;分离后两边积分&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;齐次方程&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;dy&#x2F;dx = φ(y&#x2F;x)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;令 &lt;code&gt;u = y&#x2F;x&lt;&#x2F;code&gt; 化为可分离&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;一阶线性&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;y&#x27; + P(x)y = Q(x)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;公式：&lt;code&gt;y = e^(−∫P dx)·[∫Q·e^(∫P dx) dx + C]&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;伯努利&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;y&#x27; + P(x)y = Q(x)·yⁿ&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;令 &lt;code&gt;z = y^(1−n)&lt;&#x2F;code&gt; 化为一阶线性&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;er-jie-chang-xi-shu-xian-xing-fang-cheng&quot;&gt;二阶常系数线性方程&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;y&amp;#39;&amp;#39; + p·y&amp;#39; + q·y = f(x)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;齐次&lt;&#x2F;strong&gt;（&lt;code&gt;f(x)=0&lt;&#x2F;code&gt;）：特征方程 &lt;code&gt;r² + pr + q = 0&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;特征根&lt;&#x2F;th&gt;&lt;th&gt;通解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;两不等实根 &lt;code&gt;r₁,r₂&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;C₁e^(r₁x) + C₂e^(r₂x)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;重根 &lt;code&gt;r&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;(C₁ + C₂x)·e^(rx)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;共轭复根 &lt;code&gt;α±βi&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;e^(αx)·(C₁cos βx + C₂sin βx)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;非齐次&lt;&#x2F;strong&gt;：通解 = 齐次通解 + 特解（待定系数法按 &lt;code&gt;f(x)&lt;&#x2F;code&gt; 类型设特解，含指数&#x2F;多项式&#x2F;三角）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;9-kao-yan-chang-kao-ti-xing&quot;&gt;9. 考研常考题型&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;不定积分计算（换元 + 分部组合）；&lt;&#x2F;li&gt;
+&lt;li&gt;对称区间定积分（奇偶性秒杀）；&lt;&#x2F;li&gt;
+&lt;li&gt;变上限积分求导与极限；&lt;&#x2F;li&gt;
+&lt;li&gt;反常积分判敛；&lt;&#x2F;li&gt;
+&lt;li&gt;旋转体体积与面积；&lt;&#x2F;li&gt;
+&lt;li&gt;一阶线性 &#x2F; 二阶常系数方程求解（初值问题）；&lt;&#x2F;li&gt;
+&lt;li&gt;积分中值定理与夹逼结合的极限题。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;li-ti-su-lan&quot;&gt;例题速览&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;&#x2F;strong&gt;：&lt;code&gt;∫(0..π) x·sin x dx&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;分部积分：= [−x·cos x](0..π) + ∫(0..π) cos x dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        = (π) + 0 = π&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;&#x2F;strong&gt;：解 &lt;code&gt;y&#x27; + y&#x2F;x = x²&lt;&#x2F;code&gt;（一阶线性）&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P = 1&#x2F;x，∫P dx = ln x，e^(∫P dx) = x&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;y = x⁻¹·[∫x²·x dx + C] = x⁻¹·(x⁴&#x2F;4 + C) = x³&#x2F;4 + C&#x2F;x&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;10-yi-cuo-dian-qing-dan&quot;&gt;10. 易错点清单&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;不定积分别忘了 &lt;code&gt;+C&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;∫1&#x2F;x dx = ln|x|&lt;&#x2F;code&gt;（带绝对值）；&lt;&#x2F;li&gt;
+&lt;li&gt;换元时注意积分上下限同步替换（定积分）；&lt;&#x2F;li&gt;
+&lt;li&gt;分部积分 &lt;code&gt;u、v&lt;&#x2F;code&gt; 选错会越积越复杂；&lt;&#x2F;li&gt;
+&lt;li&gt;二阶非齐次特解与齐次通解“撞根“时乘 &lt;code&gt;x&lt;&#x2F;code&gt; 或 &lt;code&gt;x²&lt;&#x2F;code&gt;。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_Math&#x2F;math-derivatives&#x2F;&quot;&gt;导数与微分&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_Math&#x2F;math-calculus-multi&#x2F;&quot;&gt;多元微积分&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

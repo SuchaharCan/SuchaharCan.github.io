@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Homebrew</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/homebrew/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-17T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/homebrew/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Mac-CrossOver-第五人格网络加速</title>
+        <published>2026-08-17T00:00:00+00:00</published>
+        <updated>2026-08-17T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/02Engineer_blog_Debug/identify-v-network-fast/"/>
+        <id>https://suchaharcan.github.io/02Engineer_blog_Debug/identify-v-network-fast/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/02Engineer_blog_Debug/identify-v-network-fast/">&lt;h1 id=&quot;di-wu-ren-ge-crossover-geng-xin-zi-yuan-man-hai-wai-jie-dian-ding-wei-yu-jie-jue-bao-gao&quot;&gt;第五人格（CrossOver）更新资源慢：海外节点定位与解决报告&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;排查日期：2026-08-17&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;yi-huan-jing-xin-xi&quot;&gt;一、环境信息&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;&#x2F;th&gt;&lt;th&gt;值&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;操作系统&lt;&#x2F;td&gt;&lt;td&gt;macOS 27.0（Build 26A5406e），Apple Silicon（arm64）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;CrossOver&lt;&#x2F;td&gt;&lt;td&gt;26.3（Build 26.3.0.39832）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;第五人格 PC 版&lt;&#x2F;td&gt;&lt;td&gt;显示版本 &lt;code&gt;2.103.125221.2958769&lt;&#x2F;code&gt;（&lt;code&gt;update.ini&lt;&#x2F;code&gt; 记录 &lt;code&gt;2.103.2958769&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;游戏引擎&lt;&#x2F;td&gt;&lt;td&gt;neox3 2.0.2589074（engine build：&lt;code&gt;release_2025_1217&lt;&#x2F;code&gt;）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;网络&lt;&#x2F;td&gt;&lt;td&gt;有线 Ethernet（en0 协商 100baseTX，理论峰值约 12.5MB&#x2F;s）；出口 IP 杭州电信 36.24.57.87&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;运行方式&lt;&#x2F;td&gt;&lt;td&gt;CrossOver 瓶子 &lt;code&gt;Identify-V&lt;&#x2F;code&gt;，游戏目录 &lt;code&gt;&#x2F;data&#x2F;Identify-V&lt;&#x2F;code&gt;（Z 盘）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;er-wen-ti-xian-xiang&quot;&gt;二、问题现象&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;通过 CrossOver 安装&#x2F;更新第五人格（dwr）时，“更新资源”阶段下载速度仅 &lt;strong&gt;0.2 ~ 1MB&#x2F;s&lt;&#x2F;strong&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;观察到 netease.com 相关 IP 归属为巴黎地区；&lt;&#x2F;li&gt;
+&lt;li&gt;期望：国内网络、网易总部在杭州，资源更新不应这么慢。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;san-pai-cha-guo-cheng-yu-zheng-ju&quot;&gt;三、排查过程与证据&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;3-1-geng-xin-lian-lu-yu-ming-yu-jie-xi-jie-guo&quot;&gt;3.1 更新链路域名与解析结果&lt;&#x2F;h3&gt;
+&lt;p&gt;游戏实际访问的更新域名全部 CNAME 到 Akamai，且固定返回巴黎节点：&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;用途&lt;&#x2F;th&gt;&lt;th&gt;域名&lt;&#x2F;th&gt;&lt;th&gt;Akamai 节点&lt;&#x2F;th&gt;&lt;th&gt;归属&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;资源 CDN&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;h55.gsf.netease.com&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;2.22.250.108 &#x2F; 2.22.250.122&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;法国巴黎（AS20940）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;补丁 CDN&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;h55.gph.netease.com&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;2.21.72.217 &#x2F; 2.21.244.167&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;法国巴黎（AS20940）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;更新列表&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;h55.update.netease.com&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;104.85.40.73&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;法国巴黎（AS16625）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;官方安装包&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;a50.gdl.netease.com&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;92.123.238.200 &#x2F; 92.123.238.170&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;法国巴黎（AS20940）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;分别使用阿里 223.5.5.5、腾讯 119.29.29.29、114.114.114.114、8.8.8.8、1.1.1.1 解析，并带 EDNS 客户端子网（杭州 &#x2F; 香港 &#x2F; 日本 &#x2F; 新加坡）测试，&lt;strong&gt;返回结果完全一致&lt;&#x2F;strong&gt;——均为上述巴黎 IP。结论：&lt;strong&gt;不是本机 DNS 设置问题，是网易这些域名被 Akamai 固定映射到了巴黎节点。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-2-lu-you-gen-zong-liu-liang-que-shi-chu-guo&quot;&gt;3.2 路由跟踪：流量确实出国&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;192.168.1.1（本地网关）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;→ 杭州电信骨干 202.97.x（约 10ms）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;→ GTT 国际线路 154.54.x（第 11 跳起 RTT 跳到 180~250ms）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;→ 巴黎 Akamai 节点&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;杭州电信直连巴黎约 200ms+ RTT，跨国链路上单条 TCP 连接被限制在 1MB&#x2F;s 左右。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-3-ben-ji-wang-luo-ben-shen-wu-wen-ti&quot;&gt;3.3 本机网络本身无问题&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;无代理&#x2F;VPN 时出口为杭州电信（36.24.57.87）；&lt;&#x2F;li&gt;
+&lt;li&gt;使用 8 个并行连接同时下载同一文件：单连接 0.4~1.0MB&#x2F;s，&lt;strong&gt;合计约 6.3MB&#x2F;s&lt;&#x2F;strong&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;说明瓶颈是“跨国链路单连接限速”，而不是本机带宽或网卡。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;3-4-you-xi-ri-zhi-shi-chui&quot;&gt;3.4 游戏日志实锤&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;log.txt&lt;&#x2F;code&gt; 中 &lt;code&gt;patch_download_info.cur_speed ≈ 1183000 B&#x2F;s（1.13MB&#x2F;s）&lt;&#x2F;code&gt;，与用户感知一致；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;cloud.json&lt;&#x2F;code&gt; 配置 &lt;code&gt;downloader_connect_num: 2&lt;&#x2F;code&gt;，实测游戏进程只有 2 条 ESTABLISHED TCP 连接（Wine&#x2F;WinINET 默认每主机 2 连接）；&lt;&#x2F;li&gt;
+&lt;li&gt;首次安装日志（&lt;code&gt;.dlstorage&#x2F;downloading&#x2F;download.log&lt;&#x2F;code&gt;）显示 2026-01-29 使用 &lt;code&gt;h55-h.gdl.netease.com&lt;&#x2F;code&gt; 下载 13GB，速度 &lt;strong&gt;119MB&#x2F;s&lt;&#x2F;strong&gt;——证明网易国内节点完全可以跑满，当前只是更新配置指向了海外。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;3-5-liang-ge-wu-xiao-chang-shi-de-yuan-yin-fen-xi&quot;&gt;3.5 两个“无效尝试”的原因分析&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;尝试&lt;&#x2F;th&gt;&lt;th&gt;现象&lt;&#x2F;th&gt;&lt;th&gt;原因&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;修改 &lt;code&gt;cloud.json&lt;&#x2F;code&gt; 连接数&lt;&#x2F;td&gt;&lt;td&gt;无效&lt;&#x2F;td&gt;&lt;td&gt;引擎实际读取 &lt;code&gt;Documents&#x2F;cloud.json&lt;&#x2F;code&gt;，且&lt;strong&gt;每次启动会被引擎重写回 &lt;code&gt;downloader_connect_num: 2&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;；只改根目录 &lt;code&gt;cloud.json&lt;&#x2F;code&gt; 不生效。另外即使连接数放开，巴黎链路单连接限速约 1MB&#x2F;s，提升有限&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;网易 UU 加速器&lt;&#x2F;td&gt;&lt;td&gt;无效&lt;&#x2F;td&gt;&lt;td&gt;UU 只接管了 &lt;code&gt;h55.update.netease.com&lt;&#x2F;code&gt;（仅 3.8KB 的列表），真正下载资源的 &lt;code&gt;h55.gsf.netease.com&lt;&#x2F;code&gt; 仍直连巴黎（lsof 可见 &lt;code&gt;192.168.1.101 → 2.22.250.122&lt;&#x2F;code&gt;）。游戏进程需在 UU 启动后重启，UU 才会接管该域名&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;si-gen-yin-jie-lun&quot;&gt;四、根因结论&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;网易 PC 版更新 CDN 被 Akamai 固定映射到巴黎节点&lt;&#x2F;strong&gt;（&lt;code&gt;h55.gsf&#x2F;gph&#x2F;update.netease.com&lt;&#x2F;code&gt; 等），不随 DNS&#x2F;EDNS 变化；大陆直连跨国国际链路，单连接约 1MB&#x2F;s；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;游戏下载器实际只维持 2 条连接&lt;&#x2F;strong&gt;（配置未生效 + Wine&#x2F;WinINET 默认每主机 2 连接），进一步限制吞吐；&lt;&#x2F;li&gt;
+&lt;li&gt;本机 100Mbps 网口（理论峰值约 12.5MB&#x2F;s）不是主因，但是最终吞吐的天花板。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;wu-jie-jue-fang-an-yi-shi-shi-bing-yan-zheng&quot;&gt;五、解决方案（已实施并验证）&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;5-1-fang-kai-lian-jie-shu-xian-zhi&quot;&gt;5.1 放开连接数限制&lt;&#x2F;h3&gt;
+&lt;ol&gt;
+&lt;li&gt;修改根目录 &lt;code&gt;&#x2F;data&#x2F;Identify-V&#x2F;cloud.json&lt;&#x2F;code&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;downloader_connect_num&lt;&#x2F;code&gt;: 2 → &lt;strong&gt;32&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;（&lt;code&gt;Documents&#x2F;cloud.json&lt;&#x2F;code&gt; 会被引擎重置，不必修改）&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;向 CrossOver 瓶子 &lt;code&gt;Identify-V&lt;&#x2F;code&gt; 写入注册表（解除 Wine&#x2F;WinINET 每主机 2 连接限制）：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\MaxConnectionsPerServer&lt;&#x2F;code&gt; = 32&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\MaxConnectionsPer1_0Server&lt;&#x2F;code&gt; = 32&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;HKCU\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONS\dwrg.exe&lt;&#x2F;code&gt; = 32&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 1) 把瓶子名改成你自己的（默认 Identify-V）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-modifier&quot;&gt;export&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; WINEPREFIX&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;HOME&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Library&#x2F;Application Support&#x2F;CrossOver&#x2F;Bottles&#x2F;Identify-V&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-modifier&quot;&gt;export&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; CX_BOTTLE&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Identify-V&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 2) 定位 CrossOver 自带的 wine（注意：不能用系统 wine）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Applications&#x2F;CrossOver.app&#x2F;Contents&#x2F;SharedSupport&#x2F;CrossOver&#x2F;bin&#x2F;wine&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-support z-function&quot;&gt;test&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;x&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;|&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;HOME&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Applications&#x2F;CrossOver.app&#x2F;Contents&#x2F;SharedSupport&#x2F;CrossOver&#x2F;bin&#x2F;wine&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 3) 写入注册表：解除 WinINET 每主机 2 连接限制&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; reg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; add&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;HKCU&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Software&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Windows&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;CurrentVersion&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Internet Settings&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; MaxConnectionsPerServer&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;t&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; REG_DWORD&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 32&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;f&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; reg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; add&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;HKCU&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Software&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Windows&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;CurrentVersion&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Internet Settings&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; MaxConnectionsPer1_0Server&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;t&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; REG_DWORD&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 32&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;f&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; reg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; add&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;HKCU&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Software&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Internet Explorer&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Main&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;FeatureControl&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;FEATURE_MAXCONNECTIONS&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; dwrg.exe&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;t&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; REG_DWORD&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 32&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;f&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 4) 验证是否写入成功&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; reg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; query&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;HKCU&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Software&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Windows&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;CurrentVersion&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Internet Settings&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; MaxConnectionsPerServer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;WINE&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; reg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; query&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;HKCU&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Software&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Microsoft&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Internet Explorer&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Main&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;FeatureControl&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt;\\&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;FEATURE_MAXCONNECTIONS&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;v&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; dwrg.exe&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;或者&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;打开 CrossOver → 选中瓶子 Identify-V → 点 运行命令…（Run Command）；&lt;&#x2F;li&gt;
+&lt;li&gt;输入 regedit 并运行，打开注册表编辑器；&lt;&#x2F;li&gt;
+&lt;li&gt;依次新建三个值：&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;路径 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;MaxConnectionsPerServer = DWORD 32&lt;&#x2F;li&gt;
+&lt;li&gt;MaxConnectionsPer1_0Server = DWORD 32&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;路径 HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_MAXCONNECTIONS&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;新建项 dwrg.exe = DWORD 32&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;关闭 regedit，重启游戏（先开 UU）。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;重启游戏，使配置生效。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;5-2-rang-uu-jia-su-qi-jie-guan-zi-yuan-xia-zai&quot;&gt;5.2 让 UU 加速器接管资源下载&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;先开启网易 UU 加速器（第五人格 PC 版），再启动游戏&lt;&#x2F;strong&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;重启后 UU 接管 &lt;code&gt;h55.gsf.netease.com&lt;&#x2F;code&gt;，下载目标从巴黎 Akamai 变为国内节点：
+&lt;ul&gt;
+&lt;li&gt;122.228.15.35（浙江温州电信）&lt;&#x2F;li&gt;
+&lt;li&gt;183.146.26.98 &#x2F; 183.146.26.91（浙江金华电信）&lt;&#x2F;li&gt;
+&lt;li&gt;45.253.145.166（网易北京机房，AS45062）&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;5-3-yan-zheng-jie-guo&quot;&gt;5.3 验证结果&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;指标&lt;&#x2F;th&gt;&lt;th&gt;修复前&lt;&#x2F;th&gt;&lt;th&gt;修复后&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;下载速度&lt;&#x2F;td&gt;&lt;td&gt;0.2 ~ 1MB&#x2F;s&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;8.5 ~ 9.5MB&#x2F;s&lt;&#x2F;strong&gt;（15 秒持续采样约 5.9MB&#x2F;s）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;活动连接数&lt;&#x2F;td&gt;&lt;td&gt;2（直连巴黎）&lt;&#x2F;td&gt;&lt;td&gt;5+（经 UU 转国内节点）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;更新总量&lt;&#x2F;td&gt;&lt;td&gt;3.8GB&lt;&#x2F;td&gt;&lt;td&gt;预计数分钟完成&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;liu-bei-fen-yu-hui-gun&quot;&gt;六、备份与回滚&lt;&#x2F;h2&gt;
+&lt;p&gt;修改前的备份文件：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&#x2F;tmp&#x2F;cloud.json.root.20260817121545.bak&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;&#x2F;tmp&#x2F;cloud.json.doc.20260817121545.bak&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;&#x2F;tmp&#x2F;user.reg.20260817121545.bak&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;如需还原：停止游戏后，将对应备份复制回原路径，或删除新增注册表项。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;qi-ri-chang-shi-yong-jian-yi&quot;&gt;七、日常使用建议&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;每次游戏更新前：&lt;strong&gt;先开 UU 加速，再启动游戏&lt;&#x2F;strong&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;不要修改 &lt;code&gt;Documents&#x2F;cloud.json&lt;&#x2F;code&gt;（引擎启动时会重写）；根目录 &lt;code&gt;cloud.json&lt;&#x2F;code&gt; 可保持 &lt;code&gt;downloader_connect_num: 32&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;若更换网络&#x2F;加速器，可用 &lt;code&gt;lsof -nP -iTCP -sTCP:ESTABLISHED | rg dwrg&lt;&#x2F;code&gt; 观察连接目标是否为国内节点；&lt;&#x2F;li&gt;
+&lt;li&gt;当前有线网口协商在 100Mbps，理论上限约 12.5MB&#x2F;s；如需更高速度，检查网线&#x2F;转接器是否支持千兆。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;fu-lu-guan-jian-wen-jian-yu-ming-ling&quot;&gt;附录：关键文件与命令&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;关键文件&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;游戏目录：&lt;code&gt;&#x2F;data&#x2F;Identify-V&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;更新配置：&lt;code&gt;&#x2F;data&#x2F;Identify-V&#x2F;cloud.json&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;运行日志：&lt;code&gt;&#x2F;data&#x2F;Identify-V&#x2F;log.txt&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;云下载日志：&lt;code&gt;&#x2F;data&#x2F;Identify-V&#x2F;Documents&#x2F;cloud_logs&#x2F;cloud_log.txt&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;旧安装日志：&lt;code&gt;&#x2F;data&#x2F;Identify-V&#x2F;.dlstorage&#x2F;downloading&#x2F;download.log&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;CrossOver 瓶子：&lt;code&gt;~&#x2F;Library&#x2F;Application Support&#x2F;CrossOver&#x2F;Bottles&#x2F;Identify-V&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;关键命令&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 查看游戏进程连接目标&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;lsof&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;nP&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;iTCP&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;sTCP:ESTABLISHED&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; rg&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; dwrg&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; DNS 对比解析（多个公共 DNS）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;dig&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; +short&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; h55.gsf.netease.com&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; @223.5.5.5&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;dig&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; +short&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; h55.gsf.netease.com&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; @8.8.8.8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 路由跟踪&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;traceroute&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;n&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;m&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 20&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; h55.gsf.netease.com&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 并行下载测速（验证单连接 vs 多连接）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;for&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; i&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; in&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; {&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;1..8}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; do&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; curl&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;s&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;m&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 25&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;r&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; 0-4194303&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;o&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;dev&#x2F;null&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;  -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;w&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;i&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;:%{speed_download} &lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; &amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;UR&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;L&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; done&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function&quot;&gt; wait&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Homebrew 回退到历史版本：以 zola 0.22.1 为例</title>
+        <published>2026-08-06T00:00:00+00:00</published>
+        <updated>2026-08-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-zola-0-22-1-rollback/"/>
+        <id>https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-zola-0-22-1-rollback/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-zola-0-22-1-rollback/">&lt;h1 id=&quot;homebrew-hui-tui-dao-li-shi-ban-ben-yi-zola-0-22-1-wei-li&quot;&gt;Homebrew 回退到历史版本：以 zola 0.22.1 为例&lt;&#x2F;h1&gt;
+&lt;p&gt;TL;DR: 任何包管理器装“旧版本“都只能是固定快照——apt 装旧包、Homebrew 装历史公式都一样，因为 &lt;code&gt;homebrew&#x2F;core&lt;&#x2F;code&gt; 里的 zola 永远只有最新版，旧版本天然无法“自动升级“。正确的姿势是：&lt;strong&gt;装旧版时用本地 tap 装历史公式，想升级时切回 core 的新公式&lt;&#x2F;strong&gt;，两步就回来了。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-bei-jing-wei-shen-me-yao-hui-tui&quot;&gt;1. 背景：为什么要回退&lt;&#x2F;h2&gt;
+&lt;p&gt;zola 0.23.0 是破坏性版本（Tera v2：宏 &#x2F; 短代码被替换为组件语法）。如果正在使用的主题（如 Ametrine）还没适配 0.23，站点会直接构建失败：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ERROR Failed to render page content of ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ERROR Reason: error: `load_data`: ... doesn&amp;#39;t exist&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;此时最稳妥的做法是暂时留在 0.22.1，等主题适配后再升级。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-wei-shen-me-bu-neng-zhi-jie-brew-install-jiu-ban-ben&quot;&gt;2. 为什么不能直接 &lt;code&gt;brew install&lt;&#x2F;code&gt; 旧版本&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;homebrew&#x2F;core&lt;&#x2F;code&gt; 的每个公式只有一个定义，永远指向最新稳定版，没有 &lt;code&gt;zola@0.22.1&lt;&#x2F;code&gt; 这种版本化公式；&lt;&#x2F;li&gt;
+&lt;li&gt;旧版本公式只存在于 homebrew-core 的 git 历史中，需要“捞“出来；&lt;&#x2F;li&gt;
+&lt;li&gt;新版 Homebrew 不允许直接安装游离的本地 &lt;code&gt;.rb&lt;&#x2F;code&gt;（&lt;code&gt;brew install .&#x2F;zola.rb&lt;&#x2F;code&gt; 会报 &lt;code&gt;Homebrew requires formulae to be in a tap&lt;&#x2F;code&gt;）；&lt;&#x2F;li&gt;
+&lt;li&gt;Homebrew 官方推荐的做法是 &lt;code&gt;brew extract&lt;&#x2F;code&gt; 到自己的 tap；本文用手动方式做等价操作，每一步都看得见。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;3-hui-tui-an-zhuang-zola-0-22-1&quot;&gt;3. 回退：安装 zola 0.22.1&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;3-1-cong-homebrew-core-li-shi-qu-gong-shi-wen-jian&quot;&gt;3.1 从 homebrew-core 历史取公式文件&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;Formula&#x2F;z&#x2F;zola.rb&lt;&#x2F;code&gt; 在提交 &lt;code&gt;da70294&lt;&#x2F;code&gt; 时对应 0.22.1（公式里 &lt;code&gt;url&lt;&#x2F;code&gt; 为 v0.22.1.tar.gz，&lt;code&gt;sha256&lt;&#x2F;code&gt; 为 &lt;code&gt;0f59479e…&lt;&#x2F;code&gt;）：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-support z-function&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;Downloads&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;curl&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;fsSL&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;o&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola.rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-character z-escape&quot;&gt; \&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;homebrew-core&#x2F;da702940397d32e261f7e1a577555f7d49929a31&#x2F;Formula&#x2F;z&#x2F;zola.rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;3-2-fang-jin-ben-di-tap-zai-an-zhuang&quot;&gt;3.2 放进本地 tap 再安装&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; tap-new&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-no-git&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; local&#x2F;zola-old&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;TAP_DIR&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;$(&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-prefix&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Library&#x2F;Taps&#x2F;local&#x2F;homebrew-zola-old&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;TAP_DIR&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Formula&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cp&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;Downloads&#x2F;zola.rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;TAP_DIR&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;Formula&#x2F;zola.rb&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; install&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; local&#x2F;zola-old&#x2F;zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; pin&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;验证：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;zola&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-version&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;          #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; zola 0.22.1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; list&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-versions&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;几点说明：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;公式自带 bottle（arm64 Tahoe&#x2F;Sequoia&#x2F;Sonoma 等），匹配的 macOS 直接下载预编译包；其他平台自动走源码编译（会自动装 rust，稍慢）；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;brew pin zola&lt;&#x2F;code&gt; 防止手滑 &lt;code&gt;brew upgrade&lt;&#x2F;code&gt; 把 zola 升走；&lt;&#x2F;li&gt;
+&lt;li&gt;公式的 url&#x2F;sha256 指向官方 v0.22.1 源码包，来源可靠。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;3-3-bei-xuan-wan-quan-bu-guan-brew-de-lin-shi-fang-an&quot;&gt;3.3 备选：完全不管 brew 的临时方案&lt;&#x2F;h3&gt;
+&lt;p&gt;如果旧版只是临时用一下、之后 brew 永远保持最新版，也可以直接放官方二进制到 &lt;code&gt;~&#x2F;.local&#x2F;bin&lt;&#x2F;code&gt;（这条脱离 brew 管理，不适合“想统一用 brew 管理“的需求）：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-support z-function&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;Downloads&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;curl&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;OL&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; https:&#x2F;&#x2F;github.com&#x2F;getzola&#x2F;zola&#x2F;releases&#x2F;download&#x2F;v0.22.1&#x2F;zola-v0.22.1-aarch64-apple-darwin.tar.gz&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;tar&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;xzf&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola-v0.22.1-aarch64-apple-darwin.tar.gz&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;.local&#x2F;bin&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; mv&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; ~&#x2F;.local&#x2F;bin&#x2F;zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;（Intel 机器把文件名换成 &lt;code&gt;zola-v0.22.1-x86_64-apple-darwin.tar.gz&lt;&#x2F;code&gt;）&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-sheng-ji-qie-hui-zui-xin-ban&quot;&gt;4. 升级：切回最新版&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; unpin&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; untap&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; local&#x2F;zola-old&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; upgrade&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;        #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 从 homebrew&#x2F;core 拿最新版&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;万一 &lt;code&gt;upgrade&lt;&#x2F;code&gt; 有残留报错：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; uninstall&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; install&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; zola&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;结论：&lt;&#x2F;strong&gt; “升级能力“没有丢，只是它不在旧版本快照里，而在“随时可以切回 core“这个动作里。这正是 Homebrew 官方对“安装旧版本“的标准做法（&lt;code&gt;brew extract&lt;&#x2F;code&gt; 到自己的 tap），手动复制 &lt;code&gt;.rb&lt;&#x2F;code&gt; 只是等价实现。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-he-shi-sheng-ji-deng-zhu-ti-wan-quan-zhi-chi-0-23-0&quot;&gt;5. 何时升级：等主题完全支持 0.23.0&lt;&#x2F;h2&gt;
+&lt;p&gt;zola 0.23.0 属于破坏性版本，主题需要把旧的宏 &#x2F; 短代码迁移到新组件语法才能兼容。在正在使用的 Zola 主题（如 Ametrine）&lt;strong&gt;完全支持 0.23.0 之前&lt;&#x2F;strong&gt;，建议保持 0.22.1 不要升级；等主题适配完成、站点用 0.23.x 构建无报错后，再执行第 4 节的升级命令。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>提前体验 macOS 时：Homebrew 被过旧 Xcode 卡住怎么办</title>
+        <published>2026-07-20T00:00:00+00:00</published>
+        <updated>2026-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/"/>
+        <id>https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/">&lt;h1 id=&quot;ti-qian-ti-yan-macos-mei-you-dui-kou-xcode-shi-zen-me-geng-xin-homebrew&quot;&gt;提前体验 macOS：没有对口 Xcode 时怎么更新 Homebrew&lt;&#x2F;h1&gt;
+&lt;p&gt;预装 &#x2F; 抢先升级到新版 macOS（例如 27）时，常出现尴尬窗口：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统已是 &lt;strong&gt;macOS 27&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;本机仍装着 &lt;strong&gt;Xcode 26.x&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Homebrew 已要求 &lt;strong&gt;Xcode 27.0&lt;&#x2F;strong&gt;（或提示 delete it）&lt;&#x2F;li&gt;
+&lt;li&gt;Command Line Tools 可能已经是 27，但 &lt;code&gt;brew install&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;brew upgrade&lt;&#x2F;code&gt; 照样 &lt;strong&gt;fatal&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;这和某个 formula 是否用 LLVM 编译无关：拦在 Homebrew 的前置诊断。本文记录&lt;strong&gt;根因&lt;&#x2F;strong&gt;、&lt;strong&gt;临时方案&lt;&#x2F;strong&gt;、&lt;strong&gt;恢复方案&lt;&#x2F;strong&gt;（本机已验证）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-xian-xiang&quot;&gt;1. 现象&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Error: Your Xcode (26.3) at &#x2F;Applications&#x2F;Xcode.app is too outdated.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Please update to Xcode 27.0 (or delete it).&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;若只在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 里改名，仍可能看到：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Your Xcode (26.x =&amp;gt; &#x2F;Applications&#x2F;Xcode-….app.bak&#x2F;Contents&#x2F;Developer)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;at &#x2F;Applications&#x2F;Xcode-….app.bak is too outdated.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;同时 &lt;code&gt;brew&lt;&#x2F;code&gt; 可能警告：当前 macOS 为预发布 &#x2F; Tier 2——那是支持策略提示；&lt;strong&gt;真正挡住安装的是 Xcode 最低版本检查&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-gen-yin-fen-xi&quot;&gt;2. 根因分析&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;点&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;谁在查&lt;&#x2F;td&gt;&lt;td&gt;Homebrew &lt;code&gt;MacOS::Xcode&lt;&#x2F;code&gt;（&lt;code&gt;os&#x2F;mac&#x2F;xcode.rb&lt;&#x2F;code&gt;）+ &lt;code&gt;check_xcode_minimum_version&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;怎么找&lt;&#x2F;td&gt;&lt;td&gt;先看 &lt;code&gt;&#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;code&gt;；否则用 &lt;strong&gt;Spotlight&lt;&#x2F;strong&gt;：&lt;code&gt;mdfind&lt;&#x2F;code&gt; + bundle id&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;为何「只改名」无效&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;.app.bak&lt;&#x2F;code&gt; 仍带 &lt;code&gt;com.apple.dt.Xcode&lt;&#x2F;code&gt;，Spotlight 仍命中&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;与 CLT 的关系&lt;&#x2F;td&gt;&lt;td&gt;即便 &lt;code&gt;xcode-select&lt;&#x2F;code&gt; 已指向 CLT 27，只要 &lt;code&gt;mdfind&lt;&#x2F;code&gt; 还能找到旧 Xcode，检查仍失败&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;两条诊断命令（验收用）：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; config&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Xcode|CLT&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;结论：&lt;&#x2F;strong&gt; 临时绕过的成败标准是 —— &lt;strong&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; 对 Xcode bundle id 的结果必须为空&lt;&#x2F;strong&gt;；不能只改文件名。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-lin-shi-fang-an-yi-yan-zheng&quot;&gt;3. 临时方案（已验证）&lt;&#x2F;h2&gt;
+&lt;p&gt;前提：已装好 &lt;strong&gt;Command Line Tools 27&lt;&#x2F;strong&gt;（&lt;code&gt;brew config&lt;&#x2F;code&gt; 里 &lt;code&gt;CLT: 27.…&lt;&#x2F;code&gt;）。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; A. 开发目录切到 CLT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;s&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Library&#x2F;Developer&#x2F;CommandLineTools&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; B. 看清 Spotlight &#x2F; Applications 里有哪些 Xcode&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;ls&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-language&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;dev&#x2F;null&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; C. 移到 &#x2F;opt 下「永不索引」目录（不要留在 &#x2F;Applications）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mkdir&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; touch&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;.metadata_never_index&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mv&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;Xcode-26.3.app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 若之前已改名，把对应路径一并移进 &#x2F;opt&#x2F;xcode-stash&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; D. 关键：mdfind 必须为空&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 若仍有路径：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt;   sudo mdutil -E &#x2F;opt&#x2F;xcode-stash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 或挪到外置未索引盘 &#x2F; 删除该 .app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; E. 确认后安装 &#x2F; 升级&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; config&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Xcode|CLT&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 期望 Xcode: N&#x2F;A ；CLT: 27.…&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; install&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; sc-cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;               #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 或 brew upgrade &#x2F; 任意 formula&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;无效做法：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;仅 &lt;code&gt;mv &#x2F;Applications&#x2F;Xcode.app &#x2F;Applications&#x2F;Xcode-….app.bak&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;指望与本检查无关的 &lt;code&gt;HOMEBREW_*&lt;&#x2F;code&gt; 跳过变量&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;长期方案：从 &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;developer.apple.com&#x2F;download&#x2F;all&#x2F;&quot;&gt;Apple Developer Downloads&lt;&#x2F;a&gt; 安装对口 &lt;strong&gt;Xcode 27+&lt;&#x2F;strong&gt;，或彻底删除旧 Xcode。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-hui-fu-fang-an-brew-yong-wan-hou-hui-fu-ide&quot;&gt;4. 恢复方案（brew 用完后恢复 IDE）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mv&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;Xcode-26.3.app&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;s&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&#x2F;Contents&#x2F;Developer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 又能找到，属正常&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;注意：恢复后若再跑 &lt;code&gt;brew install&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;upgrade&lt;&#x2F;code&gt;，旧 Xcode 会再次触发同样错误；需要 brew 时再执行第三节，或升级到对口 Xcode。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-he-ti-qian-ti-yan-macos-de-guan-xi&quot;&gt;5. 和「提前体验 macOS」的关系&lt;&#x2F;h2&gt;
+&lt;p&gt;抢先升级系统时，&lt;strong&gt;系统版本、CLT、完整 Xcode&lt;&#x2F;strong&gt; 三者经常不同步：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;CLT 往往先跟上（能撑日常编译）&lt;&#x2F;li&gt;
+&lt;li&gt;完整 Xcode 滞后（体积大、渠道慢）&lt;&#x2F;li&gt;
+&lt;li&gt;Homebrew 按「当前 macOS → 最低 Xcode」做硬检查&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;因此「尴尬期」的务实策略是：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;编译&lt;&#x2F;strong&gt;：CLT +（如需要）Homebrew LLVM&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;装 brew 包&lt;&#x2F;strong&gt;：临时 stash 旧 Xcode，让 &lt;code&gt;mdfind&lt;&#x2F;code&gt; 为空&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;写 App &#x2F; 开 Interface Builder&lt;&#x2F;strong&gt;：再恢复 &lt;code&gt;&#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;把 stash 路径、恢复命令写进自己的笔记或 formula 文档（例如 &lt;code&gt;Formula&#x2F;README.md&lt;&#x2F;code&gt;），避免下次又在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 里改名并误以为修好了。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-xiao-jie&quot;&gt;6. 小结&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;步骤&lt;&#x2F;th&gt;&lt;th&gt;命令意图&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;诊断&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; + &lt;code&gt;brew config | grep Xcode|CLT&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;临时&lt;&#x2F;td&gt;&lt;td&gt;stash 到 &lt;code&gt;&#x2F;opt&#x2F;xcode-stash&lt;&#x2F;code&gt; + &lt;code&gt;.metadata_never_index&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;验收&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; 空；&lt;code&gt;Xcode: N&#x2F;A&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;恢复&lt;&#x2F;td&gt;&lt;td&gt;搬回 &lt;code&gt;Xcode.app&lt;&#x2F;code&gt; + &lt;code&gt;xcode-select&lt;&#x2F;code&gt; 切回&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;根因一句话：&lt;strong&gt;Homebrew 用 Spotlight（&lt;code&gt;mdfind&lt;&#x2F;code&gt; + bundle id）找 Xcode；只在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 改名仍会被扫到。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

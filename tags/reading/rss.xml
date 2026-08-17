@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Reading</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/reading/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>《纯粹理性批判》读后感</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-kant-critique/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-kant-critique/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-kant-critique/">&lt;h1 id=&quot;chun-cui-li-xing-pi-pan-du-hou-gan&quot;&gt;《纯粹理性批判》读后感&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;康德（Immanuel Kant）1781 年初版《纯粹理性批判》。本次精读&lt;strong&gt;先验感性论&lt;&#x2F;strong&gt;与&lt;strong&gt;先验分析论&lt;&#x2F;strong&gt;，兼及辩证论的开头部分。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;yi-wen-ti-yi-shi-xian-tian-zong-he-pan-duan-ru-he-ke-neng&quot;&gt;一、问题意识：先天综合判断如何可能&lt;&#x2F;h2&gt;
+&lt;p&gt;康德面对两派：&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;学派&lt;&#x2F;th&gt;&lt;th&gt;立场&lt;&#x2F;th&gt;&lt;th&gt;问题&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;唯理论（莱布尼茨）&lt;&#x2F;td&gt;&lt;td&gt;理性演绎一切&lt;&#x2F;td&gt;&lt;td&gt;脱离经验，独断&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;经验论（休谟）&lt;&#x2F;td&gt;&lt;td&gt;一切知识来自经验&lt;&#x2F;td&gt;&lt;td&gt;因果等必然性无法保证&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;康德的问题是：&lt;strong&gt;存在既先于经验（先天）、又扩展知识（综合）的判断吗？&lt;&#x2F;strong&gt; 数学与自然科学就是例子：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;7 + 5 = 12        先天综合（不靠经验，却扩展了知识）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;一切事件都有原因  先天综合（因果性不能从经验归纳出来）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;回答这个问题，需要&lt;strong&gt;批判理性自身的能力与边界&lt;&#x2F;strong&gt;——这就是“纯粹理性批判“。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;er-ge-bai-ni-shi-ge-ming&quot;&gt;二、哥白尼式革命&lt;&#x2F;h2&gt;
+&lt;p&gt;传统认为认识必须符合对象；康德反转为：&lt;strong&gt;对象必须符合我们的认识形式&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;不是知识围绕对象转，而是对象围绕我们的认知结构转&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;我们只能认识“对我们显现的现象“，而不能认识独立于我们的“物自体（Ding an sich）“。物自体不可知，但它的存在被设定为现象的根据。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;san-xian-yan-gan-xing-lun-shi-kong&quot;&gt;三、先验感性论：时空&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-shi-jian-yu-kong-jian-shi-zhi-guan-xing-shi&quot;&gt;1. 时间与空间是直观形式&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;空间：外感官的形式——外部事物必须在空间中呈现&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;时间：内感官的形式——一切表象（含思维）都在时间中&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;时空不是经验中抽象出来的概念，而是&lt;strong&gt;感性的先天形式&lt;&#x2F;strong&gt;：它们使经验成为可能，也因此只适用于现象。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-shu-xue-wei-shen-me-ke-neng&quot;&gt;2. 数学为什么可能&lt;&#x2F;h3&gt;
+&lt;p&gt;几何基于空间的先天直观，算术基于时间的先天直观——这解释了数学的“普遍必然性“。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;si-xian-yan-fen-xi-lun-fan-chou-yu-zhi-xing&quot;&gt;四、先验分析论：范畴与知性&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-zhi-guan-wu-gai-nian-ze-mang-gai-nian-wu-zhi-guan-ze-kong&quot;&gt;1. 直观无概念则盲，概念无直观则空&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;思维无内容则空，直观无概念则盲&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;感性提供材料，知性用&lt;strong&gt;范畴&lt;&#x2F;strong&gt;整理材料，两者结合才产生知识。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-shi-er-fan-chou-zhi-xing-de-xian-tian-gai-nian&quot;&gt;2. 十二范畴（知性的先天概念）&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;量&lt;&#x2F;th&gt;&lt;th&gt;质&lt;&#x2F;th&gt;&lt;th&gt;关系&lt;&#x2F;th&gt;&lt;th&gt;样式&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;单一性&lt;&#x2F;td&gt;&lt;td&gt;实在性&lt;&#x2F;td&gt;&lt;td&gt;依存性与实体&lt;&#x2F;td&gt;&lt;td&gt;可能性&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;多数性&lt;&#x2F;td&gt;&lt;td&gt;否定性&lt;&#x2F;td&gt;&lt;td&gt;因果性与依存&lt;&#x2F;td&gt;&lt;td&gt;现实性&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;全体性&lt;&#x2F;td&gt;&lt;td&gt;限制性&lt;&#x2F;td&gt;&lt;td&gt;协同性（共联）&lt;&#x2F;td&gt;&lt;td&gt;必然性&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;3-tong-jue-de-xian-yan-tong-yi&quot;&gt;3. 统觉的先验统一&lt;&#x2F;h3&gt;
+&lt;p&gt;“我思“必须能够伴随我的一切表象——这是知识统一的最高原理。范畴通过&lt;strong&gt;先验统觉&lt;&#x2F;strong&gt;把杂多表象综合为对象。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;4-ren-wei-zi-ran-li-fa&quot;&gt;4. 人为自然立法&lt;&#x2F;h3&gt;
+&lt;p&gt;因果性、实体性等范畴是&lt;strong&gt;知性加到现象上&lt;&#x2F;strong&gt;的，而不是从自然里“读出来“的。因此：&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自然界的普遍规律，是知性先天地规定的——“人为自然立法”。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wu-xian-yan-bian-zheng-lun-yin-zi-li-xing-de-yue-jie&quot;&gt;五、先验辩证论（引子）：理性的越界&lt;&#x2F;h2&gt;
+&lt;p&gt;理性不满足于现象，总想把握“无条件者“，于是产生三类理念：&lt;strong&gt;灵魂、世界、上帝&lt;&#x2F;strong&gt;。理性把它们当作对象去认识，就会陷入幻相（如二律背反：世界有无开端、自由与必然等矛盾）。康德的任务不是消灭理性，而是&lt;strong&gt;为理性划界&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;现象界：可认识（知性 + 感性）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;本体界（物自体）：不可认识，只能思维（实践理性另论）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;liu-yue-du-ti-hui&quot;&gt;六、阅读体会&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-hua-jie-bi-hui-da-geng-shen-ke&quot;&gt;1. “划界“比“回答“更深刻&lt;&#x2F;h3&gt;
+&lt;p&gt;康德最打动我的不是某个结论，而是&lt;strong&gt;问题的提法&lt;&#x2F;strong&gt;：与其争论上帝存在与否，不如先问“我们能认识什么“。这种“先问能力边界“的姿态，和工程中的“先定义问题域“非常接近——很多争论之所以无解，是因为双方在错误的层面争论。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-shi-kong-yu-jie-kou&quot;&gt;2. 时空与“接口“&lt;&#x2F;h3&gt;
+&lt;p&gt;把时空理解为“认知的接口“，是一个现代比喻：我们永远只能通过这个接口读取“外部系统“的数据，接口之外（物自体）只能假设其存在。这与软件中“接口隔离““内部实现不可见“的思想惊人地同构。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-fan-chou-ren-zhi-de-nei-zhi-dsl&quot;&gt;3. 范畴 = 认知的“内置 DSL“&lt;&#x2F;h3&gt;
+&lt;p&gt;因果、实体、必然等范畴，像是人类认知系统内置的“领域语言“：没有它们，经验只是杂乱的数据流。这也提醒我：&lt;strong&gt;工具（语言、框架）不仅描述世界，也在塑造我们能“看见“什么&lt;&#x2F;strong&gt;——正如范畴塑造经验。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;4-dui-ke-xue-bian-jie-de-qing-xing&quot;&gt;4. 对科学边界的清醒&lt;&#x2F;h3&gt;
+&lt;p&gt;康德既为科学辩护（先天综合判断使牛顿力学成为可能），又为科学划界（物自体不可知）。这种“既肯定又限制“的平衡，在今天（AI 与科学的边界、数学公理系统的哥德尔界限）依然有回响。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-yue-du-nan-du-yu-ce-lue&quot;&gt;5. 阅读难度与策略&lt;&#x2F;h3&gt;
+&lt;p&gt;《纯粹理性批判》公认难读：术语密集、论证层层嵌套。我的策略是：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;先读导论与感性论（约前 80 页）建立框架；&lt;&#x2F;li&gt;
+&lt;li&gt;用“表格化“整理十二范畴与判断表；&lt;&#x2F;li&gt;
+&lt;li&gt;配合二手导读（如邓晓芒《康德&amp;lt;纯粹理性批判&amp;gt;句读》）逐段对照；&lt;&#x2F;li&gt;
+&lt;li&gt;不求一次读通，先抓住“先天综合判断、现象&#x2F;物自体、范畴、统觉“四个锚点。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;qi-zhi-de-hui-wei-de-ju-zi&quot;&gt;七、值得回味的句子&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;哥白尼式的革命：不是知识依照对象，而是对象依照知识。&lt;&#x2F;p&gt;
+&lt;p&gt;思维无内容则空，直观无概念则盲。&lt;&#x2F;p&gt;
+&lt;p&gt;我不得不限制知识，以便为信仰留出地盘。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ba-yan-shen-yue-du&quot;&gt;八、延伸阅读&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;邓晓芒《康德哲学讲演录》；&lt;&#x2F;li&gt;
+&lt;li&gt;韩水法译《实践理性批判》；&lt;&#x2F;li&gt;
+&lt;li&gt;叔本华《作为意志和表象的世界》（康德批判哲学的继承与反叛）；&lt;&#x2F;li&gt;
+&lt;li&gt;波普尔《客观知识》（康德的“人为自然立法“在科学哲学中的回声）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_ReadingNotes&#x2F;readingnotes-schopenhauer-world&#x2F;&quot;&gt;《作为意志和表象的世界》读后感&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>《作为意志和表象的世界》读后感</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-schopenhauer-world/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-schopenhauer-world/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_ReadingNotes/readingnotes-schopenhauer-world/">&lt;h1 id=&quot;zuo-wei-yi-zhi-he-biao-xiang-de-shi-jie-du-hou-gan&quot;&gt;《作为意志和表象的世界》读后感&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;叔本华（Arthur Schopenhauer）1818 年出版《作为意志和表象的世界》。本次精读第一、二篇（世界作为表象 &#x2F; 世界作为意志），兼及第三篇的审美思想。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;yi-zuo-zhe-yu-xie-zuo-bei-jing&quot;&gt;一、作者与写作背景&lt;&#x2F;h2&gt;
+&lt;p&gt;叔本华在 30 岁前完成此书，自视极高，却长期无人问津；直到晚年（《附录与补遗》）才获得声誉。他承康德之余绪，却把康德“物自体“推演为&lt;strong&gt;意志&lt;&#x2F;strong&gt;，由此建立了一套以“痛苦与解脱“为核心的哲学。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;er-di-yi-pian-shi-jie-zuo-wei-biao-xiang&quot;&gt;二、第一篇：世界作为表象&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-biao-xiang-de-shi-jie&quot;&gt;1. 表象的世界&lt;&#x2F;h3&gt;
+&lt;p&gt;叔本华开篇即断言：&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“世界是我的表象。”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;我所能经验到的一切，都是&lt;strong&gt;我的表象&lt;&#x2F;strong&gt;——颜色、声音、时间、空间，都离不开认识主体而独立存在。这继承了康德的“现象&#x2F;物自体“之分：我们能认识的只是显现给我们的现象。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-chong-zu-li-you-lu&quot;&gt;2. 充足理由律&lt;&#x2F;h3&gt;
+&lt;p&gt;表象世界受&lt;strong&gt;充足理由律&lt;&#x2F;strong&gt;支配：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;生成的理由（因果律）：万物皆有其因&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;认识的理由：判断须有依据&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;存在的理由：时间与空间中的位置关系&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;行为的理由（动机律）：人的行动有其动机&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;充足理由律是现象世界的“形式骨架“，但它只在表象领域有效。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-zhi-guan-xian-yu-gai-nian&quot;&gt;3. 直观先于概念&lt;&#x2F;h3&gt;
+&lt;p&gt;叔本华特别强调**直观（Anschauung）**先于概念：概念是直观的抽象，是“表象的表象“。真正的认识从直观开始，科学是对直观关系的整理。这一立场使他与黑格尔式的抽象思辨划清界限，也预示了后来的现象学思路。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;san-di-er-pian-shi-jie-zuo-wei-yi-zhi&quot;&gt;三、第二篇：世界作为意志&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-cong-biao-xiang-shen-ru-dao-yi-zhi&quot;&gt;1. 从表象深入到意志&lt;&#x2F;h3&gt;
+&lt;p&gt;表象背后是什么？叔本华认为：&lt;strong&gt;世界的内核是意志（Wille）&lt;&#x2F;strong&gt;——一种无意识、无目的的欲求与冲动。现象世界的“物自体“就是意志。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-shen-ti-shi-yi-zhi-de-ke-jian-xing&quot;&gt;2. 身体是意志的可见性&lt;&#x2F;h3&gt;
+&lt;p&gt;身体是理解意志的钥匙：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;我的身体同时是&lt;strong&gt;表象&lt;&#x2F;strong&gt;（对象）与&lt;strong&gt;意志&lt;&#x2F;strong&gt;（内在体验）；&lt;&#x2F;li&gt;
+&lt;li&gt;牙齿的“咬合欲“、胃的“消化欲“、性欲——器官本身就是客体化的意志；&lt;&#x2F;li&gt;
+&lt;li&gt;饥饿、疼痛、欲望，都是意志的直接显现。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;由此，&lt;strong&gt;一切现象都是意志的客体化&lt;&#x2F;strong&gt;：从低级无机物到高级动物，层层上升，直到人。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-yi-zhi-de-te-zheng&quot;&gt;3. 意志的特征&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;特征&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;无目的&lt;&#x2F;td&gt;&lt;td&gt;意志没有终极目标，欲求永不停息&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;盲目&lt;&#x2F;td&gt;&lt;td&gt;不服从理性，理性只是它的工具&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;不可满足&lt;&#x2F;td&gt;&lt;td&gt;满足一个欲望，立刻生出新的欲望&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;4-tong-ku-yu-wu-liao&quot;&gt;4. 痛苦与无聊&lt;&#x2F;h3&gt;
+&lt;p&gt;由此推出叔本华著名的&lt;strong&gt;钟摆论&lt;&#x2F;strong&gt;：&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;人生就是欲望与满足之间的钟摆：欲望不得满足则痛苦，得到满足则无聊。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;si-di-san-pian-yan-shen-shen-mei-zuo-wei-jie-tuo&quot;&gt;四、第三篇（延伸）：审美作为解脱&lt;&#x2F;h2&gt;
+&lt;p&gt;审美是暂时的解脱：当主体沉浸于直观，忘记欲望，对象脱离功利关系时，主体与客体都“上升“为纯粹的理念。音乐尤其如此——它不是表象的摹本，而是意志本身的直接写照。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;wu-yue-du-ti-hui&quot;&gt;五、阅读体会&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-yu-kang-de-de-guan-xi&quot;&gt;1. 与康德的关系&lt;&#x2F;h3&gt;
+&lt;p&gt;叔本华把康德“物自体不可知“的谨慎立场，替换为“物自体就是意志“的大胆断言。这种替换使形而上学重新可能，但也把康德批判哲学留下的“知识边界“再次跨越了。读此书最好先读过康德《纯粹理性批判》的先验感性论与分析论，否则“表象&#x2F;物自体“这对概念会缺少锚点。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-dui-xian-dai-ren-de-hong-dong&quot;&gt;2. 对现代人的触动&lt;&#x2F;h3&gt;
+&lt;p&gt;在消费主义与效率至上的今天，“意志永不满足“几乎可以翻译为：&lt;strong&gt;欲望是生产与消费的动力系统&lt;&#x2F;strong&gt;。广告、算法推荐都在制造新的欲求；而叔本华提醒我们，满足之后是空虚。这不是要人禁欲，而是让人看清欲望的结构，从而获得一点抽离。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-bei-guan-zhu-yi-de-ji-ji-mian&quot;&gt;3. 悲观主义的积极面&lt;&#x2F;h3&gt;
+&lt;p&gt;叔本华的悲观不是消沉，而是&lt;strong&gt;清醒&lt;&#x2F;strong&gt;：把人生的底色看清楚，反而能减少不切实际的期待。正如他说的，期望是痛苦的来源之一；降低对“外部世界必然回报“的预期，是一种心理上的减震。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;4-dui-ji-shu-gong-zuo-de-qi-fa&quot;&gt;4. 对技术工作的启发&lt;&#x2F;h3&gt;
+&lt;p&gt;作为程序员，我常把“意志的客体化“读成&lt;strong&gt;系统的演化逻辑&lt;&#x2F;strong&gt;：商业系统的目标是增长（无目的的意志），个体在其中只是功能单元（客体化的器官）。理解这一点，有助于在工程决策中区分“系统自身的欲求“与“真实的需求“，避免被卷进盲目迭代。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;liu-zhi-de-hui-wei-de-ju-zi&quot;&gt;六、值得回味的句子&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;世界是我的表象。——这不是说世界是幻觉，而是说我们对世界的认识离不开认识的形式。&lt;&#x2F;p&gt;
+&lt;p&gt;生命意志的本质就是挣扎。&lt;&#x2F;p&gt;
+&lt;p&gt;一切满足都只是暂时的，新的欲求立刻接踵而至。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;qi-yan-shen-yue-du&quot;&gt;七、延伸阅读&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;康德《纯粹理性批判》（先验感性论、分析论）；&lt;&#x2F;li&gt;
+&lt;li&gt;尼采《悲剧的诞生》（意志哲学的反转：肯定生命）；&lt;&#x2F;li&gt;
+&lt;li&gt;张汝伦《现代西方哲学十五讲》（叔本华章）；&lt;&#x2F;li&gt;
+&lt;li&gt;叔本华《附录与补遗》（更易读的通俗篇）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_ReadingNotes&#x2F;readingnotes-kant-critique&#x2F;&quot;&gt;《纯粹理性批判》读后感&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>

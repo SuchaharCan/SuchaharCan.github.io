@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Software</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/software/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 22 Jun 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Mac Asesome Software Tool</title>
+          <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/03Share_blog/mac-awesome-software-tool/</link>
+          <guid>https://suchaharcan.github.io/03Share_blog/mac-awesome-software-tool/</guid>
+          <description xml:base="https://suchaharcan.github.io/03Share_blog/mac-awesome-software-tool/">&lt;h1 id=&quot;net&quot;&gt;Net&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;vpn-quantumult-x&quot;&gt;VPN - Quantumult X&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;尝试过并排除的方案: 小火箭 ，Surge , Loon;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;fang-huo-qiang-little-snitch&quot;&gt;防火墙 - Little Snitch&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;优点：非VPN情况下，网络设备终端直接屏蔽
+路由器为 网络终端， 屏蔽等级 比 设备防火墙 高；&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h1 id=&quot;rss&quot;&gt;RSS&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;netnewwire&quot;&gt;NetNewWire&lt;&#x2F;h2&gt;
+&lt;h1 id=&quot;twm&quot;&gt;TWM&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;yabai&quot;&gt;Yabai&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最新支持系统版本 Mac26;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>

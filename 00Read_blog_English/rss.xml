@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - CMake 4.0 技术细节整理 专栏</title>
+      <link>https://suchaharcan.github.io/00Read_blog_English/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/00Read_blog_English/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>词根 -duc-&#x2F;-duct-（引导）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-duc/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-duc/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-duc/">&lt;h1 id=&quot;ci-gen-duc-duct-yin-dao&quot;&gt;词根 -duc- &#x2F; -duct-（引导）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-duc- &#x2F; -duct-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;ducere&lt;&#x2F;em&gt;「引导、带领」。词族庞大，是阅读高频来源。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;introduce&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;引入、介绍&lt;&#x2F;td&gt;&lt;td&gt;intro（向内）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;conduct&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;进行、实施；行为&lt;&#x2F;td&gt;&lt;td&gt;con（共同）+ duct&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;reduce&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;减少&lt;&#x2F;td&gt;&lt;td&gt;re（回）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;produce&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;生产；农产品&lt;&#x2F;td&gt;&lt;td&gt;pro（向前）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;deduce&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;推断、演绎&lt;&#x2F;td&gt;&lt;td&gt;de（向下）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;induce&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;诱导、引起&lt;&#x2F;td&gt;&lt;td&gt;in（向内）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;educate&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;教育&lt;&#x2F;td&gt;&lt;td&gt;e（向外）+ duc + ate&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;product&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;产品&lt;&#x2F;td&gt;&lt;td&gt;pro + duct&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;productive&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;多产的、高效的&lt;&#x2F;td&gt;&lt;td&gt;product + ive&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;conductor&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;指挥、导体&lt;&#x2F;td&gt;&lt;td&gt;conduct + or&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;duct&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;管道&lt;&#x2F;td&gt;&lt;td&gt;duct&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;seduce&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;诱惑&lt;&#x2F;td&gt;&lt;td&gt;se（分开）+ duce&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;conduct an experiment &#x2F; survey&lt;&#x2F;td&gt;&lt;td&gt;进行实验&#x2F;调查&lt;&#x2F;td&gt;&lt;td&gt;They conducted a survey of 2,000 people.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;reduce … to …&lt;&#x2F;td&gt;&lt;td&gt;减少到；使沦为&lt;&#x2F;td&gt;&lt;td&gt;The problem can be reduced to a simple equation.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;deduce … from …&lt;&#x2F;td&gt;&lt;td&gt;从…推断出&lt;&#x2F;td&gt;&lt;td&gt;We can deduce the truth from the evidence.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be induced to do sth&lt;&#x2F;td&gt;&lt;td&gt;被诱导做某事&lt;&#x2F;td&gt;&lt;td&gt;Consumers are induced to buy more.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;introduce sth into&lt;&#x2F;td&gt;&lt;td&gt;把…引入&lt;&#x2F;td&gt;&lt;td&gt;The policy introduced reforms into the system.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;productive capacity&lt;&#x2F;td&gt;&lt;td&gt;生产能力&lt;&#x2F;td&gt;&lt;td&gt;The factory is running at full productive capacity.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;produce an effect&lt;&#x2F;td&gt;&lt;td&gt;产生效果&lt;&#x2F;td&gt;&lt;td&gt;The drug produced a noticeable effect.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：The researchers &lt;strong&gt;conducted&lt;&#x2F;strong&gt; a series of experiments to test the hypothesis. 研究人员进行了一系列实验来验证假设。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：From these facts we can &lt;strong&gt;deduce&lt;&#x2F;strong&gt; that the economy is recovering. 从这些事实我们可以推断经济正在复苏。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：Advertising can &lt;strong&gt;induce&lt;&#x2F;strong&gt; people to consume beyond their needs. 广告能诱导人们超出需求地消费。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：A &lt;strong&gt;productive&lt;&#x2F;strong&gt; worker benefits both the company and society. 高效的工人对公司和社会的都有益。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 -duc-&#x2F;-duct-（引导）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌───────────┼───────────┬──────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    introduce   conduct    reduce       produce&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    introduction conduction reduction   product&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                  conductor  reducible  productive&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     deduce（演绎）   induce（诱导）   educate（教育）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     deduction      induction     education&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     deductive      inductive     educator&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      seduce（诱惑） duct（管道）  aqueduct（引水渠）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;re + duce&lt;&#x2F;strong&gt;：往回带 → 减少；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pro + duce&lt;&#x2F;strong&gt;：向前带出来 → 生产；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;con + duct&lt;&#x2F;strong&gt;：一起带着走 → 引导&#x2F;进行；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;de + duce&lt;&#x2F;strong&gt;：向下推导 → 演绎推断；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;in + duce&lt;&#x2F;strong&gt;：往内带 → 诱导；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;e + duc + ate&lt;&#x2F;strong&gt;：向外引导 → 教育（把潜力引导出来）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-ject&#x2F;&quot;&gt;词根 -ject-&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-pos&#x2F;&quot;&gt;词根 -pos-（放置）&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>词根 -fer-（携带）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-fer/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-fer/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-fer/">&lt;h1 id=&quot;ci-gen-fer-xi-dai&quot;&gt;词根 -fer-（携带）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-fer-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;ferre&lt;&#x2F;em&gt;「带、拿、承受」。派生词多且高频，是完形&#x2F;阅读的常客。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;offer&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;提供、报价&lt;&#x2F;td&gt;&lt;td&gt;of（向）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;transfer&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;转移、换乘&lt;&#x2F;td&gt;&lt;td&gt;trans（越过）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;refer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;提到、查阅、指代&lt;&#x2F;td&gt;&lt;td&gt;re（回）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;prefer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;更喜欢&lt;&#x2F;td&gt;&lt;td&gt;pre（先）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;infer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;推断&lt;&#x2F;td&gt;&lt;td&gt;in（向内）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;confer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;商议、授予&lt;&#x2F;td&gt;&lt;td&gt;con（共同）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;differ&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;不同、有分歧&lt;&#x2F;td&gt;&lt;td&gt;dif（分开）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;suffer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;遭受、忍受&lt;&#x2F;td&gt;&lt;td&gt;suf（在下）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;defer&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;推迟&lt;&#x2F;td&gt;&lt;td&gt;de（下）+ fer&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;fertile&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;肥沃的、多产的&lt;&#x2F;td&gt;&lt;td&gt;fer + tile&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;ferry&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;渡船；摆渡&lt;&#x2F;td&gt;&lt;td&gt;fer + ry&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;circumference&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;周长&lt;&#x2F;td&gt;&lt;td&gt;circum（周围）+ fer + ence&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;refer to&lt;&#x2F;td&gt;&lt;td&gt;指的是；查阅&lt;&#x2F;td&gt;&lt;td&gt;The term “GDP” refers to gross domestic product.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;prefer A to B&lt;&#x2F;td&gt;&lt;td&gt;比起 B 更喜欢 A&lt;&#x2F;td&gt;&lt;td&gt;I prefer tea to coffee.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;infer … from …&lt;&#x2F;td&gt;&lt;td&gt;从…推断&lt;&#x2F;td&gt;&lt;td&gt;We inferred the cause from the data.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;transfer … to …&lt;&#x2F;td&gt;&lt;td&gt;转移到&lt;&#x2F;td&gt;&lt;td&gt;The patient was transferred to another hospital.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;offer to do sth&lt;&#x2F;td&gt;&lt;td&gt;主动提出做某事&lt;&#x2F;td&gt;&lt;td&gt;He offered to help with the project.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;differ from &#x2F; in&lt;&#x2F;td&gt;&lt;td&gt;与…不同 &#x2F; 在…方面不同&lt;&#x2F;td&gt;&lt;td&gt;The two versions differ in detail.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;suffer from&lt;&#x2F;td&gt;&lt;td&gt;遭受…之苦&lt;&#x2F;td&gt;&lt;td&gt;Many people suffer from sleep loss.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;confer a degree on sb&lt;&#x2F;td&gt;&lt;td&gt;授予某人学位&lt;&#x2F;td&gt;&lt;td&gt;The university conferred an honorary degree on him.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;defer payment &#x2F; decision&lt;&#x2F;td&gt;&lt;td&gt;推迟付款&#x2F;决定&lt;&#x2F;td&gt;&lt;td&gt;The decision was deferred to next month.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：The report &lt;strong&gt;refers to&lt;&#x2F;strong&gt; several studies published last year. 报告提到了去年发表的几项研究。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：Readers can &lt;strong&gt;infer&lt;&#x2F;strong&gt; the author’s attitude from the tone. 读者能从语气推断作者的态度。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：Remote workers &lt;strong&gt;transfer&lt;&#x2F;strong&gt; files through cloud services. 远程工作者通过云服务传输文件。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：Companies that &lt;strong&gt;offer&lt;&#x2F;strong&gt; flexible hours attract better talent. 提供弹性工时的公司能吸引更优秀的人才。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 -fer-（携带）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌───────────┼───────────┬──────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      offer     transfer     refer      prefer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     offering   transferable reference  preference&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                          referee     preferable&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      infer（推断） confer（商议&#x2F;授予） differ（不同）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      inference  conference       difference&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      inferential conferral       different&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     suffer（遭受） defer（推迟） fertile（多产的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     suffering    deferral      fertilizer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     ferry（渡船） circumference（周长）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;of + fer&lt;&#x2F;strong&gt;：带到面前 → 提供；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;trans + fer&lt;&#x2F;strong&gt;：从一边带到另一边 → 转移；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;re + fer&lt;&#x2F;strong&gt;：带回去查 → 提及&#x2F;查阅；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pre + fer&lt;&#x2F;strong&gt;：优先拿 → 更喜欢；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;in + fer&lt;&#x2F;strong&gt;：往里带进结论 → 推断；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;con + fer&lt;&#x2F;strong&gt;：把意见带到一起 → 商议；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;dif + fer&lt;&#x2F;strong&gt;：分开带 → 不同；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;suf + fer&lt;&#x2F;strong&gt;：在下面承受 → 遭受。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-tract&#x2F;&quot;&gt;词根 -tract-&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>词根 -ject-（投掷）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-ject/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-ject/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-ject/">&lt;h1 id=&quot;ci-gen-ject-tou-zhi&quot;&gt;词根 -ject-（投掷）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-ject-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;jacere&lt;&#x2F;em&gt;「投、掷」。核心动词都带“抛向某处“的画面感。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;project&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;项目、工程；投射、计划&lt;&#x2F;td&gt;&lt;td&gt;pro（向前）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;inject&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;注射、注入&lt;&#x2F;td&gt;&lt;td&gt;in（向内）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;reject&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;拒绝、排斥&lt;&#x2F;td&gt;&lt;td&gt;re（回）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;eject&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;弹出、逐出&lt;&#x2F;td&gt;&lt;td&gt;e（向外）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;subject&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;adj.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;主题、学科；使遭受；受…支配的&lt;&#x2F;td&gt;&lt;td&gt;sub（在下）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;object&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;物体、目标；反对&lt;&#x2F;td&gt;&lt;td&gt;ob（相对）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;objective&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;adj.&lt;&#x2F;td&gt;&lt;td&gt;目标；客观的&lt;&#x2F;td&gt;&lt;td&gt;object + ive&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;trajectory&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;轨迹、弹道&lt;&#x2F;td&gt;&lt;td&gt;tra（穿过）+ ject + ory&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;dejected&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;沮丧的&lt;&#x2F;td&gt;&lt;td&gt;de（向下）+ ject + ed&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;conjecture&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;推测、猜想&lt;&#x2F;td&gt;&lt;td&gt;con（共同）+ ject&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;be subject to&lt;&#x2F;td&gt;&lt;td&gt;受…支配；易遭受&lt;&#x2F;td&gt;&lt;td&gt;Workers are subject to strict safety rules.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;object to&lt;&#x2F;td&gt;&lt;td&gt;反对&lt;&#x2F;td&gt;&lt;td&gt;Many residents objected to the new plan.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be objective about&lt;&#x2F;td&gt;&lt;td&gt;客观看待&lt;&#x2F;td&gt;&lt;td&gt;We should be objective about the data.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;inject capital into&lt;&#x2F;td&gt;&lt;td&gt;向…注入资金&lt;&#x2F;td&gt;&lt;td&gt;The government injected capital into the market.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;reject an offer &#x2F; proposal&lt;&#x2F;td&gt;&lt;td&gt;拒绝提议&lt;&#x2F;td&gt;&lt;td&gt;The committee rejected the proposal.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;carry out a project&lt;&#x2F;td&gt;&lt;td&gt;实施项目&lt;&#x2F;td&gt;&lt;td&gt;The team carried out the project on time.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;subject matter&lt;&#x2F;td&gt;&lt;td&gt;主题内容&lt;&#x2F;td&gt;&lt;td&gt;The subject matter is difficult to understand.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：The new evidence &lt;strong&gt;subjected&lt;&#x2F;strong&gt; the theory to serious doubt. 新证据使该理论受到严重质疑。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：Many people &lt;strong&gt;object to&lt;&#x2F;strong&gt; the construction of the dam. 许多人反对修建大坝。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：The rocket’s &lt;strong&gt;trajectory&lt;&#x2F;strong&gt; was calculated precisely. 火箭的弹道被精确计算。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：Don’t &lt;strong&gt;conjecture&lt;&#x2F;strong&gt; without sufficient evidence. 没有充分证据不要臆测。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                  -ject-（投掷）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌──────────┼───────────┬─────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     project    inject     reject      eject&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    projection  injection  rejection  ejection&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    projector   injectable&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     subject（主题&#x2F;使遭受）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     object（物体&#x2F;反对）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     objective（目标&#x2F;客观的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     trajectory（轨迹）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     dejected（沮丧的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     conjecture（推测）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;pro + ject&lt;&#x2F;strong&gt;：向前抛 → 投射 → 项目（抛出的计划）；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;re + ject&lt;&#x2F;strong&gt;：抛回去 → 拒绝；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;in + ject&lt;&#x2F;strong&gt;：往里打 → 注射；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;e + ject&lt;&#x2F;strong&gt;：往外抛 → 弹出；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;sub + ject&lt;&#x2F;strong&gt;：抛在下面 → 受支配 → 主题（被谈论对象）。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-spect&#x2F;&quot;&gt;词根 -spect-&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-duc&#x2F;&quot;&gt;词根 -duc-（引导）&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>词根 -pos-&#x2F;-posit-（放置）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-pos/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-pos/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-pos/">&lt;h1 id=&quot;ci-gen-pos-posit-fang-zhi&quot;&gt;词根 -pos- &#x2F; -posit-（放置）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-pos- &#x2F; -posit-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;ponere&lt;&#x2F;em&gt;「放、置」。许多“位置&#x2F;构成&#x2F;提议“类单词都源于它。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;position&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;位置、职位&lt;&#x2F;td&gt;&lt;td&gt;pos + ition&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;compose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;组成、创作&lt;&#x2F;td&gt;&lt;td&gt;com（共同）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;expose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;暴露、揭露&lt;&#x2F;td&gt;&lt;td&gt;ex（向外）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;propose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;提议、求婚&lt;&#x2F;td&gt;&lt;td&gt;pro（向前）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;impose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;强加、征税&lt;&#x2F;td&gt;&lt;td&gt;im（向内）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;oppose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;反对&lt;&#x2F;td&gt;&lt;td&gt;op（相反）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;deposit&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;存放、存款；押金&lt;&#x2F;td&gt;&lt;td&gt;de（向下）+ posit&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;postpone&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;推迟&lt;&#x2F;td&gt;&lt;td&gt;post（后）+ pone&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;dispose&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;处理、处置&lt;&#x2F;td&gt;&lt;td&gt;dis（分开）+ pose&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;supposed&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;假定的、被认为的&lt;&#x2F;td&gt;&lt;td&gt;sup（下）+ pose + ed&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;positive&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;积极的、正的&lt;&#x2F;td&gt;&lt;td&gt;posit + ive&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;opposite&lt;&#x2F;td&gt;&lt;td&gt;adj.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;相反的；对立面&lt;&#x2F;td&gt;&lt;td&gt;op + pos + ite&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;be composed of&lt;&#x2F;td&gt;&lt;td&gt;由…组成&lt;&#x2F;td&gt;&lt;td&gt;Water is composed of hydrogen and oxygen.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be exposed to&lt;&#x2F;td&gt;&lt;td&gt;暴露于；接触到&lt;&#x2F;td&gt;&lt;td&gt;Children are exposed to too much screen time.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;impose … on …&lt;&#x2F;td&gt;&lt;td&gt;把…强加于&lt;&#x2F;td&gt;&lt;td&gt;The law imposes heavy fines on polluters.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be opposed to&lt;&#x2F;td&gt;&lt;td&gt;反对&lt;&#x2F;td&gt;&lt;td&gt;Many experts are opposed to the plan.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be supposed to do&lt;&#x2F;td&gt;&lt;td&gt;应该做&lt;&#x2F;td&gt;&lt;td&gt;You are supposed to submit the report today.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;dispose of&lt;&#x2F;td&gt;&lt;td&gt;处理、清除&lt;&#x2F;td&gt;&lt;td&gt;The company must dispose of waste safely.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;put off &#x2F; postpone&lt;&#x2F;td&gt;&lt;td&gt;推迟（同义）&lt;&#x2F;td&gt;&lt;td&gt;The meeting was postponed until Friday.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;make a deposit&lt;&#x2F;td&gt;&lt;td&gt;存款 &#x2F; 交押金&lt;&#x2F;td&gt;&lt;td&gt;He made a deposit of 1,000 yuan.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：The committee &lt;strong&gt;proposed&lt;&#x2F;strong&gt; a series of measures to cut costs. 委员会提出了一系列削减成本的措施。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：New taxes were &lt;strong&gt;imposed on&lt;&#x2F;strong&gt; imported goods. 进口商品被征收了新税。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：The report &lt;strong&gt;exposed&lt;&#x2F;strong&gt; serious problems in the system. 报告揭露了系统中的严重问题。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：A &lt;strong&gt;positive&lt;&#x2F;strong&gt; attitude is essential for success. 积极的态度对成功至关重要。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 -pos-&#x2F;-posit-（放置）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌───────────┼───────────┬──────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     compose    expose     propose      impose&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    composition exposure   proposal     imposition&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    composer    exposed    proposer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     oppose（反对）   dispose（处理）  deposit（存放）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     opposite        disposal      depositor&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     position（位置）  postpone（推迟） suppose（假定）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     positive（积极的）              supposed（假定的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;com + pose&lt;&#x2F;strong&gt;：放在一起 → 组成；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;ex + pose&lt;&#x2F;strong&gt;：放到外面 → 暴露；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pro + pose&lt;&#x2F;strong&gt;：摆到前面 → 提议；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;im + pose&lt;&#x2F;strong&gt;：硬放上去 → 强加；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;op + pose&lt;&#x2F;strong&gt;：反着放 → 反对；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;post + pone&lt;&#x2F;strong&gt;：放到后面 → 推迟。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-duc&#x2F;&quot;&gt;词根 -duc-&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-tract&#x2F;&quot;&gt;词根 -tract-（拉）&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>词根 -spect-（看）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-spect/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-spect/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-spect/">&lt;h1 id=&quot;ci-gen-spect-kan&quot;&gt;词根 -spect-（看）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-spect- &#x2F; -spic-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;specere&lt;&#x2F;em&gt;「看」。考研中高频出现，掌握一个词根 ≈ 一串单词。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;inspect&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;检查、视察&lt;&#x2F;td&gt;&lt;td&gt;in（向内）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;respect&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;尊重、方面&lt;&#x2F;td&gt;&lt;td&gt;re（再次）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;prospect&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;前景、展望&lt;&#x2F;td&gt;&lt;td&gt;pro（向前）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;expect&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;期望、预料&lt;&#x2F;td&gt;&lt;td&gt;ex（向外）+ pect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;perspective&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;视角、观点、透视&lt;&#x2F;td&gt;&lt;td&gt;per（贯穿）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;spectator&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;观众&lt;&#x2F;td&gt;&lt;td&gt;spect + ator（人）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;retrospect&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;回顾&lt;&#x2F;td&gt;&lt;td&gt;retro（向后）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;suspect&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;怀疑、嫌疑犯&lt;&#x2F;td&gt;&lt;td&gt;sus（下）+ pect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;spectacle&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;景象、奇观&lt;&#x2F;td&gt;&lt;td&gt;spect + acle&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;conspicuous&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;显眼的、显著的&lt;&#x2F;td&gt;&lt;td&gt;con + spic + uous&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;circumspect&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;谨慎周到的&lt;&#x2F;td&gt;&lt;td&gt;circum（周围）+ spect&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;in respect of &#x2F; with respect to&lt;&#x2F;td&gt;&lt;td&gt;关于、就…而言&lt;&#x2F;td&gt;&lt;td&gt;With respect to the environment, we should act now.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;in retrospect&lt;&#x2F;td&gt;&lt;td&gt;回想起来&lt;&#x2F;td&gt;&lt;td&gt;In retrospect, the decision was too hasty.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;from one’s perspective&lt;&#x2F;td&gt;&lt;td&gt;从…的角度&lt;&#x2F;td&gt;&lt;td&gt;From an economic perspective, the policy works.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;live up to one’s expectations&lt;&#x2F;td&gt;&lt;td&gt;不辜负期望&lt;&#x2F;td&gt;&lt;td&gt;The product lived up to our expectations.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;beyond expectation&lt;&#x2F;td&gt;&lt;td&gt;出乎意料&lt;&#x2F;td&gt;&lt;td&gt;The results were beyond expectation.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;a prospective buyer &#x2F; employee&lt;&#x2F;td&gt;&lt;td&gt;潜在的买家&#x2F;雇员&lt;&#x2F;td&gt;&lt;td&gt;The house attracted many prospective buyers.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;hold sb in high regard (respect)&lt;&#x2F;td&gt;&lt;td&gt;高度尊重&lt;&#x2F;td&gt;&lt;td&gt;He is held in high regard by his colleagues.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：Government officials should &lt;strong&gt;inspect&lt;&#x2F;strong&gt; the quality of food products regularly. 政府官员应定期检查食品质量。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：From a long-term &lt;strong&gt;perspective&lt;&#x2F;strong&gt;, investing in education yields the highest return. 从长远角度看，投资教育回报最高。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：&lt;strong&gt;In retrospect&lt;&#x2F;strong&gt;, the company’s failure was predictable. 回想起来，公司的失败是可以预见的。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：The findings are &lt;strong&gt;conspicuous&lt;&#x2F;strong&gt; and cannot be ignored. 这些发现十分显著，不容忽视。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                  -spect-（看）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌──────────┼───────────┬─────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     inspect    respect    prospect     suspect&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    inspection  respectful prospective  suspicion&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    inspector   respectable             suspicious&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 irrespective&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 perspective（视角）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 retrospect（回顾）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 spectator（观众）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 spectacle（奇观）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 circumspect（谨慎）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 conspicuous（显眼的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;in + spect&lt;&#x2F;strong&gt;：向里看 → 检查；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;re + spect&lt;&#x2F;strong&gt;：反复看 → 重视 → 尊重；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pro + spect&lt;&#x2F;strong&gt;：向前看 → 前景；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;per + spect&lt;&#x2F;strong&gt;：贯穿地看 → 透视 → 视角；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;sus + pect&lt;&#x2F;strong&gt;：在下面偷偷看 → 怀疑。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-ject&#x2F;&quot;&gt;词根 -ject-（投掷）&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>词根 -tract-（拉）考研高频词</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/english-root-tract/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/english-root-tract/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/english-root-tract/">&lt;h1 id=&quot;ci-gen-tract-la&quot;&gt;词根 -tract-（拉）&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;-tract-&lt;&#x2F;code&gt; 来自拉丁语 &lt;em&gt;trahere&lt;&#x2F;em&gt;「拉、拖」。几乎所有派生词都能用“拉“的动作理解。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;he-xin-ci-zu&quot;&gt;核心词族&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单词&lt;&#x2F;th&gt;&lt;th&gt;词性&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;拆解&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;attract&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;吸引&lt;&#x2F;td&gt;&lt;td&gt;at（向）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;extract&lt;&#x2F;td&gt;&lt;td&gt;v.&#x2F;n.&lt;&#x2F;td&gt;&lt;td&gt;提取、摘录&lt;&#x2F;td&gt;&lt;td&gt;ex（向外）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;contract&lt;&#x2F;td&gt;&lt;td&gt;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;合同；收缩；感染&lt;&#x2F;td&gt;&lt;td&gt;con（共同）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;distract&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;分散（注意力）&lt;&#x2F;td&gt;&lt;td&gt;dis（分开）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;subtract&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;减去&lt;&#x2F;td&gt;&lt;td&gt;sub（下）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;abstract&lt;&#x2F;td&gt;&lt;td&gt;adj.&#x2F;n.&#x2F;v.&lt;&#x2F;td&gt;&lt;td&gt;抽象的；摘要；提取&lt;&#x2F;td&gt;&lt;td&gt;abs（离开）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;retract&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;撤回、缩回&lt;&#x2F;td&gt;&lt;td&gt;re（回）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;tractor&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;拖拉机&lt;&#x2F;td&gt;&lt;td&gt;tract + or（工具）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;traction&lt;&#x2F;td&gt;&lt;td&gt;n.&lt;&#x2F;td&gt;&lt;td&gt;牵引力、摩擦力&lt;&#x2F;td&gt;&lt;td&gt;tract + ion&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;intractable&lt;&#x2F;td&gt;&lt;td&gt;adj.&lt;&#x2F;td&gt;&lt;td&gt;难对付的&lt;&#x2F;td&gt;&lt;td&gt;in（不）+ tract + able&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;protract&lt;&#x2F;td&gt;&lt;td&gt;v.&lt;&#x2F;td&gt;&lt;td&gt;延长&lt;&#x2F;td&gt;&lt;td&gt;pro（向前）+ tract&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;kao-yan-gao-pin-duan-yu&quot;&gt;考研高频短语&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;短语&lt;&#x2F;th&gt;&lt;th&gt;释义&lt;&#x2F;th&gt;&lt;th&gt;例句&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;attract attention &#x2F; investment&lt;&#x2F;td&gt;&lt;td&gt;吸引注意&#x2F;投资&lt;&#x2F;td&gt;&lt;td&gt;The project attracted wide attention.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;extract … from …&lt;&#x2F;td&gt;&lt;td&gt;从…提取&lt;&#x2F;td&gt;&lt;td&gt;Scientists extracted DNA from the sample.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;sign &#x2F; enter into a contract&lt;&#x2F;td&gt;&lt;td&gt;签订合同&lt;&#x2F;td&gt;&lt;td&gt;The two firms entered into a contract.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;be distracted by&lt;&#x2F;td&gt;&lt;td&gt;被…分心&lt;&#x2F;td&gt;&lt;td&gt;Students are easily distracted by phones.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;in the abstract&lt;&#x2F;td&gt;&lt;td&gt;抽象地、理论上&lt;&#x2F;td&gt;&lt;td&gt;It sounds good in the abstract.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;abstract thinking&lt;&#x2F;td&gt;&lt;td&gt;抽象思维&lt;&#x2F;td&gt;&lt;td&gt;Mathematics develops abstract thinking.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;contract a disease&lt;&#x2F;td&gt;&lt;td&gt;感染疾病&lt;&#x2F;td&gt;&lt;td&gt;He contracted a rare disease.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;subtract A from B&lt;&#x2F;td&gt;&lt;td&gt;从 B 中减去 A&lt;&#x2F;td&gt;&lt;td&gt;Subtract 5 from 8 and you get 3.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;zhen-ti-yu-jing-li-ju&quot;&gt;真题语境例句&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;例句 1&lt;&#x2F;strong&gt;：A good leader must &lt;strong&gt;attract&lt;&#x2F;strong&gt; and keep talented people. 优秀的领导者必须吸引并留住人才。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 2&lt;&#x2F;strong&gt;：The company &lt;strong&gt;extracted&lt;&#x2F;strong&gt; useful data from the survey. 公司从调查中提取了有用数据。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 3&lt;&#x2F;strong&gt;：Social media can &lt;strong&gt;distract&lt;&#x2F;strong&gt; students from their studies. 社交媒体会分散学生学习的注意力。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;例句 4&lt;&#x2F;strong&gt;：Some problems remain &lt;strong&gt;intractable&lt;&#x2F;strong&gt; despite decades of research. 尽管研究了几十年，一些问题仍难以解决。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ci-zu-kuo-zhan-shu&quot;&gt;词族扩展树&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                 -tract-（拉）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        ┌───────────┼───────────┬──────────────┐&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     attract    extract    contract     distract&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    attraction  extraction contraction  distraction&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    attractive  extractor&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     abstract（抽象的&#x2F;摘要） subtract（减去）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     abstraction             subtraction&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     retract（撤回） tractor（拖拉机）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     traction（牵引力） protract（延长）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     intractable（难对付的）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;ji-yi-ji-qiao&quot;&gt;记忆技巧&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;at + tract&lt;&#x2F;strong&gt;：往这边拉 → 吸引；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;ex + tract&lt;&#x2F;strong&gt;：向外拉 → 提取；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;con + tract&lt;&#x2F;strong&gt;：拉在一起 → 收缩；拉到一起签的协议 → 合同；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;dis + tract&lt;&#x2F;strong&gt;：把注意力拉散 → 分心；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;sub + tract&lt;&#x2F;strong&gt;：往下拉掉 → 减去；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;ab + stract&lt;&#x2F;strong&gt;：拉离具体 → 抽象。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-pos&#x2F;&quot;&gt;词根 -pos-&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_English&#x2F;english-root-fer&#x2F;&quot;&gt;词根 -fer-（携带）&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+      <item>
+          <title>One</title>
+          <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_English/test-one/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_English/test-one/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_English/test-one/">&lt;p&gt;墨墨记单词 周进度和 安排&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

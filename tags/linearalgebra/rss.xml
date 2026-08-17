@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - LinearAlgebra</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/linearalgebra/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>线性代数 · 核心章节</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_Math/math-linear-algebra/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_Math/math-linear-algebra/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_Math/math-linear-algebra/">&lt;h1 id=&quot;xian-xing-dai-shu-he-xin-zhang-jie&quot;&gt;线性代数 · 核心章节&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;线代脉络：&lt;strong&gt;行列式 → 矩阵 → 向量组 → 方程组 → 特征值 → 二次型&lt;&#x2F;strong&gt;，前四章是后两章的工具。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-xing-lie-shi&quot;&gt;1. 行列式&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ding-yi-yu-xing-zhi&quot;&gt;定义与性质&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;det(A) = Σ σ(p) a₁p₁ a₂p₂ … aₙpₙ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;核心性质：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;|Aᵀ| = |A|&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;两行（列）互换，行列式变号；&lt;&#x2F;li&gt;
+&lt;li&gt;某行乘以 k，行列式乘以 k；&lt;&#x2F;li&gt;
+&lt;li&gt;两行成比例 ⇒ 行列式为 0；&lt;&#x2F;li&gt;
+&lt;li&gt;某行加另一行的 k 倍，值不变；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;|AB| = |A|·|B|&lt;&#x2F;code&gt;；&lt;code&gt;|A⁻¹| = 1&#x2F;|A|&lt;&#x2F;code&gt;；&lt;code&gt;|kA| = kⁿ|A|&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;zhan-kai-ding-li-dai-shu-yu-zi-shi&quot;&gt;展开定理（代数余子式）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;按第 i 行展开：|A| = Σ(j) aᵢⱼ·Aᵢⱼ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;te-shu-xing-lie-shi&quot;&gt;特殊行列式&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;类型&lt;&#x2F;th&gt;&lt;th&gt;结果&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;上&#x2F;下三角&lt;&#x2F;td&gt;&lt;td&gt;主对角线乘积&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;对角&lt;&#x2F;td&gt;&lt;td&gt;对角线乘积&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;范德蒙德&lt;&#x2F;td&gt;&lt;td&gt;∏(xⱼ−xᵢ)（i&amp;lt;j）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;副对角&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;(−1)^(n(n−1)&#x2F;2)·∏aᵢ,ₙ₋ᵢ₊₁&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;ke-la-mo-fa-ze&quot;&gt;克拉默法则&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;Ax=b&lt;&#x2F;code&gt; 且 &lt;code&gt;|A|≠0&lt;&#x2F;code&gt; 时：&lt;code&gt;xᵢ = |Aᵢ|&#x2F;|A|&lt;&#x2F;code&gt;（Aᵢ 为替换第 i 列）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-ju-zhen&quot;&gt;2. 矩阵&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;yun-suan&quot;&gt;运算&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;(AB)C = A(BC)；A(B+C) = AB + AC&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;(AB)ᵀ = BᵀAᵀ；(A+B)ᵀ = Aᵀ+Bᵀ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|AB| = |A||B|&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;ni-ju-zhen&quot;&gt;逆矩阵&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A⁻¹ 存在 ⇔ |A| ≠ 0 ⇔ A 可逆 ⇔ r(A) = n&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A⁻¹ = A*&#x2F;|A|（伴随矩阵法）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;(AB)⁻¹ = B⁻¹A⁻¹；(Aᵀ)⁻¹ = (A⁻¹)ᵀ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;常用公式：&lt;code&gt;A·A* = |A|E&lt;&#x2F;code&gt; ⇒ &lt;code&gt;A* = |A|A⁻¹&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;chu-deng-bian-huan-yu-chu-deng-ju-zhen&quot;&gt;初等变换与初等矩阵&lt;&#x2F;h3&gt;
+&lt;p&gt;初等行变换不改变秩；初等矩阵左乘 = 行变换，右乘 = 列变换。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;zhi&quot;&gt;秩&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;r(A)：非零子式的最高阶数&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;r(A) ≤ min(m,n)；r(A+B) ≤ r(A)+r(B)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;r(AB) ≤ min(r(A), r(B))；r(A)+r(B) − n ≤ r(AB)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;r(A)=r(Aᵀ)；r(kA)=r(A)（k≠0）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-xiang-liang-zu&quot;&gt;3. 向量组&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;xian-xing-xiang-guan-wu-guan&quot;&gt;线性相关 &#x2F; 无关&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;α₁,…,αₛ 线性相关 ⇔ 存在不全为 0 的 kᵢ 使 Σ kᵢαᵢ = 0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;无关 ⇔ 只有全 0 系数成立&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;判定：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;s &amp;gt; n&lt;&#x2F;code&gt;（n 维向量）必相关；&lt;&#x2F;li&gt;
+&lt;li&gt;含零向量 ⇒ 相关；&lt;&#x2F;li&gt;
+&lt;li&gt;部分相关 ⇒ 整体相关；整体无关 ⇒ 部分无关；&lt;&#x2F;li&gt;
+&lt;li&gt;等价向量组秩相同。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;zhi-yu-ji-da-wu-guan-zu&quot;&gt;秩与极大无关组&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;秩 = 极大线性无关组中向量个数&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;向量组秩 ≤ 矩阵秩，且 r(α₁,…,αₛ) = r(矩阵)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-xian-xing-fang-cheng-zu&quot;&gt;4. 线性方程组&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;code&gt;Ax = b&lt;&#x2F;code&gt;（m×n）&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;jie-de-cun-zai-xing&quot;&gt;解的存在性&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;条件&lt;&#x2F;th&gt;&lt;th&gt;结论&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;`r(A) &amp;lt; r(A&lt;&#x2F;td&gt;&lt;td&gt;b)`&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;`r(A) = r(A&lt;&#x2F;td&gt;&lt;td&gt;b) = n`&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;`r(A) = r(A&lt;&#x2F;td&gt;&lt;td&gt;b) = r &amp;lt; n`&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;齐次 &lt;code&gt;Ax=0&lt;&#x2F;code&gt;：非零解 ⇔ &lt;code&gt;r(A) &amp;lt; n&lt;&#x2F;code&gt; ⇔ &lt;code&gt;|A|=0&lt;&#x2F;code&gt;（方阵）。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;jie-de-jie-gou&quot;&gt;解的结构&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;非齐次通解 = 齐次通解 + 一个特解&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;齐次通解 = C₁ξ₁ + … + Cₙ₋ᵣξₙ₋ᵣ（基础解系）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-te-zheng-zhi-yu-te-zheng-xiang-liang&quot;&gt;5. 特征值与特征向量&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Ax = λx（x ≠ 0）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;特征多项式：|λE − A| = 0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;zhong-yao-xing-zhi&quot;&gt;重要性质&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Σλᵢ = tr(A)（迹）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;∏λᵢ = |A|&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;不同特征值对应的特征向量线性无关&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A⁻¹ 特征值 1&#x2F;λ；Aᵀ 与 A 特征值相同；A^k 特征值 λ^k&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;xiang-si-dui-jiao-hua&quot;&gt;相似对角化&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A ~ Λ ⇔ A 有 n 个线性无关特征向量 ⇔ 每个 k 重特征值对应 k 个线性无关特征向量&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P⁻¹AP = diag(λ₁,…,λₙ)，P 的列 = 特征向量&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Aⁿ = P·Λⁿ·P⁻¹&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-er-ci-xing&quot;&gt;6. 二次型&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;f = xᵀAx（A 对称）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;biao-zhun-xing-yu-gui-fan-xing&quot;&gt;标准形与规范形&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;配方法 &#x2F; 正交变换法化标准形；&lt;&#x2F;li&gt;
+&lt;li&gt;规范形：系数只有 &lt;code&gt;1, −1, 0&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;惯性定理&lt;&#x2F;strong&gt;：正、负惯性指数唯一；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;合同&lt;&#x2F;strong&gt;：&lt;code&gt;CᵀAC = B&lt;&#x2F;code&gt;（C 可逆）⇔ 正负惯性指数相同。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;zheng-ding-pan-ding&quot;&gt;正定判定&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;方法&lt;&#x2F;th&gt;&lt;th&gt;条件&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;特征值&lt;&#x2F;td&gt;&lt;td&gt;全为正&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;顺序主子式&lt;&#x2F;td&gt;&lt;td&gt;全大于 0&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;定义&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;∀x≠0：xᵀAx &amp;gt; 0&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-kao-yan-chang-kao-ti-xing&quot;&gt;7. 考研常考题型&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;行列式性质与抽象行列式计算；&lt;&#x2F;li&gt;
+&lt;li&gt;求逆、伴随矩阵、&lt;code&gt;A*&lt;&#x2F;code&gt; 与 &lt;code&gt;A&lt;&#x2F;code&gt; 的关系；&lt;&#x2F;li&gt;
+&lt;li&gt;秩的不等式；&lt;&#x2F;li&gt;
+&lt;li&gt;向量组相关性的参数讨论；&lt;&#x2F;li&gt;
+&lt;li&gt;含参数方程组的解判定与通解；&lt;&#x2F;li&gt;
+&lt;li&gt;特征值特征向量、相似对角化、&lt;code&gt;Aⁿ&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;二次型化标准形、正定判断。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;li-ti-su-lan&quot;&gt;例题速览&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;&#x2F;strong&gt;：已知 &lt;code&gt;A&lt;&#x2F;code&gt; 三阶，&lt;code&gt;|A|=2&lt;&#x2F;code&gt;，求 &lt;code&gt;|3A⁻¹|&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|3A⁻¹| = 3³·|A⁻¹| = 27·(1&#x2F;2) = 27&#x2F;2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;&#x2F;strong&gt;：&lt;code&gt;A&lt;&#x2F;code&gt; 特征值 1, 2, 3，求 &lt;code&gt;|A²+A+E|&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;A 的特征多项式作用于 A：g(λ) = λ²+λ+1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;|g(A)| = g(1)·g(2)·g(3) = 3·7·13 = 273&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-yi-cuo-dian-qing-dan&quot;&gt;8. 易错点清单&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(AB)ᵀ = BᵀAᵀ&lt;&#x2F;code&gt; 次序互换；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;|kA| = kⁿ|A|&lt;&#x2F;code&gt; 不是 &lt;code&gt;k|A|&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;矩阵乘法不满足交换律；&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;AB=0&lt;&#x2F;code&gt; 推不出 &lt;code&gt;A=0&lt;&#x2F;code&gt; 或 &lt;code&gt;B=0&lt;&#x2F;code&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;相似（存在可逆 P）与合同（对称阵）别混淆；&lt;&#x2F;li&gt;
+&lt;li&gt;特征向量必须非零。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_Math&#x2F;math-calculus-multi&#x2F;&quot;&gt;多元微积分&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;00Read_blog_Math&#x2F;math-probability&#x2F;&quot;&gt;概率论&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>

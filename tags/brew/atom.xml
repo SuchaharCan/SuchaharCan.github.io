@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Brew</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/brew/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-11T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/brew/atom.xml</id>
+    <entry xml:lang="en">
+        <title>本机命令与类库总览：4271 个可执行文件 &#x2F; 782 个 Homebrew 公式</title>
+        <published>2026-08-11T00:00:00+00:00</published>
+        <updated>2026-08-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/mac-commands-catalog/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/mac-commands-catalog/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/mac-commands-catalog/">&lt;h1 id=&quot;ben-ji-ming-ling-yu-lei-ku-zong-lan&quot;&gt;本机命令与类库总览&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;数据来源：&lt;code&gt;print -l ${(k)commands} | sort | while read -r name; do print -- &quot;$(whence -p -- &quot;$name&quot;)  $name&quot;; done&lt;&#x2F;code&gt; 共 &lt;strong&gt;4271&lt;&#x2F;strong&gt; 条命令；&lt;code&gt;brew list --formula&lt;&#x2F;code&gt; 共 &lt;strong&gt;782&lt;&#x2F;strong&gt; 个公式；&lt;code&gt;brew list --cask&lt;&#x2F;code&gt; 共 &lt;strong&gt;69&lt;&#x2F;strong&gt; 个 cask。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-tong-ji-zong-lan&quot;&gt;1. 统计总览&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;来源目录&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: right&quot;&gt;命令数&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;2588&lt;&#x2F;td&gt;&lt;td&gt;Homebrew 公式主目录&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;usr&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;858&lt;&#x2F;td&gt;&lt;td&gt;macOS 系统命令&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;usr&#x2F;sbin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;217&lt;&#x2F;td&gt;&lt;td&gt;系统管理命令&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;llvm&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;167&lt;&#x2F;td&gt;&lt;td&gt;LLVM 工具链&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;ccache&#x2F;libexec&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;76&lt;&#x2F;td&gt;&lt;td&gt;ccache 包装层&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;sbin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;72&lt;&#x2F;td&gt;&lt;td&gt;系统引导&#x2F;管理&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Users&#x2F;songhoujin&#x2F;.ghcup&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;64&lt;&#x2F;td&gt;&lt;td&gt;Haskell 工具链&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;postgresql@17&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;37&lt;&#x2F;td&gt;&lt;td&gt;PostgreSQL 客户端&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;36&lt;&#x2F;td&gt;&lt;td&gt;macOS 基础命令&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;(builtin&#x2F;alias&#x2F;function)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;31&lt;&#x2F;td&gt;&lt;td&gt;zsh 内建&#x2F;别名&#x2F;函数&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;ruby&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;26&lt;&#x2F;td&gt;&lt;td&gt;Ruby 工具链&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Users&#x2F;songhoujin&#x2F;.cargo&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;24&lt;&#x2F;td&gt;&lt;td&gt;Rust&#x2F;Cargo 工具&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;sbin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;23&lt;&#x2F;td&gt;&lt;td&gt;Homebrew 系统命令&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Applications&#x2F;iTerm.app&#x2F;Contents&#x2F;Resources&#x2F;utilities&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;17&lt;&#x2F;td&gt;&lt;td&gt;iTerm 自带工具&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;usr&#x2F;local&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;14&lt;&#x2F;td&gt;&lt;td&gt;第三方&#x2F;手动安装&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Users&#x2F;songhoujin&#x2F;.local&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;7&lt;&#x2F;td&gt;&lt;td&gt;pipx&#x2F;手动安装&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Users&#x2F;songhoujin&#x2F;Jai&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;6&lt;&#x2F;td&gt;&lt;td&gt;Jai 编译器&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;gawk&#x2F;libexec&#x2F;gnubin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Users&#x2F;songhoujin&#x2F;.craft&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;make&#x2F;libexec&#x2F;gnubin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: right&quot;&gt;1&lt;&#x2F;td&gt;&lt;td&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;2-fen-lei-su-cha-he-xin-yong-fa&quot;&gt;2. 分类速查（核心用法）&lt;&#x2F;h2&gt;
+&lt;p&gt;按功能场景分组，选每个场景最常用的命令，给出直接可用的核心用法：&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;gou-jian-yu-bian-yi&quot;&gt;构建与编译&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;cmake&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;跨平台构建系统（C++ 主力）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cmake -B build -G Ninja &amp;amp;&amp;amp; cmake --build build -j$(nproc)&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ninja&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;极速构建后端&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ninja -C build&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;mold&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;高速链接器（替代系统 ld）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cmake -B build -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=mold&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ccache&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;编译缓存（C&#x2F;C++）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;export CC=&#x27;ccache clang&#x27; CXX=&#x27;ccache clang++&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;bear&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;生成 compile_commands.json（喂给 clangd）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;bear -- cmake --build build&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;meson&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Python 风格构建系统&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;meson setup build &amp;amp;&amp;amp; meson compile -C build&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;c-c-he-xin-lei-ku&quot;&gt;C&#x2F;C++ 核心类库&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;fmt&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;现代格式化（std::format 前身）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;fmt::print(&quot;{}\n&quot;, 42);&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;spdlog&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;高性能日志库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;spdlog::info(&quot;Hello {}&quot;, name);&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;nlohmann-json&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;JSON 解析&#x2F;序列化&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;nlohmann::json j = nlohmann::json::parse(s);&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;boost&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;C++ 标准库扩展大全&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;brew install boost &amp;amp;&amp;amp; #include &amp;lt;boost&#x2F;asio.hpp&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;eigen&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;线性代数模板库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;#include &amp;lt;Eigen&#x2F;Dense&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;taskflow&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;并行任务流（DAG）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;tf::Taskflow tf; auto [a,b]=tf.emplace(f1,f2);&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;yu-yan-yun-xing-shi-yu-gong-ju-lian&quot;&gt;语言运行时与工具链&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;llvm&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Clang&#x2F;LLVM 工具链全家桶&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;clang++ -std=c++26 -O2 main.cpp -o main&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;rustup&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Rust 工具链管理器&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;rustup update stable &amp;amp;&amp;amp; cargo new hello&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;cargo&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Rust 构建&#x2F;包管理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cargo build --release &amp;amp;&amp;amp; cargo test&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;go&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Go 编译&#x2F;工具链&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;go build .&#x2F;... &amp;amp;&amp;amp; go vet .&#x2F;...&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;uv&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Python 包管理（极快）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;uv add requests &amp;amp;&amp;amp; uv run main.py&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;node&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;JavaScript 运行时&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;node --version &amp;amp;&amp;amp; npm init -y&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;jai&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Jai 编译器（内测）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;jai-macos hello.jai&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;ban-ben-kong-zhi-yu-xie-zuo&quot;&gt;版本控制与协作&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;git&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;版本控制&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -m &#x27;msg&#x27; &amp;amp;&amp;amp; git push&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;lazygit&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Git 终端 TUI&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;lazygit&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;git-delta&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;高亮 diff 分页器&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;git config --global core.pager delta&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;difftastic&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;结构化 diff&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;difft file1 file2&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;cloc&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;代码行数统计&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cloc --exclude-dir=build,.git .&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;zhong-duan-xiao-lu-yu-mei-hua&quot;&gt;终端效率与美化&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;atuin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;历史命令检索（SQLite）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;atuin search cmake --interactive&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;zoxide&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;智能目录跳转&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;z blog &amp;amp;&amp;amp; zi&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;fzf&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;模糊查找器&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;fzf --preview &#x27;bat {}&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;bat&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;语法高亮 cat&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;bat main.cpp&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;eza&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;现代 ls&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;eza --long --tree --level=2 --git --icons&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;fd&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;现代 find&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;fd &#x27;\.cpp$&#x27; src&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ripgrep&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;极速 grep&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;rg &#x27;TODO&#x27; --type cpp&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;starship&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;跨 shell 提示符&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;starship init zsh | source&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;wang-luo-yu-xia-zai&quot;&gt;网络与下载&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;curl&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;HTTP 请求&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;curl -OL https:&#x2F;&#x2F;example.com&#x2F;file.tar.gz&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;xh&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;人类友好 curl（httpie 风格）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;xh GET api.example.com&#x2F;users&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;mtr&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;网络路径+丢包诊断&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mtr -rw example.com&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;nmap&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;端口&#x2F;服务扫描&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;nmap -sV 192.168.1.1&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;rclone&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;云盘同步&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;rclone sync local: remote:backup&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;shu-ju-ku-yu-cun-chu&quot;&gt;数据库与存储&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;postgresql@17&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;PostgreSQL 数据库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;brew services start postgresql@17 &amp;amp;&amp;amp; psql -d postgres&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;sqlite&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;嵌入式 SQL 数据库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;sqlite3 data.db &#x27;SELECT * FROM t;&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;duckdb&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;分析型列式数据库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;duckdb -c &#x27;SELECT count(*) FROM read_csv_auto(f.csv)&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;redis&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;内存键值库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;redis-cli SET k v &amp;amp;&amp;amp; GET k&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;zstd&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;高压缩比压缩&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;zstd -19 -o out.zst file &amp;amp;&amp;amp; zstd -d out.zst&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;mei-ti-yu-tu-xiang&quot;&gt;媒体与图像&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ffmpeg&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;音视频转码&#x2F;处理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ffmpeg -i in.mp4 -c:v libx264 -crf 23 out.mp4&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;mpv&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;极简播放器&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mpv --hwdec=auto video.mkv&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;imagemagick&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;图像处理 CLI&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;magick input.png -resize 800x out.png&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;tesseract&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;OCR 文字识别&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;tesseract scan.png out -l eng&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;ai-yu-ji-qi-xue-xi&quot;&gt;AI 与机器学习&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;llama.cpp&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;本地 LLM 推理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;llama-cli -m model.gguf -p &#x27;Hello&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ggml&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;GGML 张量库&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;#include &amp;lt;ggml.h&amp;gt;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;onnx&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;ONNX 模型运行时&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;python3 -c &#x27;import onnx&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;openvino&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Intel 推理优化&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;benchmark_app -m model.xml&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;shu-xue-yu-ke-xue-ji-suan&quot;&gt;数学与科学计算&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;openblas&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;BLAS 线性代数&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;brew info openblas&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;graphviz&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;图&#x2F;依赖可视化&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;dot -Tpng graph.dot -o graph.png&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;gnuplot&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;科学绘图&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;gnuplot -e &quot;plot &#x27;data.txt&#x27; u 1:2&quot;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;octave&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;MATLAB 兼容计算&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;octave --eval &#x27;A=[1 2;3 4]; inv(A)&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;an-quan-yu-jia-mi&quot;&gt;安全与加密&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;openssl&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;TLS&#x2F;加密 CLI&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;openssl s_client -connect example.com:443&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;gnupg&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;GPG 加解密&#x2F;签名&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;gpg --encrypt --recipient key file&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;pass&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;密码管理（GPG）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;pass insert email&#x2F;me &amp;amp;&amp;amp; pass show email&#x2F;me&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;hashcat&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;密码哈希破解&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;hashcat -m 0 hash.txt wordlist.txt&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;semgrep&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;代码静态安全扫描&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;semgrep scan --config auto .&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;xi-tong-yu-jian-kong&quot;&gt;系统与监控&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;btop&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;系统资源监控 TUI&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;btop&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;mactop&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;macOS 进程&#x2F;温度监控&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mactop&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;tracy&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;C++ 性能剖析&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;tracy-profiler &amp;amp; 然后代码里 TRACY_ZONE_SCOPED&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;valgrind&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;内存检测&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;valgrind --leak-check=full .&#x2F;a.out&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;samply&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Rust&#x2F;Swift 采样剖析&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;samply record .&#x2F;app&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h3 id=&quot;wen-ben-yu-shu-ju-chu-li&quot;&gt;文本与数据处理&lt;&#x2F;h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;核心用法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;jq&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;JSON 处理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;curl -s api | jq &#x27;.items[].name&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;gawk&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;GNU awk（文本处理）&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;gawk &#x27;{s+=$1} END{print s}&#x27; nums.txt&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;ast-grep&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;结构化代码搜索&#x2F;重构&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ast-grep -p &#x27;unwrap\(\)&#x27; -l rust&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;pandoc&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;文档格式转换&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;pandoc a.md -o a.pdf --pdf-engine=xelatex&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;3-homebrew-yi-zhuang-gong-shi-wan-zheng-qing-dan-an-gong-neng-fen-lei&quot;&gt;3. Homebrew 已装公式完整清单（按功能分类）&lt;&#x2F;h2&gt;
+&lt;p&gt;共 782 个公式；&lt;code&gt;：&lt;&#x2F;code&gt; 后为要点说明。完整原始清单见附录。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;gou-jian-yu-bian-yi-34&quot;&gt;构建与编译（34）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;autoconf&lt;&#x2F;code&gt;，&lt;code&gt;automake&lt;&#x2F;code&gt;，&lt;code&gt;bazel&lt;&#x2F;code&gt;：Google 构建系统
+&lt;code&gt;bear&lt;&#x2F;code&gt;：compile_commands 生成，&lt;code&gt;binutils&lt;&#x2F;code&gt;，&lt;code&gt;bison&lt;&#x2F;code&gt;
+&lt;code&gt;build2&lt;&#x2F;code&gt;：C&#x2F;C++ 构建工具链，&lt;code&gt;ccache&lt;&#x2F;code&gt;：编译缓存，&lt;code&gt;clang-format&lt;&#x2F;code&gt;：clang 格式化
+&lt;code&gt;clang-include-graph&lt;&#x2F;code&gt;：头文件依赖图，&lt;code&gt;clang-uml&lt;&#x2F;code&gt;：clang UML 图，&lt;code&gt;clangql&lt;&#x2F;code&gt;：Clang AST 查询
+&lt;code&gt;cmake&lt;&#x2F;code&gt;：CMake 构建系统，&lt;code&gt;cmake-docs&lt;&#x2F;code&gt;，&lt;code&gt;corrosion&lt;&#x2F;code&gt;
+&lt;code&gt;gnu-getopt&lt;&#x2F;code&gt;，&lt;code&gt;just&lt;&#x2F;code&gt;，&lt;code&gt;just-lsp&lt;&#x2F;code&gt;
+&lt;code&gt;libtool&lt;&#x2F;code&gt;，&lt;code&gt;lld&lt;&#x2F;code&gt;：LLVM 链接器，&lt;code&gt;lld@21&lt;&#x2F;code&gt;
+&lt;code&gt;llvm&lt;&#x2F;code&gt;：LLVM&#x2F;Clang 全家桶，&lt;code&gt;llvm@21&lt;&#x2F;code&gt;，&lt;code&gt;m4&lt;&#x2F;code&gt;
+&lt;code&gt;make&lt;&#x2F;code&gt;，&lt;code&gt;meson&lt;&#x2F;code&gt;：Meson 构建，&lt;code&gt;mold&lt;&#x2F;code&gt;：高速链接器
+&lt;code&gt;ninja&lt;&#x2F;code&gt;：Ninja 构建，&lt;code&gt;pkg-config-wrapper&lt;&#x2F;code&gt;，&lt;code&gt;pkgconf&lt;&#x2F;code&gt;
+&lt;code&gt;re2c&lt;&#x2F;code&gt;，&lt;code&gt;sc-cmake&lt;&#x2F;code&gt;，&lt;code&gt;swig&lt;&#x2F;code&gt;
+&lt;code&gt;xdg-ninja&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;c-c-he-xin-lei-ku-185&quot;&gt;C&#x2F;C++ 核心类库（185）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;abseil&lt;&#x2F;code&gt;，&lt;code&gt;adaptivecpp&lt;&#x2F;code&gt;，&lt;code&gt;argparse&lt;&#x2F;code&gt;
+&lt;code&gt;argtable&lt;&#x2F;code&gt;，&lt;code&gt;armadillo&lt;&#x2F;code&gt;，&lt;code&gt;asio&lt;&#x2F;code&gt;
+&lt;code&gt;atomic_queue&lt;&#x2F;code&gt;，&lt;code&gt;aws-crt-cpp&lt;&#x2F;code&gt;，&lt;code&gt;aws-sdk-cpp&lt;&#x2F;code&gt;
+&lt;code&gt;behaviortree.cpp&lt;&#x2F;code&gt;，&lt;code&gt;blaze&lt;&#x2F;code&gt;，&lt;code&gt;blitz&lt;&#x2F;code&gt;
+&lt;code&gt;boost&lt;&#x2F;code&gt;：Boost 库，&lt;code&gt;boost-build&lt;&#x2F;code&gt;，&lt;code&gt;boost-python3&lt;&#x2F;code&gt;
+&lt;code&gt;capnp&lt;&#x2F;code&gt;，&lt;code&gt;catch2&lt;&#x2F;code&gt;：测试框架，&lt;code&gt;cereal&lt;&#x2F;code&gt;
+&lt;code&gt;cli11&lt;&#x2F;code&gt;，&lt;code&gt;concurrentqueue&lt;&#x2F;code&gt;，&lt;code&gt;cpp-gsl&lt;&#x2F;code&gt;
+&lt;code&gt;cpp-httplib&lt;&#x2F;code&gt;，&lt;code&gt;cpp-peglib&lt;&#x2F;code&gt;，&lt;code&gt;cppcheck&lt;&#x2F;code&gt;
+&lt;code&gt;cppinsights&lt;&#x2F;code&gt;，&lt;code&gt;cpplint&lt;&#x2F;code&gt;，&lt;code&gt;cppman&lt;&#x2F;code&gt;
+&lt;code&gt;cpptest&lt;&#x2F;code&gt;，&lt;code&gt;cpptrace&lt;&#x2F;code&gt;，&lt;code&gt;cppunit&lt;&#x2F;code&gt;
+&lt;code&gt;cpputest&lt;&#x2F;code&gt;，&lt;code&gt;cppzmq&lt;&#x2F;code&gt;，&lt;code&gt;cpr&lt;&#x2F;code&gt;
+&lt;code&gt;crow&lt;&#x2F;code&gt;，&lt;code&gt;ctre&lt;&#x2F;code&gt;，&lt;code&gt;cxxopts&lt;&#x2F;code&gt;
+&lt;code&gt;dbg-macro&lt;&#x2F;code&gt;，&lt;code&gt;dispenso&lt;&#x2F;code&gt;，&lt;code&gt;doctest&lt;&#x2F;code&gt;：单头测试框架
+&lt;code&gt;drogon&lt;&#x2F;code&gt;，&lt;code&gt;dylibbundler&lt;&#x2F;code&gt;，&lt;code&gt;eigen&lt;&#x2F;code&gt;：线性代数库
+&lt;code&gt;eigen@3&lt;&#x2F;code&gt;，&lt;code&gt;entt&lt;&#x2F;code&gt;，&lt;code&gt;eventpp&lt;&#x2F;code&gt;
+&lt;code&gt;fast_float&lt;&#x2F;code&gt;，&lt;code&gt;flatbuffers&lt;&#x2F;code&gt;，&lt;code&gt;flecs&lt;&#x2F;code&gt;
+&lt;code&gt;fmt&lt;&#x2F;code&gt;：格式化库，&lt;code&gt;frozen&lt;&#x2F;code&gt;，&lt;code&gt;glaze&lt;&#x2F;code&gt;
+&lt;code&gt;glib&lt;&#x2F;code&gt;，&lt;code&gt;glibmm&lt;&#x2F;code&gt;，&lt;code&gt;glibmm@2.66&lt;&#x2F;code&gt;
+&lt;code&gt;glog&lt;&#x2F;code&gt;，&lt;code&gt;google-benchmark&lt;&#x2F;code&gt;：微基准库，&lt;code&gt;googletest&lt;&#x2F;code&gt;：Google 测试
+&lt;code&gt;gsl&lt;&#x2F;code&gt;：GNU 科学库，&lt;code&gt;highway&lt;&#x2F;code&gt;，&lt;code&gt;hiredis&lt;&#x2F;code&gt;
+&lt;code&gt;hopscotch-map&lt;&#x2F;code&gt;，&lt;code&gt;icu4c@78&lt;&#x2F;code&gt;，&lt;code&gt;immer&lt;&#x2F;code&gt;
+&lt;code&gt;inja&lt;&#x2F;code&gt;，&lt;code&gt;json-c&lt;&#x2F;code&gt;，&lt;code&gt;jsoncpp&lt;&#x2F;code&gt;
+&lt;code&gt;kokkos&lt;&#x2F;code&gt;，&lt;code&gt;leveldb&lt;&#x2F;code&gt;，&lt;code&gt;libaec&lt;&#x2F;code&gt;
+&lt;code&gt;libassuan&lt;&#x2F;code&gt;，&lt;code&gt;libb2&lt;&#x2F;code&gt;，&lt;code&gt;libcbor&lt;&#x2F;code&gt;
+&lt;code&gt;libcds&lt;&#x2F;code&gt;，&lt;code&gt;libcerf&lt;&#x2F;code&gt;，&lt;code&gt;libcutl&lt;&#x2F;code&gt;
+&lt;code&gt;libdatrie&lt;&#x2F;code&gt;，&lt;code&gt;libdeflate&lt;&#x2F;code&gt;，&lt;code&gt;libepoxy&lt;&#x2F;code&gt;
+&lt;code&gt;libev&lt;&#x2F;code&gt;，&lt;code&gt;libevent&lt;&#x2F;code&gt;，&lt;code&gt;libff&lt;&#x2F;code&gt;
+&lt;code&gt;libffi&lt;&#x2F;code&gt;，&lt;code&gt;libfido2&lt;&#x2F;code&gt;，&lt;code&gt;libghthash&lt;&#x2F;code&gt;
+&lt;code&gt;libgit2&lt;&#x2F;code&gt;，&lt;code&gt;libgpg-error&lt;&#x2F;code&gt;，&lt;code&gt;libgrape-lite&lt;&#x2F;code&gt;
+&lt;code&gt;libharu&lt;&#x2F;code&gt;，&lt;code&gt;libidn&lt;&#x2F;code&gt;，&lt;code&gt;libidn2&lt;&#x2F;code&gt;
+&lt;code&gt;libimagequant&lt;&#x2F;code&gt;，&lt;code&gt;libjson-rpc-cpp&lt;&#x2F;code&gt;，&lt;code&gt;libksba&lt;&#x2F;code&gt;
+&lt;code&gt;liblinear&lt;&#x2F;code&gt;，&lt;code&gt;libmagic&lt;&#x2F;code&gt;，&lt;code&gt;libmicrohttpd&lt;&#x2F;code&gt;
+&lt;code&gt;libmpc&lt;&#x2F;code&gt;，&lt;code&gt;libmpdclient&lt;&#x2F;code&gt;，&lt;code&gt;libnetworkit&lt;&#x2F;code&gt;
+&lt;code&gt;libnghttp2&lt;&#x2F;code&gt;，&lt;code&gt;libnghttp3&lt;&#x2F;code&gt;，&lt;code&gt;libngtcp2&lt;&#x2F;code&gt;
+&lt;code&gt;libomp&lt;&#x2F;code&gt;，&lt;code&gt;libpaper&lt;&#x2F;code&gt;，&lt;code&gt;libpcap&lt;&#x2F;code&gt;
+&lt;code&gt;libphonenumber&lt;&#x2F;code&gt;，&lt;code&gt;libplacebo&lt;&#x2F;code&gt;，&lt;code&gt;libpq&lt;&#x2F;code&gt;
+&lt;code&gt;libpqxx&lt;&#x2F;code&gt;，&lt;code&gt;libpsl&lt;&#x2F;code&gt;，&lt;code&gt;libraqm&lt;&#x2F;code&gt;
+&lt;code&gt;librdkafka&lt;&#x2F;code&gt;，&lt;code&gt;librsvg&lt;&#x2F;code&gt;，&lt;code&gt;libsigc++&lt;&#x2F;code&gt;
+&lt;code&gt;libsigc++@2&lt;&#x2F;code&gt;，&lt;code&gt;libstxxl&lt;&#x2F;code&gt;，&lt;code&gt;libtasn1&lt;&#x2F;code&gt;
+&lt;code&gt;libthai&lt;&#x2F;code&gt;，&lt;code&gt;libtins&lt;&#x2F;code&gt;，&lt;code&gt;libtomcrypt&lt;&#x2F;code&gt;
+&lt;code&gt;libtommath&lt;&#x2F;code&gt;，&lt;code&gt;libudfread&lt;&#x2F;code&gt;，&lt;code&gt;libunibreak&lt;&#x2F;code&gt;
+&lt;code&gt;libunicode&lt;&#x2F;code&gt;，&lt;code&gt;libunistring&lt;&#x2F;code&gt;，&lt;code&gt;libusb&lt;&#x2F;code&gt;
+&lt;code&gt;libuv&lt;&#x2F;code&gt;，&lt;code&gt;libx11&lt;&#x2F;code&gt;，&lt;code&gt;libxau&lt;&#x2F;code&gt;
+&lt;code&gt;libxc&lt;&#x2F;code&gt;，&lt;code&gt;libxcb&lt;&#x2F;code&gt;，&lt;code&gt;libxdmcp&lt;&#x2F;code&gt;
+&lt;code&gt;libxext&lt;&#x2F;code&gt;，&lt;code&gt;libxfixes&lt;&#x2F;code&gt;，&lt;code&gt;libxi&lt;&#x2F;code&gt;
+&lt;code&gt;libxrender&lt;&#x2F;code&gt;，&lt;code&gt;libxtst&lt;&#x2F;code&gt;，&lt;code&gt;libyaml&lt;&#x2F;code&gt;
+&lt;code&gt;libzip&lt;&#x2F;code&gt;，&lt;code&gt;log4cplus&lt;&#x2F;code&gt;，&lt;code&gt;log4cpp&lt;&#x2F;code&gt;
+&lt;code&gt;log4cxx&lt;&#x2F;code&gt;，&lt;code&gt;lzlib&lt;&#x2F;code&gt;，&lt;code&gt;magic_enum&lt;&#x2F;code&gt;
+&lt;code&gt;msgpack&lt;&#x2F;code&gt;，&lt;code&gt;mysql&lt;&#x2F;code&gt;，&lt;code&gt;nlohmann-json&lt;&#x2F;code&gt;：JSON 库
+&lt;code&gt;oatpp&lt;&#x2F;code&gt;，&lt;code&gt;opentelemetry-cpp&lt;&#x2F;code&gt;，&lt;code&gt;parallel-hashmap&lt;&#x2F;code&gt;
+&lt;code&gt;pcaudiolib&lt;&#x2F;code&gt;，&lt;code&gt;pegtl&lt;&#x2F;code&gt;，&lt;code&gt;pistache&lt;&#x2F;code&gt;
+&lt;code&gt;plog&lt;&#x2F;code&gt;，&lt;code&gt;poco&lt;&#x2F;code&gt;，&lt;code&gt;prometheus-cpp&lt;&#x2F;code&gt;
+&lt;code&gt;pugixml&lt;&#x2F;code&gt;，&lt;code&gt;pybind11&lt;&#x2F;code&gt;，&lt;code&gt;quill&lt;&#x2F;code&gt;
+&lt;code&gt;range-v3&lt;&#x2F;code&gt;，&lt;code&gt;rapidjson&lt;&#x2F;code&gt;，&lt;code&gt;readerwriterqueue&lt;&#x2F;code&gt;
+&lt;code&gt;redis&lt;&#x2F;code&gt;：内存 KV，&lt;code&gt;robin-map&lt;&#x2F;code&gt;，&lt;code&gt;rocksdb&lt;&#x2F;code&gt;：KV 存储引擎
+&lt;code&gt;scnlib&lt;&#x2F;code&gt;，&lt;code&gt;simdjson&lt;&#x2F;code&gt;，&lt;code&gt;simdutf&lt;&#x2F;code&gt;
+&lt;code&gt;soci&lt;&#x2F;code&gt;，&lt;code&gt;spdlog&lt;&#x2F;code&gt;：日志库，&lt;code&gt;sqlite&lt;&#x2F;code&gt;：SQLite
+&lt;code&gt;ta-lib&lt;&#x2F;code&gt;，&lt;code&gt;taskflow&lt;&#x2F;code&gt;，&lt;code&gt;tbb&lt;&#x2F;code&gt;
+&lt;code&gt;tinyxml2&lt;&#x2F;code&gt;，&lt;code&gt;tl-expected&lt;&#x2F;code&gt;，&lt;code&gt;tomlplusplus&lt;&#x2F;code&gt;
+&lt;code&gt;utf8cpp&lt;&#x2F;code&gt;，&lt;code&gt;xsimd&lt;&#x2F;code&gt;，&lt;code&gt;xtensor&lt;&#x2F;code&gt;
+&lt;code&gt;xtl&lt;&#x2F;code&gt;，&lt;code&gt;yalantinglibs&lt;&#x2F;code&gt;，&lt;code&gt;yaml-cpp&lt;&#x2F;code&gt;
+&lt;code&gt;zeromq&lt;&#x2F;code&gt;，&lt;code&gt;zug&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;yu-yan-yun-xing-shi-yu-gong-ju-lian-34&quot;&gt;语言运行时与工具链（34）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;bun&lt;&#x2F;code&gt;，&lt;code&gt;delve&lt;&#x2F;code&gt;：Go 调试器，&lt;code&gt;deno&lt;&#x2F;code&gt;
+&lt;code&gt;elan-init&lt;&#x2F;code&gt;：Lean 工具链，&lt;code&gt;gcc&lt;&#x2F;code&gt;，&lt;code&gt;go&lt;&#x2F;code&gt;：Go 语言
+&lt;code&gt;gobject-introspection&lt;&#x2F;code&gt;，&lt;code&gt;golangci-lint&lt;&#x2F;code&gt;：Go 聚合 linter，&lt;code&gt;gopls&lt;&#x2F;code&gt;：Go LSP
+&lt;code&gt;gource&lt;&#x2F;code&gt;，&lt;code&gt;lua&lt;&#x2F;code&gt;，&lt;code&gt;lua-language-server&lt;&#x2F;code&gt;
+&lt;code&gt;luajit&lt;&#x2F;code&gt;，&lt;code&gt;node&lt;&#x2F;code&gt;：Node.js，&lt;code&gt;nvm&lt;&#x2F;code&gt;：Node 版本管理
+&lt;code&gt;odin&lt;&#x2F;code&gt;：Odin 语言，&lt;code&gt;openjdk&lt;&#x2F;code&gt;：Java 工具链，&lt;code&gt;openjdk@21&lt;&#x2F;code&gt;
+&lt;code&gt;php&lt;&#x2F;code&gt;，&lt;code&gt;python-setuptools&lt;&#x2F;code&gt;，&lt;code&gt;python@3.11&lt;&#x2F;code&gt;
+&lt;code&gt;python@3.12&lt;&#x2F;code&gt;，&lt;code&gt;python@3.13&lt;&#x2F;code&gt;，&lt;code&gt;python@3.14&lt;&#x2F;code&gt;：Python 3.14
+&lt;code&gt;ruby&lt;&#x2F;code&gt;：Ruby 语言，&lt;code&gt;ruby-install&lt;&#x2F;code&gt;，&lt;code&gt;rust&lt;&#x2F;code&gt;：Rust 语言
+&lt;code&gt;rust-analyzer&lt;&#x2F;code&gt;：Rust LSP，&lt;code&gt;rustnet&lt;&#x2F;code&gt;，&lt;code&gt;rustup&lt;&#x2F;code&gt;：Rust 工具链
+&lt;code&gt;staticcheck&lt;&#x2F;code&gt;：Go 静态检查，&lt;code&gt;swiftlint&lt;&#x2F;code&gt;，&lt;code&gt;zig&lt;&#x2F;code&gt;：Zig 语言
+&lt;code&gt;zigoku&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ban-ben-kong-zhi-yu-xie-zuo-12&quot;&gt;版本控制与协作（12）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;cloc&lt;&#x2F;code&gt;：代码统计，&lt;code&gt;cscope&lt;&#x2F;code&gt;，&lt;code&gt;czg&lt;&#x2F;code&gt;：Commitizen Go 提交规范
+&lt;code&gt;difftastic&lt;&#x2F;code&gt;：结构化 diff，&lt;code&gt;ghidra&lt;&#x2F;code&gt;：逆向分析，&lt;code&gt;ghostscript&lt;&#x2F;code&gt;
+&lt;code&gt;git&lt;&#x2F;code&gt;：版本控制，&lt;code&gt;git-delta&lt;&#x2F;code&gt;：diff 高亮，&lt;code&gt;global&lt;&#x2F;code&gt;
+&lt;code&gt;lazygit&lt;&#x2F;code&gt;：Git TUI，&lt;code&gt;tokei&lt;&#x2F;code&gt;：代码统计(Rust)，&lt;code&gt;universal-ctags&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;zhong-duan-xiao-lu-yu-mei-hua-42&quot;&gt;终端效率与美化（42）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;ack&lt;&#x2F;code&gt;，&lt;code&gt;ast-grep&lt;&#x2F;code&gt;：AST 搜索，&lt;code&gt;atuin&lt;&#x2F;code&gt;：历史检索
+&lt;code&gt;bat&lt;&#x2F;code&gt;：高亮 cat，&lt;code&gt;borders&lt;&#x2F;code&gt;：窗口边框，&lt;code&gt;btop&lt;&#x2F;code&gt;：系统监控
+&lt;code&gt;carapace&lt;&#x2F;code&gt;，&lt;code&gt;cheat&lt;&#x2F;code&gt;，&lt;code&gt;direnv&lt;&#x2F;code&gt;：目录环境
+&lt;code&gt;eza&lt;&#x2F;code&gt;：现代 ls，&lt;code&gt;fastfetch&lt;&#x2F;code&gt;，&lt;code&gt;fd&lt;&#x2F;code&gt;：现代 find
+&lt;code&gt;fzf&lt;&#x2F;code&gt;：模糊查找，&lt;code&gt;has&lt;&#x2F;code&gt;，&lt;code&gt;hashcat&lt;&#x2F;code&gt;：哈希破解
+&lt;code&gt;hexyl&lt;&#x2F;code&gt;，&lt;code&gt;jless&lt;&#x2F;code&gt;，&lt;code&gt;lf&lt;&#x2F;code&gt;
+&lt;code&gt;mactop&lt;&#x2F;code&gt;：macOS 监控，&lt;code&gt;mise&lt;&#x2F;code&gt;：多运行时版本管理，&lt;code&gt;mprocs&lt;&#x2F;code&gt;
+&lt;code&gt;navi&lt;&#x2F;code&gt;，&lt;code&gt;onefetch&lt;&#x2F;code&gt;，&lt;code&gt;reddix&lt;&#x2F;code&gt;
+&lt;code&gt;ripgrep&lt;&#x2F;code&gt;：极速搜索，&lt;code&gt;sketchybar&lt;&#x2F;code&gt;：菜单栏定制，&lt;code&gt;starship&lt;&#x2F;code&gt;：提示符
+&lt;code&gt;tealdeer&lt;&#x2F;code&gt;，&lt;code&gt;the_silver_searcher&lt;&#x2F;code&gt;，&lt;code&gt;tmux&lt;&#x2F;code&gt;：终端复用
+&lt;code&gt;tree-sitter&lt;&#x2F;code&gt;：增量解析器，&lt;code&gt;typioca&lt;&#x2F;code&gt;，&lt;code&gt;usage&lt;&#x2F;code&gt;
+&lt;code&gt;why&lt;&#x2F;code&gt;，&lt;code&gt;yabai&lt;&#x2F;code&gt;：平铺窗口管理，&lt;code&gt;yazi&lt;&#x2F;code&gt;
+&lt;code&gt;zoxide&lt;&#x2F;code&gt;：目录跳转，&lt;code&gt;zsh-autocomplete&lt;&#x2F;code&gt;，&lt;code&gt;zsh-completions&lt;&#x2F;code&gt;
+&lt;code&gt;zsh-patina&lt;&#x2F;code&gt;，&lt;code&gt;zsh-syntax-highlighting&lt;&#x2F;code&gt;，&lt;code&gt;zsh-you-should-use&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wang-luo-yu-xia-zai-24&quot;&gt;网络与下载（24）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;bind&lt;&#x2F;code&gt;，&lt;code&gt;croc&lt;&#x2F;code&gt;，&lt;code&gt;curl&lt;&#x2F;code&gt;：HTTP 客户端
+&lt;code&gt;curlpp&lt;&#x2F;code&gt;，&lt;code&gt;dnsmasq&lt;&#x2F;code&gt;，&lt;code&gt;httpie&lt;&#x2F;code&gt;：HTTP 客户端
+&lt;code&gt;ipatool&lt;&#x2F;code&gt;，&lt;code&gt;mirrord&lt;&#x2F;code&gt;，&lt;code&gt;mtr&lt;&#x2F;code&gt;：网络诊断
+&lt;code&gt;netcat&lt;&#x2F;code&gt;，&lt;code&gt;netwatch&lt;&#x2F;code&gt;，&lt;code&gt;nexttrace&lt;&#x2F;code&gt;
+&lt;code&gt;nmap&lt;&#x2F;code&gt;：网络扫描，&lt;code&gt;openssh&lt;&#x2F;code&gt;，&lt;code&gt;rclone&lt;&#x2F;code&gt;：云盘同步
+&lt;code&gt;sniffnet&lt;&#x2F;code&gt;，&lt;code&gt;socat&lt;&#x2F;code&gt;，&lt;code&gt;speedtest-cli&lt;&#x2F;code&gt;
+&lt;code&gt;syncthing&lt;&#x2F;code&gt;：P2P 同步，&lt;code&gt;tailscale&lt;&#x2F;code&gt;：VPN 组网，&lt;code&gt;telegram-downloader&lt;&#x2F;code&gt;
+&lt;code&gt;wget&lt;&#x2F;code&gt;：下载，&lt;code&gt;xh&lt;&#x2F;code&gt;：HTTPie 风格 curl，&lt;code&gt;yt-dlp&lt;&#x2F;code&gt;：视频下载&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;shu-ju-ku-yu-cun-chu-15&quot;&gt;数据库与存储（15）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;brotli&lt;&#x2F;code&gt;：压缩，&lt;code&gt;cassandra-cpp-driver&lt;&#x2F;code&gt;，&lt;code&gt;cypher-shell&lt;&#x2F;code&gt;
+&lt;code&gt;duckdb&lt;&#x2F;code&gt;：分析型数据库，&lt;code&gt;libarchive&lt;&#x2F;code&gt;，&lt;code&gt;lz4&lt;&#x2F;code&gt;
+&lt;code&gt;lzo&lt;&#x2F;code&gt;，&lt;code&gt;minizip&lt;&#x2F;code&gt;，&lt;code&gt;neo4j&lt;&#x2F;code&gt;
+&lt;code&gt;postgresql@17&lt;&#x2F;code&gt;：PostgreSQL，&lt;code&gt;snappy&lt;&#x2F;code&gt;，&lt;code&gt;xz&lt;&#x2F;code&gt;：压缩
+&lt;code&gt;zlib&lt;&#x2F;code&gt;，&lt;code&gt;zlib-ng-compat&lt;&#x2F;code&gt;，&lt;code&gt;zstd&lt;&#x2F;code&gt;：压缩&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;rong-qi-yu-xu-ni-hua-3&quot;&gt;容器与虚拟化（3）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;ansible&lt;&#x2F;code&gt;，&lt;code&gt;colima&lt;&#x2F;code&gt;，&lt;code&gt;lima&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;mei-ti-yu-tu-xiang-82&quot;&gt;媒体与图像（82）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;asciinema&lt;&#x2F;code&gt;，&lt;code&gt;cairo&lt;&#x2F;code&gt;，&lt;code&gt;cairomm@1.14&lt;&#x2F;code&gt;
+&lt;code&gt;chafa&lt;&#x2F;code&gt;，&lt;code&gt;cmatrix&lt;&#x2F;code&gt;，&lt;code&gt;cowsay&lt;&#x2F;code&gt;
+&lt;code&gt;dav1d&lt;&#x2F;code&gt;，&lt;code&gt;ffmpeg&lt;&#x2F;code&gt;：音视频处理，&lt;code&gt;figlet&lt;&#x2F;code&gt;
+&lt;code&gt;flac&lt;&#x2F;code&gt;，&lt;code&gt;fltk&lt;&#x2F;code&gt;，&lt;code&gt;fontconfig&lt;&#x2F;code&gt;
+&lt;code&gt;fortune&lt;&#x2F;code&gt;，&lt;code&gt;freetype&lt;&#x2F;code&gt;，&lt;code&gt;giflib&lt;&#x2F;code&gt;
+&lt;code&gt;glbinding&lt;&#x2F;code&gt;，&lt;code&gt;glew&lt;&#x2F;code&gt;，&lt;code&gt;glfw&lt;&#x2F;code&gt;
+&lt;code&gt;glm&lt;&#x2F;code&gt;，&lt;code&gt;graphicsmagick&lt;&#x2F;code&gt;，&lt;code&gt;gtk+3&lt;&#x2F;code&gt;
+&lt;code&gt;harfbuzz&lt;&#x2F;code&gt;，&lt;code&gt;imagemagick&lt;&#x2F;code&gt;：图像处理，&lt;code&gt;imath&lt;&#x2F;code&gt;
+&lt;code&gt;imlib2&lt;&#x2F;code&gt;，&lt;code&gt;jp2a&lt;&#x2F;code&gt;，&lt;code&gt;jpeg-turbo&lt;&#x2F;code&gt;
+&lt;code&gt;jpeg-xl&lt;&#x2F;code&gt;，&lt;code&gt;leptonica&lt;&#x2F;code&gt;，&lt;code&gt;libass&lt;&#x2F;code&gt;
+&lt;code&gt;libavif&lt;&#x2F;code&gt;，&lt;code&gt;libbluray&lt;&#x2F;code&gt;，&lt;code&gt;libcaca&lt;&#x2F;code&gt;
+&lt;code&gt;libde265&lt;&#x2F;code&gt;，&lt;code&gt;libexif&lt;&#x2F;code&gt;，&lt;code&gt;libheif&lt;&#x2F;code&gt;
+&lt;code&gt;libogg&lt;&#x2F;code&gt;，&lt;code&gt;libopenmpt&lt;&#x2F;code&gt;，&lt;code&gt;libpng&lt;&#x2F;code&gt;
+&lt;code&gt;libsamplerate&lt;&#x2F;code&gt;，&lt;code&gt;libsndfile&lt;&#x2F;code&gt;，&lt;code&gt;libtiff&lt;&#x2F;code&gt;
+&lt;code&gt;libvmaf&lt;&#x2F;code&gt;，&lt;code&gt;libvorbis&lt;&#x2F;code&gt;，&lt;code&gt;libvpx&lt;&#x2F;code&gt;
+&lt;code&gt;little-cms2&lt;&#x2F;code&gt;，&lt;code&gt;lolcat&lt;&#x2F;code&gt;，&lt;code&gt;mlpack&lt;&#x2F;code&gt;
+&lt;code&gt;molten-vk&lt;&#x2F;code&gt;，&lt;code&gt;mpg123&lt;&#x2F;code&gt;，&lt;code&gt;mpv&lt;&#x2F;code&gt;：播放器
+&lt;code&gt;opencv&lt;&#x2F;code&gt;：计算机视觉，&lt;code&gt;openexr&lt;&#x2F;code&gt;，&lt;code&gt;openjpeg&lt;&#x2F;code&gt;
+&lt;code&gt;openjph&lt;&#x2F;code&gt;，&lt;code&gt;opus&lt;&#x2F;code&gt;，&lt;code&gt;pango&lt;&#x2F;code&gt;
+&lt;code&gt;poppler&lt;&#x2F;code&gt;，&lt;code&gt;qt5compat&lt;&#x2F;code&gt;，&lt;code&gt;qtbase&lt;&#x2F;code&gt;
+&lt;code&gt;qtdeclarative&lt;&#x2F;code&gt;，&lt;code&gt;qtsvg&lt;&#x2F;code&gt;，&lt;code&gt;qttools&lt;&#x2F;code&gt;
+&lt;code&gt;raylib&lt;&#x2F;code&gt;，&lt;code&gt;rubberband&lt;&#x2F;code&gt;，&lt;code&gt;sdl2&lt;&#x2F;code&gt;
+&lt;code&gt;sdl2-compat&lt;&#x2F;code&gt;，&lt;code&gt;sdl2_image&lt;&#x2F;code&gt;，&lt;code&gt;sdl3&lt;&#x2F;code&gt;
+&lt;code&gt;sfml&lt;&#x2F;code&gt;，&lt;code&gt;shaderc&lt;&#x2F;code&gt;，&lt;code&gt;sound-touch&lt;&#x2F;code&gt;
+&lt;code&gt;svt-av1&lt;&#x2F;code&gt;，&lt;code&gt;taglib&lt;&#x2F;code&gt;，&lt;code&gt;tesseract&lt;&#x2F;code&gt;：OCR
+&lt;code&gt;tgui&lt;&#x2F;code&gt;，&lt;code&gt;vtk&lt;&#x2F;code&gt;，&lt;code&gt;vulkan-headers&lt;&#x2F;code&gt;
+&lt;code&gt;vulkan-loader&lt;&#x2F;code&gt;，&lt;code&gt;webp&lt;&#x2F;code&gt;，&lt;code&gt;x264&lt;&#x2F;code&gt;
+&lt;code&gt;x265&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ai-yu-ji-qi-xue-xi-7&quot;&gt;AI 与机器学习（7）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;faiss&lt;&#x2F;code&gt;：向量检索，&lt;code&gt;ggml&lt;&#x2F;code&gt;：张量库，&lt;code&gt;libtensorflow&lt;&#x2F;code&gt;
+&lt;code&gt;llama.cpp&lt;&#x2F;code&gt;：本地 LLM，&lt;code&gt;llmfit&lt;&#x2F;code&gt;，&lt;code&gt;onnx&lt;&#x2F;code&gt;：ONNX 运行时
+&lt;code&gt;openvino&lt;&#x2F;code&gt;：Intel 推理&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;shu-xue-yu-ke-xue-ji-suan-50&quot;&gt;数学与科学计算（50）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;arpack&lt;&#x2F;code&gt;，&lt;code&gt;autodiff&lt;&#x2F;code&gt;，&lt;code&gt;bandicoot&lt;&#x2F;code&gt;
+&lt;code&gt;cbc&lt;&#x2F;code&gt;，&lt;code&gt;ceres-solver&lt;&#x2F;code&gt;，&lt;code&gt;cgal&lt;&#x2F;code&gt;
+&lt;code&gt;cgl&lt;&#x2F;code&gt;，&lt;code&gt;cln&lt;&#x2F;code&gt;，&lt;code&gt;clp&lt;&#x2F;code&gt;
+&lt;code&gt;coinutils&lt;&#x2F;code&gt;，&lt;code&gt;cppad&lt;&#x2F;code&gt;，&lt;code&gt;dlib&lt;&#x2F;code&gt;
+&lt;code&gt;ensmallen&lt;&#x2F;code&gt;，&lt;code&gt;fftw&lt;&#x2F;code&gt;，&lt;code&gt;flint&lt;&#x2F;code&gt;
+&lt;code&gt;geographiclib&lt;&#x2F;code&gt;，&lt;code&gt;gismo&lt;&#x2F;code&gt;，&lt;code&gt;glpk&lt;&#x2F;code&gt;
+&lt;code&gt;gmp&lt;&#x2F;code&gt;：大数库，&lt;code&gt;gnuplot&lt;&#x2F;code&gt;：科学绘图，&lt;code&gt;graph-tool&lt;&#x2F;code&gt;
+&lt;code&gt;graphviz&lt;&#x2F;code&gt;：图可视化，&lt;code&gt;hdf5&lt;&#x2F;code&gt;，&lt;code&gt;hdf5-mpi&lt;&#x2F;code&gt;
+&lt;code&gt;highs&lt;&#x2F;code&gt;，&lt;code&gt;hypre&lt;&#x2F;code&gt;，&lt;code&gt;igraph&lt;&#x2F;code&gt;
+&lt;code&gt;kahip&lt;&#x2F;code&gt;，&lt;code&gt;lapack&lt;&#x2F;code&gt;：LAPACK，&lt;code&gt;lbfgspp&lt;&#x2F;code&gt;
+&lt;code&gt;lemon&lt;&#x2F;code&gt;，&lt;code&gt;metis&lt;&#x2F;code&gt;，&lt;code&gt;mpfr&lt;&#x2F;code&gt;
+&lt;code&gt;netcdf&lt;&#x2F;code&gt;，&lt;code&gt;networkit&lt;&#x2F;code&gt;，&lt;code&gt;nlopt&lt;&#x2F;code&gt;
+&lt;code&gt;octave&lt;&#x2F;code&gt;：数值计算，&lt;code&gt;openblas&lt;&#x2F;code&gt;：BLAS，&lt;code&gt;osi&lt;&#x2F;code&gt;
+&lt;code&gt;petsc&lt;&#x2F;code&gt;，&lt;code&gt;proj&lt;&#x2F;code&gt;，&lt;code&gt;quantlib&lt;&#x2F;code&gt;
+&lt;code&gt;s2geometry&lt;&#x2F;code&gt;，&lt;code&gt;scalapack&lt;&#x2F;code&gt;，&lt;code&gt;scip&lt;&#x2F;code&gt;
+&lt;code&gt;scipy&lt;&#x2F;code&gt;，&lt;code&gt;scotch&lt;&#x2F;code&gt;，&lt;code&gt;suite-sparse&lt;&#x2F;code&gt;
+&lt;code&gt;sundials&lt;&#x2F;code&gt;，&lt;code&gt;ttmath&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;an-quan-yu-jia-mi-25&quot;&gt;安全与加密（25）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;argon2&lt;&#x2F;code&gt;，&lt;code&gt;blake3&lt;&#x2F;code&gt;，&lt;code&gt;botan&lt;&#x2F;code&gt;
+&lt;code&gt;cbmc&lt;&#x2F;code&gt;：C 模型检查，&lt;code&gt;clamav&lt;&#x2F;code&gt;，&lt;code&gt;cryptopp&lt;&#x2F;code&gt;
+&lt;code&gt;esbmc&lt;&#x2F;code&gt;：BMC 验证，&lt;code&gt;flawfinder&lt;&#x2F;code&gt;，&lt;code&gt;gnupg&lt;&#x2F;code&gt;：GPG
+&lt;code&gt;gnutls&lt;&#x2F;code&gt;，&lt;code&gt;gpgme&lt;&#x2F;code&gt;，&lt;code&gt;gpgmepp&lt;&#x2F;code&gt;
+&lt;code&gt;libgcrypt&lt;&#x2F;code&gt;，&lt;code&gt;libsodium&lt;&#x2F;code&gt;，&lt;code&gt;libssh&lt;&#x2F;code&gt;
+&lt;code&gt;libssh2&lt;&#x2F;code&gt;，&lt;code&gt;mbedtls&lt;&#x2F;code&gt;，&lt;code&gt;openssl@3&lt;&#x2F;code&gt;
+&lt;code&gt;openssl@4&lt;&#x2F;code&gt;，&lt;code&gt;pass&lt;&#x2F;code&gt;：密码管理，&lt;code&gt;pinentry&lt;&#x2F;code&gt;
+&lt;code&gt;secp256k1&lt;&#x2F;code&gt;，&lt;code&gt;semgrep&lt;&#x2F;code&gt;：静态安全扫描，&lt;code&gt;xxhash&lt;&#x2F;code&gt;
+&lt;code&gt;yara&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wen-dang-yu-ban-gong-11&quot;&gt;文档与办公（11）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;doxygen&lt;&#x2F;code&gt;：代码文档，&lt;code&gt;groff&lt;&#x2F;code&gt;，&lt;code&gt;libxml++&lt;&#x2F;code&gt;
+&lt;code&gt;libxml2&lt;&#x2F;code&gt;，&lt;code&gt;mermaid-cli&lt;&#x2F;code&gt;：Mermaid 渲染，&lt;code&gt;pandoc&lt;&#x2F;code&gt;：文档转换
+&lt;code&gt;plantuml&lt;&#x2F;code&gt;：UML 图，&lt;code&gt;pstoedit&lt;&#x2F;code&gt;，&lt;code&gt;psutils&lt;&#x2F;code&gt;
+&lt;code&gt;texinfo&lt;&#x2F;code&gt;，&lt;code&gt;xerces-c&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;xi-tong-yu-jian-kong-11&quot;&gt;系统与监控（11）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;coreutils&lt;&#x2F;code&gt;：GNU 核心工具，&lt;code&gt;duf&lt;&#x2F;code&gt;，&lt;code&gt;gawk&lt;&#x2F;code&gt;：GNU awk
+&lt;code&gt;gperftools&lt;&#x2F;code&gt;：性能工具集，&lt;code&gt;moreutils&lt;&#x2F;code&gt;：附加工具，&lt;code&gt;ncdu&lt;&#x2F;code&gt;
+&lt;code&gt;osx-cpu-temp&lt;&#x2F;code&gt;，&lt;code&gt;samply&lt;&#x2F;code&gt;：采样剖析，&lt;code&gt;tracy&lt;&#x2F;code&gt;：性能剖析
+&lt;code&gt;uutils-coreutils&lt;&#x2F;code&gt;：Rust 版 coreutils，&lt;code&gt;valgrind&lt;&#x2F;code&gt;：内存检测&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;wen-ben-yu-shu-ju-chu-li-7&quot;&gt;文本与数据处理（7）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;jq&lt;&#x2F;code&gt;：JSON 处理，&lt;code&gt;qhull&lt;&#x2F;code&gt;，&lt;code&gt;qrencode&lt;&#x2F;code&gt;
+&lt;code&gt;qrupdate&lt;&#x2F;code&gt;，&lt;code&gt;qscintilla2&lt;&#x2F;code&gt;，&lt;code&gt;qtshadertools&lt;&#x2F;code&gt;
+&lt;code&gt;quantum++&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;kai-fa-gong-ju-za-xiang-13&quot;&gt;开发工具杂项（13）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;diu&lt;&#x2F;code&gt;，&lt;code&gt;hyperfine&lt;&#x2F;code&gt;：基准测试，&lt;code&gt;macpow&lt;&#x2F;code&gt;
+&lt;code&gt;merve&lt;&#x2F;code&gt;，&lt;code&gt;mole&lt;&#x2F;code&gt;，&lt;code&gt;paneru&lt;&#x2F;code&gt;
+&lt;code&gt;sag&lt;&#x2F;code&gt;，&lt;code&gt;songsee&lt;&#x2F;code&gt;，&lt;code&gt;summarize&lt;&#x2F;code&gt;
+&lt;code&gt;syswatch&lt;&#x2F;code&gt;，&lt;code&gt;topgrade&lt;&#x2F;code&gt;：一键升级，&lt;code&gt;watchman&lt;&#x2F;code&gt;：文件监听
+&lt;code&gt;zen-mode&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;qi-ta-kai-fa-xi-tong-ku-227&quot;&gt;其他开发&#x2F;系统库（227）&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;code&gt;ada-url&lt;&#x2F;code&gt;，&lt;code&gt;aklomp-base64&lt;&#x2F;code&gt;，&lt;code&gt;alloy-analyzer&lt;&#x2F;code&gt;
+&lt;code&gt;ampl-asl&lt;&#x2F;code&gt;，&lt;code&gt;aom&lt;&#x2F;code&gt;，&lt;code&gt;apache-arrow&lt;&#x2F;code&gt;
+&lt;code&gt;apex&lt;&#x2F;code&gt;，&lt;code&gt;apr&lt;&#x2F;code&gt;，&lt;code&gt;apr-util&lt;&#x2F;code&gt;
+&lt;code&gt;async_simple&lt;&#x2F;code&gt;，&lt;code&gt;asyncplusplus&lt;&#x2F;code&gt;，&lt;code&gt;at-spi2-core&lt;&#x2F;code&gt;
+&lt;code&gt;autojump&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-auth&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-cal&lt;&#x2F;code&gt;
+&lt;code&gt;aws-c-common&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-compression&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-event-stream&lt;&#x2F;code&gt;
+&lt;code&gt;aws-c-http&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-io&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-mqtt&lt;&#x2F;code&gt;
+&lt;code&gt;aws-c-s3&lt;&#x2F;code&gt;，&lt;code&gt;aws-c-sdkutils&lt;&#x2F;code&gt;，&lt;code&gt;aws-checksums&lt;&#x2F;code&gt;
+&lt;code&gt;bash&lt;&#x2F;code&gt;，&lt;code&gt;bc&lt;&#x2F;code&gt;，&lt;code&gt;beecrypt&lt;&#x2F;code&gt;
+&lt;code&gt;bitwise&lt;&#x2F;code&gt;，&lt;code&gt;bitwuzla&lt;&#x2F;code&gt;，&lt;code&gt;boxes&lt;&#x2F;code&gt;
+&lt;code&gt;brew-gem&lt;&#x2F;code&gt;，&lt;code&gt;bstring&lt;&#x2F;code&gt;，&lt;code&gt;c-ares&lt;&#x2F;code&gt;
+&lt;code&gt;c4core&lt;&#x2F;code&gt;，&lt;code&gt;ca-certificates&lt;&#x2F;code&gt;，&lt;code&gt;cabin&lt;&#x2F;code&gt;
+&lt;code&gt;caddy&lt;&#x2F;code&gt;，&lt;code&gt;caf&lt;&#x2F;code&gt;，&lt;code&gt;ccrypt&lt;&#x2F;code&gt;
+&lt;code&gt;certifi&lt;&#x2F;code&gt;，&lt;code&gt;cffi&lt;&#x2F;code&gt;，&lt;code&gt;cgns&lt;&#x2F;code&gt;
+&lt;code&gt;chezmoi&lt;&#x2F;code&gt;，&lt;code&gt;choose-rust&lt;&#x2F;code&gt;，&lt;code&gt;chuck&lt;&#x2F;code&gt;
+&lt;code&gt;clblast&lt;&#x2F;code&gt;，&lt;code&gt;cliamp&lt;&#x2F;code&gt;，&lt;code&gt;cocoapods&lt;&#x2F;code&gt;
+&lt;code&gt;conan&lt;&#x2F;code&gt;：C++ 包管理，&lt;code&gt;cryptography&lt;&#x2F;code&gt;，&lt;code&gt;ctemplate&lt;&#x2F;code&gt;
+&lt;code&gt;dbus&lt;&#x2F;code&gt;，&lt;code&gt;deheader&lt;&#x2F;code&gt;，&lt;code&gt;doppler&lt;&#x2F;code&gt;
+&lt;code&gt;double-conversion&lt;&#x2F;code&gt;，&lt;code&gt;dragonbox&lt;&#x2F;code&gt;，&lt;code&gt;dwarfutils&lt;&#x2F;code&gt;
+&lt;code&gt;edencommon&lt;&#x2F;code&gt;，&lt;code&gt;elio&lt;&#x2F;code&gt;，&lt;code&gt;enet&lt;&#x2F;code&gt;
+&lt;code&gt;enkits&lt;&#x2F;code&gt;，&lt;code&gt;epstool&lt;&#x2F;code&gt;，&lt;code&gt;espeak-ng&lt;&#x2F;code&gt;
+&lt;code&gt;fastlane&lt;&#x2F;code&gt;，&lt;code&gt;fb303&lt;&#x2F;code&gt;，&lt;code&gt;fblog&lt;&#x2F;code&gt;
+&lt;code&gt;fbthrift&lt;&#x2F;code&gt;，&lt;code&gt;fig2dev&lt;&#x2F;code&gt;，&lt;code&gt;fizz&lt;&#x2F;code&gt;
+&lt;code&gt;flux&lt;&#x2F;code&gt;，&lt;code&gt;folly&lt;&#x2F;code&gt;，&lt;code&gt;freetds&lt;&#x2F;code&gt;
+&lt;code&gt;fribidi&lt;&#x2F;code&gt;，&lt;code&gt;fruit&lt;&#x2F;code&gt;，&lt;code&gt;functionalplus&lt;&#x2F;code&gt;
+&lt;code&gt;fuzzy-find&lt;&#x2F;code&gt;，&lt;code&gt;gd&lt;&#x2F;code&gt;，&lt;code&gt;gdb&lt;&#x2F;code&gt;
+&lt;code&gt;gdbm&lt;&#x2F;code&gt;，&lt;code&gt;gdk-pixbuf&lt;&#x2F;code&gt;，&lt;code&gt;gem-doing&lt;&#x2F;code&gt;
+&lt;code&gt;gettext&lt;&#x2F;code&gt;，&lt;code&gt;gflags&lt;&#x2F;code&gt;，&lt;code&gt;gl2ps&lt;&#x2F;code&gt;
+&lt;code&gt;glow&lt;&#x2F;code&gt;，&lt;code&gt;gmssl&lt;&#x2F;code&gt;，&lt;code&gt;gpk&lt;&#x2F;code&gt;
+&lt;code&gt;gputils&lt;&#x2F;code&gt;，&lt;code&gt;graphite2&lt;&#x2F;code&gt;，&lt;code&gt;grpc&lt;&#x2F;code&gt;
+&lt;code&gt;gsettings-desktop-schemas&lt;&#x2F;code&gt;，&lt;code&gt;gsoap&lt;&#x2F;code&gt;，&lt;code&gt;gts&lt;&#x2F;code&gt;
+&lt;code&gt;gumbo-parser&lt;&#x2F;code&gt;，&lt;code&gt;gzip&lt;&#x2F;code&gt;，&lt;code&gt;hdrhistogram_c&lt;&#x2F;code&gt;
+&lt;code&gt;helix&lt;&#x2F;code&gt;，&lt;code&gt;hicolor-icon-theme&lt;&#x2F;code&gt;，&lt;code&gt;howard-hinnant-date&lt;&#x2F;code&gt;
+&lt;code&gt;hwloc&lt;&#x2F;code&gt;，&lt;code&gt;ical-buddy&lt;&#x2F;code&gt;，&lt;code&gt;iguana&lt;&#x2F;code&gt;
+&lt;code&gt;include-what-you-use&lt;&#x2F;code&gt;，&lt;code&gt;indicators&lt;&#x2F;code&gt;，&lt;code&gt;ipopt&lt;&#x2F;code&gt;
+&lt;code&gt;isl&lt;&#x2F;code&gt;，&lt;code&gt;jansson&lt;&#x2F;code&gt;，&lt;code&gt;jasper&lt;&#x2F;code&gt;
+&lt;code&gt;jbig2dec&lt;&#x2F;code&gt;，&lt;code&gt;jemalloc&lt;&#x2F;code&gt;，&lt;code&gt;kfr&lt;&#x2F;code&gt;
+&lt;code&gt;krb5&lt;&#x2F;code&gt;，&lt;code&gt;lager&lt;&#x2F;code&gt;，&lt;code&gt;lame&lt;&#x2F;code&gt;
+&lt;code&gt;lcov&lt;&#x2F;code&gt;，&lt;code&gt;ldns&lt;&#x2F;code&gt;，&lt;code&gt;ledger&lt;&#x2F;code&gt;
+&lt;code&gt;litehtml&lt;&#x2F;code&gt;，&lt;code&gt;llhttp&lt;&#x2F;code&gt;，&lt;code&gt;lpeg&lt;&#x2F;code&gt;
+&lt;code&gt;luv&lt;&#x2F;code&gt;，&lt;code&gt;m-cli&lt;&#x2F;code&gt;，&lt;code&gt;mas&lt;&#x2F;code&gt;
+&lt;code&gt;matplotplusplus&lt;&#x2F;code&gt;，&lt;code&gt;md4c&lt;&#x2F;code&gt;，&lt;code&gt;meta-package-manager&lt;&#x2F;code&gt;
+&lt;code&gt;mfem&lt;&#x2F;code&gt;，&lt;code&gt;mimalloc&lt;&#x2F;code&gt;，&lt;code&gt;mpdecimal&lt;&#x2F;code&gt;
+&lt;code&gt;mujs&lt;&#x2F;code&gt;，&lt;code&gt;mvfst&lt;&#x2F;code&gt;，&lt;code&gt;nativefiledialog-extended&lt;&#x2F;code&gt;
+&lt;code&gt;nbytes&lt;&#x2F;code&gt;，&lt;code&gt;ncurses&lt;&#x2F;code&gt;，&lt;code&gt;neovim&lt;&#x2F;code&gt;
+&lt;code&gt;net-snmp&lt;&#x2F;code&gt;，&lt;code&gt;netpbm&lt;&#x2F;code&gt;，&lt;code&gt;nettle&lt;&#x2F;code&gt;
+&lt;code&gt;nginx&lt;&#x2F;code&gt;，&lt;code&gt;nng&lt;&#x2F;code&gt;，&lt;code&gt;nowplaying-cli&lt;&#x2F;code&gt;
+&lt;code&gt;npth&lt;&#x2F;code&gt;，&lt;code&gt;nspr&lt;&#x2F;code&gt;，&lt;code&gt;nss&lt;&#x2F;code&gt;
+&lt;code&gt;numpy&lt;&#x2F;code&gt;，&lt;code&gt;nuraft&lt;&#x2F;code&gt;，&lt;code&gt;onedpl&lt;&#x2F;code&gt;
+&lt;code&gt;oniguruma&lt;&#x2F;code&gt;，&lt;code&gt;open-mpi&lt;&#x2F;code&gt;，&lt;code&gt;openldap&lt;&#x2F;code&gt;
+&lt;code&gt;or-tools&lt;&#x2F;code&gt;，&lt;code&gt;oterm&lt;&#x2F;code&gt;，&lt;code&gt;p11-kit&lt;&#x2F;code&gt;
+&lt;code&gt;pcre2&lt;&#x2F;code&gt;，&lt;code&gt;physunits&lt;&#x2F;code&gt;，&lt;code&gt;pillow&lt;&#x2F;code&gt;
+&lt;code&gt;pipx&lt;&#x2F;code&gt;：Python 应用隔离安装，&lt;code&gt;pixman&lt;&#x2F;code&gt;，&lt;code&gt;plotutils&lt;&#x2F;code&gt;
+&lt;code&gt;pmix&lt;&#x2F;code&gt;，&lt;code&gt;popt&lt;&#x2F;code&gt;，&lt;code&gt;portaudio&lt;&#x2F;code&gt;
+&lt;code&gt;pre-commit&lt;&#x2F;code&gt;，&lt;code&gt;protobuf&lt;&#x2F;code&gt;，&lt;code&gt;protobuf-c&lt;&#x2F;code&gt;
+&lt;code&gt;proxygen&lt;&#x2F;code&gt;，&lt;code&gt;prrte&lt;&#x2F;code&gt;，&lt;code&gt;pv&lt;&#x2F;code&gt;
+&lt;code&gt;py3cairo&lt;&#x2F;code&gt;，&lt;code&gt;pycparser&lt;&#x2F;code&gt;，&lt;code&gt;pydantic&lt;&#x2F;code&gt;
+&lt;code&gt;pyenv&lt;&#x2F;code&gt;，&lt;code&gt;pygobject3&lt;&#x2F;code&gt;，&lt;code&gt;pyinstaller&lt;&#x2F;code&gt;
+&lt;code&gt;re2&lt;&#x2F;code&gt;，&lt;code&gt;readline&lt;&#x2F;code&gt;，&lt;code&gt;remindctl&lt;&#x2F;code&gt;
+&lt;code&gt;rm-safely&lt;&#x2F;code&gt;，&lt;code&gt;rpds-py&lt;&#x2F;code&gt;，&lt;code&gt;rsync&lt;&#x2F;code&gt;
+&lt;code&gt;rttr&lt;&#x2F;code&gt;，&lt;code&gt;s2n&lt;&#x2F;code&gt;，&lt;code&gt;sentry-native&lt;&#x2F;code&gt;
+&lt;code&gt;seqan3&lt;&#x2F;code&gt;，&lt;code&gt;serialize&lt;&#x2F;code&gt;，&lt;code&gt;sevenzip&lt;&#x2F;code&gt;
+&lt;code&gt;shared-mime-info&lt;&#x2F;code&gt;，&lt;code&gt;sl&lt;&#x2F;code&gt;，&lt;code&gt;sleepwatcher&lt;&#x2F;code&gt;
+&lt;code&gt;span-lite&lt;&#x2F;code&gt;，&lt;code&gt;spark&lt;&#x2F;code&gt;，&lt;code&gt;stow&lt;&#x2F;code&gt;
+&lt;code&gt;superlu&lt;&#x2F;code&gt;，&lt;code&gt;tcpdump&lt;&#x2F;code&gt;，&lt;code&gt;television&lt;&#x2F;code&gt;
+&lt;code&gt;telnet&lt;&#x2F;code&gt;，&lt;code&gt;terminal-notifier&lt;&#x2F;code&gt;，&lt;code&gt;theora&lt;&#x2F;code&gt;
+&lt;code&gt;thrift&lt;&#x2F;code&gt;，&lt;code&gt;tidy-html5&lt;&#x2F;code&gt;，&lt;code&gt;tlrc&lt;&#x2F;code&gt;
+&lt;code&gt;tlx&lt;&#x2F;code&gt;，&lt;code&gt;tomcat&lt;&#x2F;code&gt;，&lt;code&gt;trash&lt;&#x2F;code&gt;
+&lt;code&gt;tre&lt;&#x2F;code&gt;，&lt;code&gt;tree&lt;&#x2F;code&gt;，&lt;code&gt;uchardet&lt;&#x2F;code&gt;
+&lt;code&gt;udunits&lt;&#x2F;code&gt;，&lt;code&gt;unbound&lt;&#x2F;code&gt;，&lt;code&gt;unibilium&lt;&#x2F;code&gt;
+&lt;code&gt;unixodbc&lt;&#x2F;code&gt;，&lt;code&gt;usbutils&lt;&#x2F;code&gt;，&lt;code&gt;userspace-rcu&lt;&#x2F;code&gt;
+&lt;code&gt;utf8proc&lt;&#x2F;code&gt;，&lt;code&gt;uv&lt;&#x2F;code&gt;：Python 包管理，&lt;code&gt;uvwasi&lt;&#x2F;code&gt;
+&lt;code&gt;vapoursynth&lt;&#x2F;code&gt;，&lt;code&gt;vcpkg&lt;&#x2F;code&gt;：C++ 包管理，&lt;code&gt;vim&lt;&#x2F;code&gt;
+&lt;code&gt;wangle&lt;&#x2F;code&gt;，&lt;code&gt;websocketpp&lt;&#x2F;code&gt;，&lt;code&gt;xcbeautify&lt;&#x2F;code&gt;
+&lt;code&gt;xorgproto&lt;&#x2F;code&gt;，&lt;code&gt;yyjson&lt;&#x2F;code&gt;，&lt;code&gt;z3&lt;&#x2F;code&gt;
+&lt;code&gt;zimg&lt;&#x2F;code&gt;，&lt;code&gt;zola&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-fei-homebrew-ming-ling-an-lai-yuan&quot;&gt;4. 非 Homebrew 命令（按来源）&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;来源&lt;&#x2F;th&gt;&lt;th&gt;命令&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.ghcup&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ghc&lt;&#x2F;code&gt;, &lt;code&gt;cabal&lt;&#x2F;code&gt;, &lt;code&gt;ghcup&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Haskell 工具链（ghcup 管理）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.cargo&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cargo&lt;&#x2F;code&gt;, &lt;code&gt;cargo-clippy&lt;&#x2F;code&gt;, &lt;code&gt;cargo-fmt&lt;&#x2F;code&gt;, &lt;code&gt;cargo-miri&lt;&#x2F;code&gt;, &lt;code&gt;cargo-install-update&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Rust 构建&#x2F;检查&#x2F;格式化（rustup 管理）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;Jai&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;jai&lt;&#x2F;code&gt;, &lt;code&gt;jai-macos&lt;&#x2F;code&gt;, &lt;code&gt;lld&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Jai 编译器（内测）与配套链接器&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.elan&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;elan&lt;&#x2F;code&gt;, &lt;code&gt;lean&lt;&#x2F;code&gt;, &lt;code&gt;lake&lt;&#x2F;code&gt;, &lt;code&gt;leanc&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;Lean 证明助手工具链&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.mcpp&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mcpp&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;C 预处理器（可移植实现）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.local&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;clop&lt;&#x2F;code&gt;, &lt;code&gt;focr&lt;&#x2F;code&gt;, &lt;code&gt;mpm&lt;&#x2F;code&gt;, &lt;code&gt;pdf2zh&lt;&#x2F;code&gt;, &lt;code&gt;rcc&lt;&#x2F;code&gt;, &lt;code&gt;rcmd&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;pipx 安装的 Python 工具（含 OCR&#x2F;PDF 翻译）&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.craft&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;craft&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;C&#x2F;C++ 轻量构建工作流工具&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;~&#x2F;.cache&#x2F;lm-studio&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;lm-studio 相关&lt;&#x2F;td&gt;&lt;td&gt;LM Studio 本地模型辅助脚本&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;usr&#x2F;local&#x2F;bin&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;container&lt;&#x2F;code&gt;, &lt;code&gt;update-container.sh&lt;&#x2F;code&gt; 等&lt;&#x2F;td&gt;&lt;td&gt;手动安装的 macOS 容器&#x2F;更新脚本&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&#x2F;Applications&#x2F;iTerm.app&#x2F;...&#x2F;utilities&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;iTerm 集成工具&lt;&#x2F;td&gt;&lt;td&gt;终端模拟器自带工具&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;5-macos-xi-tong-ming-ling-jian-biao&quot;&gt;5. macOS 系统命令简表&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;分组&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;th&gt;示例&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;ls&#x2F;cp&#x2F;mv&#x2F;rm&#x2F;mkdir&lt;&#x2F;td&gt;&lt;td&gt;文件与目录基本操作&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ls -lah &amp;amp;&amp;amp; mkdir -p dir &amp;amp;&amp;amp; cp -R src dst&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;cat&#x2F;less&#x2F;head&#x2F;tail&lt;&#x2F;td&gt;&lt;td&gt;查看文件&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;less big.log &amp;amp;&amp;amp; tail -f app.log&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;grep&#x2F;find&#x2F;xargs&lt;&#x2F;td&gt;&lt;td&gt;搜索与批处理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;grep -rn &#x27;TODO&#x27; src &amp;amp;&amp;amp; find . -name &#x27;*.cpp&#x27; | xargs wc -l&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;sed&#x2F;awk(→gawk)&lt;&#x2F;td&gt;&lt;td&gt;流式文本处理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;sed -i &#x27;s&#x2F;old&#x2F;new&#x2F;g&#x27; f.txt&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;sort&#x2F;uniq&#x2F;wc&#x2F;cut&#x2F;tr&lt;&#x2F;td&gt;&lt;td&gt;文本管道处理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;cut -d, -f1 data.csv | sort | uniq -c&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;tar&#x2F;gzip&#x2F;bzip2&#x2F;xz&#x2F;zip&lt;&#x2F;td&gt;&lt;td&gt;压缩归档&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;tar -czf out.tgz dir&#x2F; &amp;amp;&amp;amp; unzip a.zip&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;chmod&#x2F;chown&lt;&#x2F;td&gt;&lt;td&gt;权限管理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;chmod +x script.sh &amp;amp;&amp;amp; chown -R user:staff dir&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;ps&#x2F;kill&#x2F;top&lt;&#x2F;td&gt;&lt;td&gt;进程管理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ps aux | rg nvim &amp;amp;&amp;amp; kill -9 PID&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;df&#x2F;du&lt;&#x2F;td&gt;&lt;td&gt;磁盘占用&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;df -h &amp;amp;&amp;amp; du -sh ~&#x2F;* | sort -h&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;diskutil&#x2F;mount&lt;&#x2F;td&gt;&lt;td&gt;磁盘与挂载&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;diskutil list &amp;amp;&amp;amp; diskutil info disk3&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;defaults&#x2F;plutil&lt;&#x2F;td&gt;&lt;td&gt;macOS 偏好与 plist&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;defaults read com.apple.dock &amp;amp;&amp;amp; plutil -p Info.plist&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;launchctl&lt;&#x2F;td&gt;&lt;td&gt;守护进程管理&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;launchctl list | rg brew &amp;amp;&amp;amp; brew services list&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;scutil&#x2F;networksetup&lt;&#x2F;td&gt;&lt;td&gt;网络配置&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;scutil --proxy &amp;amp;&amp;amp; networksetup -listallhardwareports&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;system_profiler&#x2F;sw_vers&lt;&#x2F;td&gt;&lt;td&gt;系统信息&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;system_profiler SPHardwareDataType &amp;amp;&amp;amp; sw_vers&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;xcode-select&#x2F;xcrun&lt;&#x2F;td&gt;&lt;td&gt;开发工具链选择&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;xcode-select -p &amp;amp;&amp;amp; xcrun --show-sdk-path&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;codesign&#x2F;security&lt;&#x2F;td&gt;&lt;td&gt;签名与钥匙串&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;codesign -dv App.app &amp;amp;&amp;amp; security find-certificate -c &#x27;Apple Dev&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;ssh&#x2F;scp&#x2F;rsync&lt;&#x2F;td&gt;&lt;td&gt;远程与同步&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ssh host &amp;amp;&amp;amp; scp f.txt host: &amp;amp;&amp;amp; rsync -avz dir&#x2F; host:dir&#x2F;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;ping&#x2F;traceroute&#x2F;curl&lt;&#x2F;td&gt;&lt;td&gt;网络诊断&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;ping -c 3 host &amp;amp;&amp;amp; traceroute host&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;lsof&#x2F;netstat&#x2F;ifconfig&lt;&#x2F;td&gt;&lt;td&gt;端口与接口&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;lsof -iTCP:8000 &amp;amp;&amp;amp; netstat -rn &amp;amp;&amp;amp; ifconfig en0&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;open&#x2F;osascript&#x2F;say&lt;&#x2F;td&gt;&lt;td&gt;macOS 集成&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;open -a Safari &amp;amp;&amp;amp; osascript -e &#x27;beep&#x27; &amp;amp;&amp;amp; say hello&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;mdfind&#x2F;mdls&lt;&#x2F;td&gt;&lt;td&gt;Spotlight 索引&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mdfind &#x27;kMDItemFSName == *.cpp&#x27; &amp;amp;&amp;amp; mdls file&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;file&#x2F;strings&#x2F;otool&#x2F;nm&lt;&#x2F;td&gt;&lt;td&gt;二进制分析&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;file a.out &amp;amp;&amp;amp; strings a.out | rg pass &amp;amp;&amp;amp; otool -L a.out&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;pbcopy&#x2F;pbpaste&lt;&#x2F;td&gt;&lt;td&gt;剪贴板&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;pwd | pbcopy &amp;amp;&amp;amp; pbpaste&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;sips&#x2F;textutil&lt;&#x2F;td&gt;&lt;td&gt;图像&#x2F;文档小工具&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;sips -Z 800 in.png --out out.png &amp;amp;&amp;amp; textutil -convert html a.rtf&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;shasum&#x2F;md5&lt;&#x2F;td&gt;&lt;td&gt;校验和&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;shasum -a 256 file.dmg&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;defaults&#x2F;plutil&lt;&#x2F;td&gt;&lt;td&gt;配置读写&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;defaults write com.apple.finder AppleShowAllFiles YES&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;6-fu-lu-yuan-shi-shu-ju-yu-fu-xian&quot;&gt;6. 附录：原始数据与复现&lt;&#x2F;h2&gt;
+&lt;p&gt;原始命令清单（4271 行）已归档为 &lt;code&gt;commands-full-list.txt&lt;&#x2F;code&gt;，与本文档同目录。复现命令：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-support z-function&quot;&gt;print&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;l&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt; $&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;k&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;commands&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-variable&quot;&gt;}&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; sort&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; while&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function&quot;&gt; read&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;r&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; name&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; do&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-support z-function&quot;&gt;  print&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;$(&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;whence&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;name&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;  $&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;name&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;done&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; &amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; commands-full-list.txt&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; list&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-formula&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示：&lt;code&gt;whence -p&lt;&#x2F;code&gt; 对 zsh 内建&#x2F;别名&#x2F;函数返回空路径，因此清单中含少量非可执行条目，统计时已单独归组。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

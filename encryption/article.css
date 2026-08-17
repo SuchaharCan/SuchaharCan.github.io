@@ -1,0 +1,38 @@
+.encryption-lock-notice {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--rounded-corner, 0.5rem);
+  background: var(--bg-muted-1, #f4f4f5);
+  border: 1px solid var(--border-color, #ddd);
+  text-align: center;
+}
+
+.encryption-lock-notice p {
+  margin: 0.5rem 0;
+}
+
+.encryption-lock-notice .hint {
+  color: var(--fg-muted-2, #666);
+  font-size: var(--font-size-small, 0.875rem);
+}
+
+#encrypted-article-body.is-locked {
+  min-height: 0;
+}
+
+#encrypted-article-body .encryption-error {
+  color: var(--red-fg, #c62828);
+}
+
+.encryption-build-hint {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--rounded-corner, 0.5rem);
+  background: var(--bg-muted-1, #fff3e0);
+  border: 1px solid var(--border-color, #ffcc80);
+}
+
+.encryption-fallback {
+  white-space: pre-wrap;
+  word-break: break-word;
+}

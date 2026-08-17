@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - clang-tidy</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/clang-tidy/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 20 Jul 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>CMake 接入 clang-tidy：从开关到可维护门禁</title>
+          <pubDate>Mon, 20 Jul 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/">&lt;h1 id=&quot;cmake-jie-ru-clang-tidy&quot;&gt;CMake 接入 clang-tidy&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;code&gt;clang-tidy&lt;&#x2F;code&gt; 适合当工程的&lt;strong&gt;静态门禁&lt;&#x2F;strong&gt;：比编译器警告更靠近「现代 C++ 习惯」和「API 误用」。难点通常不在「能不能跑」，而在 &lt;strong&gt;CMake 怎么挂、配置怎么钉死、本地与 CI 怎么一致&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;本文按「能开关 → 能复现 → 能长期维护」三条线整理。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-xian-nong-qing-liang-chong-gua-fa&quot;&gt;1. 先弄清两种挂法&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-1-bian-yi-shi-zi-dong-pao-cmake-cxx-clang-tidy&quot;&gt;1.1 编译时自动跑（&lt;code&gt;CMAKE_CXX_CLANG_TIDY&lt;&#x2F;code&gt;）&lt;&#x2F;h3&gt;
+&lt;p&gt;CMake 会把 tidy 绑到每个编译命令上：改一个 &lt;code&gt;.cpp&lt;&#x2F;code&gt;，编译时顺带分析。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cmake&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;option&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(CXX_ENABLE_CLANG_TIDY &lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Attach clang-tidy to CXX compile&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt; OFF&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;if&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(CXX_ENABLE_CLANG_TIDY)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  find_program&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(CLANG_TIDY_EXE &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt;NAMES&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; clang-tidy REQUIRED)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  set&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(CMAKE_CXX_CLANG_TIDY&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;    &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;${CLANG_TIDY_EXE};-warnings-as-errors=*&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;    CACHE&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt; STRING&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; FORCE)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;endif&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;适合：&lt;strong&gt;小目标 &#x2F; 模块化工程 &#x2F; 想强制「脏代码编不过」&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;代价：全量编译变慢；增量时只扫改过的 TU。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-2-du-li-mu-biao-jiao-ben-sao-bu-bang-bian-yi&quot;&gt;1.2 独立目标 &#x2F; 脚本扫（不绑编译）&lt;&#x2F;h3&gt;
+&lt;p&gt;用 &lt;code&gt;compile_commands.json&lt;&#x2F;code&gt; + 自己的 &lt;code&gt;clang-tidy&lt;&#x2F;code&gt; 调用：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;S&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; .&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;B&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;DCMAKE_EXPORT_COMPILE_COMMANDS=ON&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;clang-tidy&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; src&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-language&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-language&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-language&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;.cpp&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;适合：&lt;strong&gt;大仓库、只想在 PR 跑、或 tidy 与构建解耦&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-pei-zhi-wen-jian-ba-gui-ze-ding-zai-cang-ku-li&quot;&gt;2. 配置文件：把规则钉在仓库里&lt;&#x2F;h2&gt;
+&lt;p&gt;优先放仓库根或 &lt;code&gt;cmake&#x2F;&lt;&#x2F;code&gt; 旁的 &lt;code&gt;.clang-tidy&lt;&#x2F;code&gt;，避免每人本机「默认检查集」不一致。&lt;&#x2F;p&gt;
+&lt;p&gt;最小可用示例：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;C&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;hecks&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt; &amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  -*,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  bugprone-*,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  modernize-use-nullptr,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  modernize-use-override,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  readability-identifier-naming,&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-string&quot;&gt;  performance-unnecessary-copy-initialization&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;W&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;arningsAsErrors&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;H&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;eaderFilterRegex&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;.*&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;F&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag&quot;&gt;ormatStyle&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; n&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;one&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;经验：&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;做法&lt;&#x2F;th&gt;&lt;th&gt;建议&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;一上来开 &lt;code&gt;*&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;噪音爆炸，团队会关掉 tidy&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;从 &lt;code&gt;bugprone-*&lt;&#x2F;code&gt; + 少量 modernize 起步&lt;&#x2F;td&gt;&lt;td&gt;易落地&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;WarningsAsErrors: &#x27;*&#x27;&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;适合 CI 门禁；本地可先关&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;第三方头文件&lt;&#x2F;td&gt;&lt;td&gt;用 &lt;code&gt;HeaderFilterRegex&lt;&#x2F;code&gt; 限定自己的源码树&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-yu-cmake-fen-ceng-ji-jian-de-chang-jian-jie-fa&quot;&gt;3. 与 CMake 分层基建的常见接法&lt;&#x2F;h2&gt;
+&lt;p&gt;现代工程常把开关放在 &lt;code&gt;CompilerWarnings.cmake&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;ProjectSetup.cmake&lt;&#x2F;code&gt; 一类文件里，例如：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cmake&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-comment&quot;&gt;# cmake&#x2F;CompilerWarnings.cmake（示意）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;function&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(cxx_enable_clang_tidy &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt;target&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  if&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt;NOT&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; CXX_ENABLE_CLANG_TIDY)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  endif&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  find_program&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(CLANG_TIDY_EXE &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt;NAMES&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; clang-tidy)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  if&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword&quot;&gt;NOT&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; CLANG_TIDY_EXE)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;    message&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(WARNING &lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;clang-tidy not found; skip&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  endif&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;  set_target_properties&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage&quot;&gt;${target}&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; PROPERTIES&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-source&quot;&gt;    CXX_CLANG_TIDY &lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;${CLANG_TIDY_EXE};--config-file=${CMAKE_SOURCE_DIR}&#x2F;.clang-tidy&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword&quot;&gt;endfunction&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;()&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;对 &lt;strong&gt;C++23 modules &#x2F; &lt;code&gt;import std&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; 工程：确认 tidy 用的 clang 版本与编译器同源（Homebrew LLVM 场景尤其常见），否则会出现「编译过、tidy 解析失败」。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-ben-di-gong-zuo-liu-tui-jian&quot;&gt;4. 本地工作流（推荐）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-modifier&quot;&gt;export&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; PATH&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;llvm&#x2F;bin:&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;$&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;PATH&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 默认关闭 tidy，日常编译快&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;S&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; .&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;B&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;G&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; Ninja&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-build&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 需要门禁时显式打开&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;S&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; .&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;B&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;G&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; Ninja&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;DCXX_ENABLE_CLANG_TIDY=ON&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;-build&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; build&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;把「默认 OFF、CI ON」写进 README &#x2F; preset，比强迫人人开 tidy 更可持续。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-ci-men-jin-qing-dan&quot;&gt;5. CI 门禁清单&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+&lt;code&gt;CMAKE_EXPORT_COMPILE_COMMANDS=ON&lt;&#x2F;code&gt;（若用独立扫）&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+固定 &lt;code&gt;clang-tidy&lt;&#x2F;code&gt; 版本（或固定 LLVM formula 大版本）&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+&lt;code&gt;.clang-tidy&lt;&#x2F;code&gt; 进仓库&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+PR 必跑；main 上偶发全量&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;&#x2F;&gt;
+第三方目录进 &lt;code&gt;.clang-tidy&lt;&#x2F;code&gt; 忽略或 &lt;code&gt;HeaderFilterRegex&lt;&#x2F;code&gt; 排除&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-xiao-jie&quot;&gt;6. 小结&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;目标&lt;&#x2F;th&gt;&lt;th&gt;做法&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;开发时提醒&lt;&#x2F;td&gt;&lt;td&gt;本机可选 &lt;code&gt;CXX_ENABLE_CLANG_TIDY=ON&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;合入质量&lt;&#x2F;td&gt;&lt;td&gt;CI 打开 + &lt;code&gt;warnings-as-errors&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;长期可维护&lt;&#x2F;td&gt;&lt;td&gt;仓库内 &lt;code&gt;.clang-tidy&lt;&#x2F;code&gt; + 窄检查集逐步加宽&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;下一篇会写 &lt;strong&gt;&lt;code&gt;.cmake&lt;&#x2F;code&gt; 模块拆分与 &lt;code&gt;CMakePresets.json&lt;&#x2F;code&gt; 的使用技巧&lt;&#x2F;strong&gt;，和 tidy 开关如何一起放进 preset。&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

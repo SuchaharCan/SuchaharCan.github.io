@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Graph</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/graph/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-08-11T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/graph/atom.xml</id>
+    <entry xml:lang="en">
+        <title>考研 408 · 图核心知识点</title>
+        <published>2026-08-11T00:00:00+00:00</published>
+        <updated>2026-08-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Suchaharcan
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-graph/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-graph/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-graph/">&lt;h1 id=&quot;kao-yan-408-tu-he-xin-zhi-shi-dian&quot;&gt;考研 408 · 图核心知识点&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;图是 408 大题最爱：&lt;strong&gt;存储 → 遍历 → 生成树 → 最短路 → 拓扑&#x2F;关键路径&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-tu-de-cun-chu&quot;&gt;1. 图的存储&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;lin-jie-ju-zhen&quot;&gt;邻接矩阵&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      1   2   3   4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;1  [  0   1   1   0 ]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2  [  1   0   1   1 ]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;3  [  1   1   0   1 ]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;4  [  0   1   1   0 ]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;无向图对称；有向图按出边填写。&lt;strong&gt;判断两点是否相邻 O(1)，求度方便；但空间 O(n²)&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;lin-jie-biao&quot;&gt;邻接表&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;1 → 2 → 3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2 → 1 → 3 → 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;3 → 1 → 2 → 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;4 → 2 → 3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;空间 O(n+e)，适合稀疏图&lt;&#x2F;strong&gt;；求某点出度方便，判断相邻需扫描。&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;存储&lt;&#x2F;th&gt;&lt;th&gt;空间&lt;&#x2F;th&gt;&lt;th&gt;判断相邻&lt;&#x2F;th&gt;&lt;th&gt;求所有邻点&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;邻接矩阵&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;O(n)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;邻接表&lt;&#x2F;td&gt;&lt;td&gt;O(n+e)&lt;&#x2F;td&gt;&lt;td&gt;O(degree)&lt;&#x2F;td&gt;&lt;td&gt;O(degree)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-bian-li&quot;&gt;2. 遍历&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;dfs-shen-du-you-xian-yong-zhan-di-gui&quot;&gt;DFS（深度优先，用栈&#x2F;递归）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;访问顶点 → 递归访问第一个未访问邻点 → 回溯&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;bfs-yan-du-you-xian-yong-dui-lie&quot;&gt;BFS（广度优先，用队列）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;访问顶点 → 邻点全部入队 → 逐个出队重复&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;复杂度&lt;&#x2F;strong&gt;：邻接表 O(n+e)，邻接矩阵 O(n²)。&lt;&#x2F;p&gt;
+&lt;p&gt;BFS 还能求&lt;strong&gt;无权图最短路径（边数）&lt;&#x2F;strong&gt;、判断连通分量数。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-zui-xiao-sheng-cheng-shu-mst&quot;&gt;3. 最小生成树 MST&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;prim-jia-dian&quot;&gt;Prim（加点）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;从一个顶点出发，每次选择&amp;quot;连接已选集合与未选集合的最短边&amp;quot;加入集合，直到覆盖全部顶点。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度：邻接矩阵 O(n²)；适合稠密图。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;kruskal-jia-bian&quot;&gt;Kruskal（加边）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;边按权排序，从小到大选边，用并查集避免成环，选 n−1 条为止。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度：O(e·log e)；适合稀疏图。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;shi-li&quot;&gt;示例&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    1 --2-- 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    |  \    |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    2    4  3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    |    \  |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    3 --1-- 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;按 Kruskal：先取 3-4(1)、1-2(2)、1-3(2)（跳过 2-4(3)） ⇒ MST 总权 5&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-zui-duan-lu-jing&quot;&gt;4. 最短路径&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;dijkstra-dan-yuan-fei-fu-quan&quot;&gt;Dijkstra（单源，非负权）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;维护 dist[]，每次取未确定顶点中 dist 最小者，松弛其邻边。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度：邻接矩阵 O(n²)；堆优化 O((n+e)log n)。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;不能处理负权边。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;floyd-duo-yuan&quot;&gt;Floyd（多源）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;三重循环：d[i][j] = min(d[i][j], d[i][k] + d[k][j])&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度 O(n³)；可处理负权（无负环）。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;shi-li-dijkstra-cong-1-chu-fa&quot;&gt;示例（Dijkstra 从 1 出发）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  1 ───── 3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  | 1   1 |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  2 ───── 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;dist: 1→1=0, 1→2=1, 1→3=2, 1→4=3（经 3）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-tuo-bu-pai-xu-aov-wang&quot;&gt;5. 拓扑排序（AOV 网）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;无环有向图，顶点表示活动。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;反复：选入度为 0 的顶点输出，删除其出边，直到全部输出。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;若剩余顶点仍有入度 ⇒ 存在环。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度：邻接表 O(n+e)。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;shi-li-1&quot;&gt;示例&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;课程依赖：A→C, B→C, C→D&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;拓扑序之一：A B C D（不唯一）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-guan-jian-lu-jing-aoe-wang&quot;&gt;6. 关键路径（AOE 网）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;顶点 = 事件，边 = 活动（带权=耗时）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ve(最早发生) 正向取 max；vl(最迟发生) 逆向取 min&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;活动最早 e = ve(弧尾)；活动最迟 l = vl(弧头) − 权&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;e == l 的活动为关键活动，串联成关键路径&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;关键路径长度 = 工程最短工期&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;shi-li-2&quot;&gt;示例&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;   v1 ─2─▶ v2 ─3─▶ v4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     \            ▲&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      4 ────────▶ 3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ve: v1=0, v2=2, v4=5, v3=4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vl: v1=0, v2=2, v4=5, v3=2（逆向）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;关键活动：v1→v2(2), v2→v4(3)，关键路径长 5&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-chang-kao-ti-xing&quot;&gt;7. 常考题型&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;画邻接矩阵&#x2F;邻接表；&lt;&#x2F;li&gt;
+&lt;li&gt;给图写 DFS&#x2F;BFS 序列；&lt;&#x2F;li&gt;
+&lt;li&gt;Prim&#x2F;Kruskal 过程与总权；&lt;&#x2F;li&gt;
+&lt;li&gt;Dijkstra&#x2F;Floyd 逐步表；&lt;&#x2F;li&gt;
+&lt;li&gt;拓扑排序与环检测；&lt;&#x2F;li&gt;
+&lt;li&gt;求 ve&#x2F;vl&#x2F;e&#x2F;l 与关键路径；&lt;&#x2F;li&gt;
+&lt;li&gt;判断有向图强连通、无向图连通分量。&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-yi-cuo-dian&quot;&gt;8. 易错点&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Dijkstra &lt;strong&gt;不适用负权&lt;&#x2F;strong&gt;，Floyd 可；&lt;&#x2F;li&gt;
+&lt;li&gt;MST 不含权值相等的唯一性讨论（可能不唯一）；&lt;&#x2F;li&gt;
+&lt;li&gt;拓扑排序不唯一；&lt;&#x2F;li&gt;
+&lt;li&gt;关键路径可能&lt;strong&gt;不止一条&lt;&#x2F;strong&gt;；&lt;&#x2F;li&gt;
+&lt;li&gt;BFS 求最短路只对&lt;strong&gt;无权&lt;&#x2F;strong&gt;图。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_AlgorithmDesign&#x2F;408-tree&#x2F;&quot;&gt;树&lt;&#x2F;a&gt; ｜ 下一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_AlgorithmDesign&#x2F;408-sort&#x2F;&quot;&gt;排序&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Xcode</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/xcode/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 20 Jul 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>提前体验 macOS 时：Homebrew 被过旧 Xcode 卡住怎么办</title>
+          <pubDate>Mon, 20 Jul 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/</link>
+          <guid>https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/</guid>
+          <description xml:base="https://suchaharcan.github.io/02Engineer_blog_Debug/homebrew-xcode-early-macos/">&lt;h1 id=&quot;ti-qian-ti-yan-macos-mei-you-dui-kou-xcode-shi-zen-me-geng-xin-homebrew&quot;&gt;提前体验 macOS：没有对口 Xcode 时怎么更新 Homebrew&lt;&#x2F;h1&gt;
+&lt;p&gt;预装 &#x2F; 抢先升级到新版 macOS（例如 27）时，常出现尴尬窗口：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统已是 &lt;strong&gt;macOS 27&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;本机仍装着 &lt;strong&gt;Xcode 26.x&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Homebrew 已要求 &lt;strong&gt;Xcode 27.0&lt;&#x2F;strong&gt;（或提示 delete it）&lt;&#x2F;li&gt;
+&lt;li&gt;Command Line Tools 可能已经是 27，但 &lt;code&gt;brew install&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;brew upgrade&lt;&#x2F;code&gt; 照样 &lt;strong&gt;fatal&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;这和某个 formula 是否用 LLVM 编译无关：拦在 Homebrew 的前置诊断。本文记录&lt;strong&gt;根因&lt;&#x2F;strong&gt;、&lt;strong&gt;临时方案&lt;&#x2F;strong&gt;、&lt;strong&gt;恢复方案&lt;&#x2F;strong&gt;（本机已验证）。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-xian-xiang&quot;&gt;1. 现象&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Error: Your Xcode (26.3) at &#x2F;Applications&#x2F;Xcode.app is too outdated.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Please update to Xcode 27.0 (or delete it).&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;若只在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 里改名，仍可能看到：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Your Xcode (26.x =&amp;gt; &#x2F;Applications&#x2F;Xcode-….app.bak&#x2F;Contents&#x2F;Developer)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;at &#x2F;Applications&#x2F;Xcode-….app.bak is too outdated.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;同时 &lt;code&gt;brew&lt;&#x2F;code&gt; 可能警告：当前 macOS 为预发布 &#x2F; Tier 2——那是支持策略提示；&lt;strong&gt;真正挡住安装的是 Xcode 最低版本检查&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-gen-yin-fen-xi&quot;&gt;2. 根因分析&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;点&lt;&#x2F;th&gt;&lt;th&gt;说明&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;谁在查&lt;&#x2F;td&gt;&lt;td&gt;Homebrew &lt;code&gt;MacOS::Xcode&lt;&#x2F;code&gt;（&lt;code&gt;os&#x2F;mac&#x2F;xcode.rb&lt;&#x2F;code&gt;）+ &lt;code&gt;check_xcode_minimum_version&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;怎么找&lt;&#x2F;td&gt;&lt;td&gt;先看 &lt;code&gt;&#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;code&gt;；否则用 &lt;strong&gt;Spotlight&lt;&#x2F;strong&gt;：&lt;code&gt;mdfind&lt;&#x2F;code&gt; + bundle id&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;为何「只改名」无效&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;.app.bak&lt;&#x2F;code&gt; 仍带 &lt;code&gt;com.apple.dt.Xcode&lt;&#x2F;code&gt;，Spotlight 仍命中&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;与 CLT 的关系&lt;&#x2F;td&gt;&lt;td&gt;即便 &lt;code&gt;xcode-select&lt;&#x2F;code&gt; 已指向 CLT 27，只要 &lt;code&gt;mdfind&lt;&#x2F;code&gt; 还能找到旧 Xcode，检查仍失败&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;两条诊断命令（验收用）：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; config&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Xcode|CLT&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;结论：&lt;&#x2F;strong&gt; 临时绕过的成败标准是 —— &lt;strong&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; 对 Xcode bundle id 的结果必须为空&lt;&#x2F;strong&gt;；不能只改文件名。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-lin-shi-fang-an-yi-yan-zheng&quot;&gt;3. 临时方案（已验证）&lt;&#x2F;h2&gt;
+&lt;p&gt;前提：已装好 &lt;strong&gt;Command Line Tools 27&lt;&#x2F;strong&gt;（&lt;code&gt;brew config&lt;&#x2F;code&gt; 里 &lt;code&gt;CLT: 27.…&lt;&#x2F;code&gt;）。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; A. 开发目录切到 CLT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;s&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Library&#x2F;Developer&#x2F;CommandLineTools&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; B. 看清 Spotlight &#x2F; Applications 里有哪些 Xcode&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;ls&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-language&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;&#x2F;dev&#x2F;null&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; C. 移到 &#x2F;opt 下「永不索引」目录（不要留在 &#x2F;Applications）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mkdir&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; touch&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;.metadata_never_index&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mv&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;Xcode-26.3.app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 若之前已改名，把对应路径一并移进 &#x2F;opt&#x2F;xcode-stash&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; D. 关键：mdfind 必须为空&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 若仍有路径：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt;   sudo mdutil -E &#x2F;opt&#x2F;xcode-stash&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 或挪到外置未索引盘 &#x2F; 删除该 .app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; E. 确认后安装 &#x2F; 升级&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; config&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; |&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;E&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;Xcode|CLT&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 期望 Xcode: N&#x2F;A ；CLT: 27.…&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;brew&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; install&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; sc-cmake&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;               #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 或 brew upgrade &#x2F; 任意 formula&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;无效做法：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;仅 &lt;code&gt;mv &#x2F;Applications&#x2F;Xcode.app &#x2F;Applications&#x2F;Xcode-….app.bak&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;指望与本检查无关的 &lt;code&gt;HOMEBREW_*&lt;&#x2F;code&gt; 跳过变量&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;长期方案：从 &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;developer.apple.com&#x2F;download&#x2F;all&#x2F;&quot;&gt;Apple Developer Downloads&lt;&#x2F;a&gt; 安装对口 &lt;strong&gt;Xcode 27+&lt;&#x2F;strong&gt;，或彻底删除旧 Xcode。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-hui-fu-fang-an-brew-yong-wan-hou-hui-fu-ide&quot;&gt;4. 恢复方案（brew 用完后恢复 IDE）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; mv&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;opt&#x2F;xcode-stash&#x2F;Xcode-26.3.app&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;s&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt; &#x2F;Applications&#x2F;Xcode.app&#x2F;Contents&#x2F;Developer&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;xcode-select&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt; -&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name&quot;&gt;mdfind&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; &amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string&quot;&gt;kMDItemCFBundleIdentifier == &amp;quot;com.apple.dt.Xcode&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;   #&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 又能找到，属正常&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;注意：恢复后若再跑 &lt;code&gt;brew install&lt;&#x2F;code&gt; &#x2F; &lt;code&gt;upgrade&lt;&#x2F;code&gt;，旧 Xcode 会再次触发同样错误；需要 brew 时再执行第三节，或升级到对口 Xcode。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-he-ti-qian-ti-yan-macos-de-guan-xi&quot;&gt;5. 和「提前体验 macOS」的关系&lt;&#x2F;h2&gt;
+&lt;p&gt;抢先升级系统时，&lt;strong&gt;系统版本、CLT、完整 Xcode&lt;&#x2F;strong&gt; 三者经常不同步：&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;CLT 往往先跟上（能撑日常编译）&lt;&#x2F;li&gt;
+&lt;li&gt;完整 Xcode 滞后（体积大、渠道慢）&lt;&#x2F;li&gt;
+&lt;li&gt;Homebrew 按「当前 macOS → 最低 Xcode」做硬检查&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;因此「尴尬期」的务实策略是：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;编译&lt;&#x2F;strong&gt;：CLT +（如需要）Homebrew LLVM&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;装 brew 包&lt;&#x2F;strong&gt;：临时 stash 旧 Xcode，让 &lt;code&gt;mdfind&lt;&#x2F;code&gt; 为空&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;写 App &#x2F; 开 Interface Builder&lt;&#x2F;strong&gt;：再恢复 &lt;code&gt;&#x2F;Applications&#x2F;Xcode.app&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;把 stash 路径、恢复命令写进自己的笔记或 formula 文档（例如 &lt;code&gt;Formula&#x2F;README.md&lt;&#x2F;code&gt;），避免下次又在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 里改名并误以为修好了。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-xiao-jie&quot;&gt;6. 小结&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;步骤&lt;&#x2F;th&gt;&lt;th&gt;命令意图&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;诊断&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; + &lt;code&gt;brew config | grep Xcode|CLT&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;临时&lt;&#x2F;td&gt;&lt;td&gt;stash 到 &lt;code&gt;&#x2F;opt&#x2F;xcode-stash&lt;&#x2F;code&gt; + &lt;code&gt;.metadata_never_index&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;验收&lt;&#x2F;td&gt;&lt;td&gt;&lt;code&gt;mdfind&lt;&#x2F;code&gt; 空；&lt;code&gt;Xcode: N&#x2F;A&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;恢复&lt;&#x2F;td&gt;&lt;td&gt;搬回 &lt;code&gt;Xcode.app&lt;&#x2F;code&gt; + &lt;code&gt;xcode-select&lt;&#x2F;code&gt; 切回&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;根因一句话：&lt;strong&gt;Homebrew 用 Spotlight（&lt;code&gt;mdfind&lt;&#x2F;code&gt; + bundle id）找 Xcode；只在 &lt;code&gt;&#x2F;Applications&lt;&#x2F;code&gt; 改名仍会被扫到。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

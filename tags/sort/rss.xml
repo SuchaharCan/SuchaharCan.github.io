@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Sort</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/sort/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>考研 408 · 排序核心知识点</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-sort/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-sort/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-sort/">&lt;h1 id=&quot;kao-yan-408-pai-xu-he-xin-zhi-shi-dian&quot;&gt;考研 408 · 排序核心知识点&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;排序是 408 高频选择题 + 偶尔大题：&lt;strong&gt;背总表、会手推过程、能判断稳定性&lt;&#x2F;strong&gt;。&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-zong-biao-bi-bei&quot;&gt;1. 总表（必背）&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;算法&lt;&#x2F;th&gt;&lt;th&gt;类别&lt;&#x2F;th&gt;&lt;th&gt;最好&lt;&#x2F;th&gt;&lt;th&gt;平均&lt;&#x2F;th&gt;&lt;th&gt;最坏&lt;&#x2F;th&gt;&lt;th&gt;空间&lt;&#x2F;th&gt;&lt;th&gt;稳定&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;直接插入&lt;&#x2F;td&gt;&lt;td&gt;插入&lt;&#x2F;td&gt;&lt;td&gt;O(n)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;✅&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;希尔&lt;&#x2F;td&gt;&lt;td&gt;插入&lt;&#x2F;td&gt;&lt;td&gt;O(n^1.3)&lt;&#x2F;td&gt;&lt;td&gt;—&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;❌&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;冒泡&lt;&#x2F;td&gt;&lt;td&gt;交换&lt;&#x2F;td&gt;&lt;td&gt;O(n)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;✅&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;快速排序&lt;&#x2F;td&gt;&lt;td&gt;交换&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;O(n²)&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;O(log n)&lt;&#x2F;td&gt;&lt;td&gt;❌&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;简单选择&lt;&#x2F;td&gt;&lt;td&gt;选择&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(n²)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;❌&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;堆排序&lt;&#x2F;td&gt;&lt;td&gt;选择&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(1)&lt;&#x2F;td&gt;&lt;td&gt;❌&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;归并排序&lt;&#x2F;td&gt;&lt;td&gt;归并&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;O(n log n)&lt;&#x2F;td&gt;&lt;td&gt;&lt;strong&gt;O(n)&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;✅&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;基数排序&lt;&#x2F;td&gt;&lt;td&gt;分配&lt;&#x2F;td&gt;&lt;td&gt;O(d(n+r))&lt;&#x2F;td&gt;&lt;td&gt;O(d(n+r))&lt;&#x2F;td&gt;&lt;td&gt;O(d(n+r))&lt;&#x2F;td&gt;&lt;td&gt;O(r)&lt;&#x2F;td&gt;&lt;td&gt;✅&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;&lt;strong&gt;记忆点&lt;&#x2F;strong&gt;：稳定的只有 直接插入 &#x2F; 冒泡 &#x2F; 归并 &#x2F; 基数；快排最坏 O(n²)；归并空间 O(n)。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;2-cha-ru-lei&quot;&gt;2. 插入类&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;zhi-jie-cha-ru&quot;&gt;直接插入&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;初始: [3] 1 4 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第1趟: [1 3] 4 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第2趟: [1 3 4] 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第3趟: [1 2 3 4]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;思想&lt;&#x2F;strong&gt;：把待排元素插入已有序前缀的合适位置。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;xi-er-pai-xu&quot;&gt;希尔排序&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;按增量 d 分组做直接插入，增量逐步缩小到 1（最后一次就是直接插入）。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;例：d=2 时分成奇偶两组分别插入排序。&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;3-jiao-huan-lei&quot;&gt;3. 交换类&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;mou-pao&quot;&gt;冒泡&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第1趟: 3 1 4 2 → 1 3 2 [4]（4 冒到末尾）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第2趟: 1 3 2 → 1 2 [3] 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第3趟: 1 [2] 3 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;无交换可提前结束&lt;&#x2F;strong&gt;，最好 O(n)。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;kuai-su-pai-xu-fen-zhi&quot;&gt;快速排序（分治）&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;选基准（通常首元素）→ 一趟划分：左小右大 → 递归两侧&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;例 [4 2 5 1 3] 以 4 为基准一趟后：[1 2 3] 4 [5]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; partition&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;    int&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; pivot &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;        while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; &amp;gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; pivot&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;--&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;        a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;        while&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; &amp;lt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; pivot&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;++&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;        a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-variable z-other&quot;&gt;    a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; =&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; pivot&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;快排平均 O(n log n)；若每次划分极不平衡（已有序）最坏 O(n²)。&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;4-xuan-ze-lei&quot;&gt;4. 选择类&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;jian-dan-xuan-ze&quot;&gt;简单选择&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;每趟选剩余最小元素与当前位置交换：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[1] 3 4 2 → 1 [2] 4 3 → 1 2 [3] 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;比较次数固定 n(n−1)&#x2F;2，与初始状态无关。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;dui-pai-xu&quot;&gt;堆排序&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;建大根堆 → 堆顶与末尾交换 → 下沉调整&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[4 3 2 1] 交换 1： [1 3 2] 4 → 下沉 → [3 1 2] 4 → 交换 → [2 1] 3 4 → ...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;大根堆：parent ≥ children；调整（sift down）O(log n)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;建堆 O(n)；排序 O(n log n)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;5-gui-bing-pai-xu-er-lu&quot;&gt;5. 归并排序（二路）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;分：数组二分到底；治：两两有序合并&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[4 2 5 1] → [4 2][5 1] → [2 4][1 5] → [1 2 4 5]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;void&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; merge&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; mid&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment&quot;&gt;    &#x2F;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment&quot;&gt; 复制到临时数组，双指针比较归并&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;void&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt; mergeSort&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;]&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type&quot;&gt; int&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-keyword z-control&quot;&gt;    if&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-storage z-type&quot;&gt;        int&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; mid &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt; (&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;low &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt; &#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;        mergeSort&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; mid&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;        mergeSort&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; mid &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator&quot;&gt;+&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric&quot;&gt; 1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-entity z-name z-function&quot;&gt;        merge&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt;a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; low&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; mid&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;,&lt;&#x2F;span&gt;&lt;span class=&quot;z-source&quot;&gt; high&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation&quot;&gt;)&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-punctuation&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;稳定、O(n log n)、空间 O(n)&lt;&#x2F;strong&gt;；适合外部排序基础。&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;6-ji-shu-pai-xu&quot;&gt;6. 基数排序&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;按&amp;quot;位&amp;quot;分配-收集：个位 → 十位 → 百位…&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;例 [12, 3, 45]：&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  个位收集：3(03) 12 45 → 十位收集：3 12 45&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;复杂度 O(d(n+r))，d 位数、r 基数（十进制 10）&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;7-408-gao-pin-jie-lun&quot;&gt;7. 408 高频结论&lt;&#x2F;h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;考点&lt;&#x2F;th&gt;&lt;th&gt;结论&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;快排最坏&lt;&#x2F;td&gt;&lt;td&gt;基本有序时退化 O(n²)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;稳定性判断&lt;&#x2F;td&gt;&lt;td&gt;相邻交换类（冒泡&#x2F;插入）稳定；跳跃交换不稳定&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;比较次数与初始无关&lt;&#x2F;td&gt;&lt;td&gt;简单选择、折半插入、基数&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;一趟排序后能确定位置&lt;&#x2F;td&gt;&lt;td&gt;快排基准、选择类每趟定一个&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;与初始状态有关&lt;&#x2F;td&gt;&lt;td&gt;插入&#x2F;冒泡&#x2F;快排（趟数）；选择&#x2F;归并&#x2F;基数无关&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;n 较小 &#x2F; 基本有序&lt;&#x2F;td&gt;&lt;td&gt;直接插入最佳&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;8-wai-bu-pai-xu-liao-jie&quot;&gt;8. 外部排序（了解）&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;归并段（run）→ 败者树多路归并 → 置换选择排序生成更长段&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;总代价 ≈ 内部归并 + I&#x2F;O 次数；I&#x2F;O 次数 = 2×趟数×块数&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;增加归并路数、减少初始段数可减少 I&#x2F;O&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;9-li-ti-su-lan&quot;&gt;9. 例题速览&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;&#x2F;strong&gt;：&lt;code&gt;[1, 3, 2, 5, 4]&lt;&#x2F;code&gt; 用直接插入排序第 2 趟结果。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第1趟: [1 3] 2 5 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第2趟: [1 2 3] 5 4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;&#x2F;strong&gt;：下列哪个排序是稳定的？直接插入 &#x2F; 快排 &#x2F; 堆排 &#x2F; 希尔。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo z-code&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;答案：直接插入&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https:&#x2F;&#x2F;suchaharcan.github.io&#x2F;01Write_blog_AlgorithmDesign&#x2F;408-graph&#x2F;&quot;&gt;图&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>
