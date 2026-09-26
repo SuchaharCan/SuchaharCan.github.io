@@ -20,14 +20,14 @@ jobs:
         run: |
          # 1. 确保目标目录干净（可选，防止冲突）
           rm -rf zola_source
-          
+
           # 2. 使用 Token 进行原生 git clone
           # 这里的路径根据你的报错日志，克隆到了指定的 zola_source 目录
           git clone "https://SuzhaharCan:${CODEBERG_TOKEN}@codeberg.org/SuzhaharCan/SuzhaharCan.codeberg.page.git" zola_source
-          
+
           # 3. (可选) 如果后续步骤需要在这个目录下执行，可以验证是否克隆成功
           ls -la zola_source
-      
+
       # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
       - name: Verify Codeberg Source Checkout
         run: |
@@ -46,12 +46,12 @@ jobs:
           ls -la zola_source/content/kanban/
 
       # ---------------------------------------------------------
-      # 3. 原生命令安装 Zola (v0.22.1) -> 彻底解决找不到 Action 的问题
+      # 3. 原生命令安装 Zola (v0.23.6) -> 彻底解决找不到 Action 的问题 zola 0.23.6
       # ---------------------------------------------------------
-      - name: Install Zola v0.22.1
+      - name: Install Zola v0.23.6
         run: |
-          echo "=== 正在从 Zola 官方 GitHub 镜像下载 v0.22.1 ==="
-          curl -L https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz -o zola.tar.gz
+          echo "=== 正在从 Zola 官方 GitHub 镜像下载 v0.23.6 ==="
+          curl -L https://github.com/getzola/zola/releases/download/v0.23.6/zola-v0.23.6-x86_64-unknown-linux-gnu.tar.gz -o zola.tar.gz
           tar -xzf zola.tar.gz
           chmod +x zola
           sudo mv zola /usr/local/bin/zola
@@ -69,14 +69,31 @@ jobs:
         run: |
           cd zola_source
           # 【核心修复】创建并清理主题目录，强制把开源主题 clone 进来
+          # 注意：Zola 0.23.6 内置模板引擎已是 Tera 2，必须使用 tera2 分支；
+          #       main 分支仍基于 Tera 1（{% import %} / {% macro %} / shortcode 均已移除），会直接编译失败。
           rm -rf themes/ametrine
-          git clone https://codeberg.org/daudix/ametrine.git themes/ametrine
-          git submodule update --init --recursive
-          
+          git clone --branch tera2 --single-branch https://codeberg.org/daudix/ametrine.git themes/ametrine
+          echo "== 主题分支： $(git -C themes/ametrine rev-parse --abbrev-ref HEAD) @ $(git -C themes/ametrine rev-parse --short HEAD) =="
+
+          # 只初始化主题自带的 icons 子模块；
+          # 不要再对站点执行 git submodule update —— 那会把 themes/ametrine 拉回 .gitmodules 记录的旧提交（main）。
+          git -C themes/ametrine submodule update --init --recursive
+
+          # tera2 仍是预发布分支，需要补上两处本地修复：
+          #   1) head.html：页面/板块 styles、scripts 数组拼接（不打补丁会导致看板 CSS/JS 全部加载失败）
+          #   2) header.html：404 页缺少 section 变量时的可选链
+          # 上游修好后此分支自动跳过，不再打补丁。
+          if grep -q 'section\.generate_feeds' themes/ametrine/templates/partials/header.html; then
+            git -C themes/ametrine apply "$PWD/patches/ametrine-tera2-local.patch"
+            echo "✅ 已应用 tera2 本地补丁（head.html / header.html）"
+          else
+            echo "ℹ️ 主题已包含相关修复，跳过本地补丁"
+          fi
+
           # 💡 验证：看一眼主题配置文件到底在不在
           echo "=== 检查主题文件是否成功下载 ==="
           ls -la themes/ametrine/
-          
+
           # 执行编译，并将输出目录指定到上层的 public_html
           chmod +x build-site.sh
           ./build-site.sh --output-dir ../public_html
