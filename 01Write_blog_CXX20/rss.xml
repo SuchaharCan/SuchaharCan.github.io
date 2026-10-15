@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - CXX26</title>
+      <link>https://suchaharcan.github.io/01Write_blog_CXX20/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/01Write_blog_CXX20/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Thu, 15 Oct 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>CMake</title>
+          <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/cmake/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/cmake/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/cmake/">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;定期更新 该博客&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;总结CMake常用命令之前，先明确为什么要使用CMake?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;C++ 源码 编译链接 的原理， 在代码膨胀 到多文件， 项目复杂度，代码文件管理难度 ，跨平台等问题， 需要一个 更智能 更现代的 构建工具。 因为以上的问题和缺陷，所以需要CMake;&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cmake&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;rmbuild&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cmake ..&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cmake --build .&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cmake --build . -j 9 &lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# 并行构建&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      </item>
+      <item>
+          <title>Markdown</title>
+          <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/markdown/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/markdown/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/markdown/">&lt;blockquote&gt;
+&lt;p&gt;`同步翻译 整理 Markdown 官方 和 其他优秀归纳文章即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;对自身的要求仅是 熟练使用，无 迁移 晋升的 空间&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;umldeng-tu&quot;&gt;UML等图&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;markdown&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;sequenceDiagram&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;DHCP Client --&amp;gt; DHCP Server: IP lease request DHCP Server --&amp;gt; DHCP Client: IP lease offer DHCP Client --&amp;gt; DHCP Server: IP lease selection DHCP Server --&amp;gt; DHCP Client: IP lease confirmation&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;mermaid&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;sequenceDiagram&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;DHCP Client&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; --&amp;gt;&lt;/span&gt;&lt;span&gt; DHCP Server&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; IP lease request&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;DHCP Server&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; --&amp;gt;&lt;/span&gt;&lt;span&gt; DHCP Client&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; IP lease offer&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;DHCP Client&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; --&amp;gt;&lt;/span&gt;&lt;span&gt; DHCP Server&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; IP lease selection&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;DHCP Server&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; --&amp;gt;&lt;/span&gt;&lt;span&gt; DHCP Client&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; IP lease confirmation&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h1 id=&quot;ji-ben-yu-fa&quot;&gt;基本语法&lt;/h1&gt;
+&lt;h2 id=&quot;biao-ti&quot;&gt;标题&lt;/h2&gt;
+&lt;p&gt;要创建标题，请在单词或短语前添加井号 (#)。井号的数量应与标题级别相对应。例如，要创建三级标题 (&lt;h3&gt;)，请使用三个井号（例如，### 我的标题）。&lt;/p&gt;
+&lt;p&gt;Markdown HTML 呈现的输出&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;语法&lt;/th&gt;&lt;th&gt;显示&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;# 一级标题&lt;/code&gt;&lt;/td&gt;&lt;td&gt;# 一级标题&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;## 二级标题&lt;/code&gt;&lt;/td&gt;&lt;td&gt;## 二级标题&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;duan-luo&quot;&gt;段落&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;要创建段落，请使用空行分隔一行或多行文本。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;huan-xing&quot;&gt;换行&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;借助 Alfred 的快捷文本 &lt;code&gt;mkbr&lt;/code&gt;进行快速触发
+要创建换行或新行 (&lt;br&gt;)，请使用两个或更多空格结束一行，然后键入回车。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;jia-cu-zi-ti&quot;&gt;加粗字体&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;**&lt;/code&gt; 设置在文本前后即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;yin-yong-kuai&quot;&gt;引用块&lt;/h2&gt;
+&lt;p&gt;要创建引用块，请在段落前添加 &amp;gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;嵌套引用块&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;引用块可以嵌套。在要嵌套的段落前添加 &amp;gt;&amp;gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;包含其他元素的引用块
+引用块可以包含其他 Markdown 格式的元素。并非所有元素都可以使用——你需要进行实验以查看哪些元素有效。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;the-quarterly-results-look-great&quot;&gt;The quarterly results look great!&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Revenue was off the chart.&lt;/li&gt;
+&lt;li&gt;Profits were higher than ever.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Everything&lt;/em&gt; is going according to &lt;strong&gt;plan&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;markdown&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt; ####&lt;/span&gt;&lt;span class=&quot;z-l-8 z-l-i z-d-10 z-d-i&quot;&gt; The quarterly results look great!&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt; -&lt;/span&gt;&lt;span class=&quot; z-l-i z-d-i&quot;&gt; Revenue was off the chart.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt; -&lt;/span&gt;&lt;span class=&quot; z-l-i z-d-i&quot;&gt; Profits were higher than ever.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt; _&lt;/span&gt;&lt;span class=&quot; z-l-i z-d-i&quot;&gt;Everything&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;_&lt;/span&gt;&lt;span class=&quot; z-l-i z-d-i&quot;&gt; is going according to &lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-b z-d-4 z-d-b&quot;&gt;**&lt;/span&gt;&lt;span class=&quot; z-l-b z-d-b&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-b z-d-4 z-d-b&quot;&gt;**&lt;/span&gt;&lt;span class=&quot; z-l-i z-d-i&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;you-xu-lie-biao&quot;&gt;有序列表&lt;/h2&gt;
+&lt;p&gt;要创建有序列表，请添加带有数字和句号的行项目。数字不必按数字顺序排列，但列表应从数字一开头。&lt;/p&gt;
+&lt;h2 id=&quot;wu-xu-lie-biao&quot;&gt;无序列表&lt;/h2&gt;
+&lt;p&gt;要创建无序列表，请在行项目前添加破折号 (-)、星号 (*) 或加号 (+)。缩进一个或多个项目以创建嵌套列表。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了兼容性，请不要在同一列表中混合和匹配分隔符——选择一个并坚持使用它。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;第一项&lt;/li&gt;
+&lt;li&gt;第二项&lt;/li&gt;
+&lt;li&gt;第三项
+&lt;ul&gt;
+&lt;li&gt;缩进项&lt;/li&gt;
+&lt;li&gt;缩进项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;第四项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;markdown&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;-&lt;/span&gt;&lt;span&gt; 第一项&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;-&lt;/span&gt;&lt;span&gt; 第二项&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;-&lt;/span&gt;&lt;span&gt; 第三项&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  -&lt;/span&gt;&lt;span&gt; 缩进项&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  -&lt;/span&gt;&lt;span&gt; 缩进项&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;-&lt;/span&gt;&lt;span&gt; 第四项&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;zai-lie-biao-zhong-tian-jia-yuan-su&quot;&gt;在列表中添加元素&lt;/h2&gt;
+&lt;p&gt;要在列表中添加另一个元素，同时保留列表的连续性，请将元素缩进四个空格或一个制表符，如下例所示。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;This is the first list item.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Here’s the second list item.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A blockquote would look great below the second list item.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;And here’s the third list item.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;dai-ma&quot;&gt;代码&lt;/h2&gt;
+&lt;p&gt;要表示一个单词或短语为代码，请用反引号 (`) 将其括起来。&lt;/p&gt;
+&lt;p&gt;Markdown&lt;/p&gt;
+&lt;p&gt;转义反引号
+如果你要表示为代码的单词或短语包含一个或多个反引号，你可以通过用双反引号 (``) 将单词或短语括起来来转义它。&lt;/p&gt;
+&lt;h2 id=&quot;shui-ping-xian&quot;&gt;水平线&lt;/h2&gt;
+&lt;p&gt;要创建水平线，请在单独的一行上使用三个或更多星号 (***)、破折号 (—) 或下划线 (___)。&lt;/p&gt;
+&lt;h2 id=&quot;lian-jie&quot;&gt;链接&lt;/h2&gt;
+&lt;p&gt;要创建链接，请用方括号括住链接文本，例如，[Duck Duck Go]，然后紧跟括号中的 URL，例如，(https://duckduckgo.com)。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;添加标题
+您可以选择为链接添加标题。当用户将鼠标悬停在链接上时，它将显示为工具提示。要添加标题，请在 URL 后用引号将其括起来。&lt;br/&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;My favorite search engine is &lt;a class=&quot;external&quot; rel=&quot;external&quot; title=&quot;The best search engine for privacy&quot; href=&quot;https://duckduckgo.com&quot;&gt;Duck Duck Go&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;markdown&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;My favorite search engine is &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;Duck Duck Go&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-l-u z-d-5 z-d-u&quot;&gt;https://duckduckgo.com&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;The best search engine for privacy&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;url-he-dian-zi-you-jian-di-zhi&quot;&gt;URL 和电子邮件地址&lt;/h2&gt;
+&lt;p&gt;要快速将 URL 或电子邮件地址变成链接，请用尖括号将其括起来。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;http://markdownguide.cn&quot;&gt;http://markdownguide.cn&lt;/a&gt;
+&lt;a href=&quot;mailto:fake@example.com&quot;&gt;fake@example.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;呈现的输出如下所示&lt;/p&gt;
+&lt;p&gt;http://markdownguide.cn&lt;/p&gt;
+&lt;h2 id=&quot;ge-shi-hua-lian-jie&quot;&gt;格式化链接&lt;/h2&gt;
+&lt;p&gt;要 强调 链接，请在方括号和圆括号前后添加星号。要将链接表示为 代码，请在方括号中添加反引号。&lt;/p&gt;
+&lt;h2 id=&quot;yin-yong-shi-lian-jie&quot;&gt;引用式链接&lt;/h2&gt;
+&lt;p&gt;⚠️ 文内 引用 跨文引用 ，找更直观的理解&lt;/p&gt;
+&lt;p&gt;引用式链接是一种特殊的链接，它使 URL 在 Markdown 中更易于显示和阅读。引用式链接由两部分构成：一部分与文本保持一致，另一部分存储在文件中的其他位置，以保持文本易于阅读。&lt;/p&gt;
+&lt;h2 id=&quot;tu-xiang&quot;&gt;图像&lt;/h2&gt;
+&lt;p&gt;要添加图片，添加一个感叹号 (!)，后跟方括号中的备用文本，以及括号中图片资源的路径或 URL。您可以在路径或 URL 后添加引号中的标题（可选）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../simple/googletranslate&quot; alt=&quot;The San Juan Mountains are beautiful!&quot; title=&quot;San Juan Mountains&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;heading-ids&quot;&gt;标题 ID \&lt;/h2&gt;
+&lt;p&gt;许多 Markdown 处理器支持 标题 的自定义 ID——一些 Markdown 处理器会自动添加它们。添加自定义 ID 允许您直接链接到标题并使用 CSS 修改它们。要添加自定义标题 ID，请在与标题同行的花括号中括起自定义 ID。&lt;/p&gt;
+&lt;h3 id=&quot;custom-id&quot;&gt;My Great Heading \&lt;/h3&gt;
+&lt;p&gt;HTML 如下所示&lt;/p&gt;
+&lt;h3 id=&quot;custom-id&quot;&gt;My Great Heading&lt;/h3&gt;
+&lt;p&gt;链接到标题 ID
+您可以通过创建带有数字符号 (#) 和自定义标题 ID 的 标准链接 来链接到文件中带有自定义 ID 的标题。这些通常称为锚链接。&lt;/p&gt;
+&lt;p&gt;Markdown HTML 呈现的输出
+&lt;a href=&quot;https://suchaharcan.github.io/01Write_blog_CXX20/markdown/#heading-ids&quot;&gt;标题 ID&lt;/a&gt; &lt;a href=&quot;#heading-ids&quot;&gt;标题 ID&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;标题 ID
+其他网站可以通过将自定义标题 ID 添加到网页的完整 URL 来链接到标题（例如，&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;http://markdownguide.cn/extended-syntax#heading-ids&quot;&gt;标题 ID&lt;/a&gt;）。&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>Zola</title>
+          <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/zola-blog/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/zola-blog/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/zola-blog/">&lt;h1 id=&quot;biao-qian-tou&quot;&gt;标签头&lt;/h1&gt;
+&lt;h2 id=&quot;tong-yong-yan-se&quot;&gt;通用颜色&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;色相（Hue）‌：颜色在色轮上的位置，范围 0–360 度。0 是红色、120 是绿色、240 是蓝色。&lt;/li&gt;
+&lt;li&gt;饱和度（Saturation）‌：颜色的鲜艳程度，0% 是灰色，100% 是最鲜艳的纯色。&lt;/li&gt;
+&lt;li&gt;亮度（Lightness）‌：颜色的明暗程度，0% 是黑色，100% 是白色。‌‌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可借助&lt;code&gt;Snipaste-截图贴图&lt;/code&gt;中的取色器获取到RGB值 ， 在https://www.ol-tools.com/color-converter转换即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;accent_color&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; =&lt;/span&gt;&lt;span&gt; [&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;orange&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 懒惰写法&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;accent_color&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; =&lt;/span&gt;&lt;span&gt; [&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;hsl(123, 33%, 60%)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;hsl(27.567572, 87%, 67%)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 更符合人类感知&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;hsl(123,&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; 86%,&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; 33%&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 柔和草绿&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; Has several modes:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; - Use one of the presets (applies to both light and dark modes):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   accent_color = &amp;quot;&amp;lt;red, orange, yellow, green, blue, purple&amp;gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; - Use a single HSL color for both light and dark modes:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   accent_color = &amp;quot;hsl(270, 50%, 60%)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; - Use separate colors for light and dark modes (it&amp;#39;s possible to mix both&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; presets and HSL colors):&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   Presets:    accent_color = [&amp;quot;red&amp;quot;, &amp;quot;blue&amp;quot;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   Preset + HSL:   accent_color = [&amp;quot;red&amp;quot;, &amp;quot;hsl(270, 50%, 60%)&amp;quot;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   HSLs: accent_color = [&amp;quot;hsl(270, 50%, 60%)&amp;quot;, &amp;quot;hsl(27.567572, 87%, 67%)&amp;quot;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; Custom colors must be in HSL format. You can also define your own color&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;gui-lei&quot;&gt;归类&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;优先使用现有归类，除非 后续博客产出 过多，否则不单独 新增 归类&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; =&lt;/span&gt;&lt;span&gt; [&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Doc&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Tracking&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 需要持续迭代更新的帮助文档&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;jia-jie-mi&quot;&gt;加解密&lt;/h2&gt;
+&lt;h2 id=&quot;kan-ban&quot;&gt;看板&lt;/h2&gt;
+</description>
+      </item>
+      <item>
+          <title>Git</title>
+          <pubDate>Tue, 29 Sep 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/git/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/git/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/git/">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;定期更新 该博客&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;日常开发中遇到的 git场景 ，在搜索应用后，总结到这里来，便于后续积累迁移&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;clone-chu-ci-la-qu&quot;&gt;clone - 初次拉取&lt;/h1&gt;
+&lt;h2 id=&quot;dan-fen-zhi-wu-li-shi-ti-jiao-shi&quot;&gt;单分支无历史提交式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;场景描述：只获取最新，分支标签关联仓库历史提交全部舍弃&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;git clone --depth 1 --single-branch --branch main --no-tags \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  https://mirrors.tuna.tsinghua.edu.cn/git/llvm-project.git \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;–depth 1 只取最新一条提交&lt;/li&gt;
+&lt;li&gt;–single-branch 不抓其它分支（LLVM 有几千个分支，不限制会多几百 MB）&lt;/li&gt;
+&lt;li&gt;–no-tags 不抓 tag（LLVM 的 tag 极多，这是体积大头之一）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;hao-xi-guan&quot;&gt;好习惯&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;克隆完立刻把“只更新 main、永不抓 tag、自动清理“固化进本地配置：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# 良好习惯，后续每次拉取都要针对该本地仓库的基础配置进行优先设置&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# bat .git/config ##进行查看该本地仓库的配置&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; remote.origin.fetch&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;+refs/heads/main:refs/remotes/origin/main&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; remote.origin.tagOpt&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-tags&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; fetch.prune&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; fetch.pruneTags&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; gc.pruneExpire&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; now&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;chang-yong-bie-ming&quot;&gt;常用别名&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 一条命令完成&amp;quot;取最新快照 + 丢弃本地提交/改动&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; alias.update&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;!git fetch --depth 1 --no-tags --prune origin main &amp;amp;&amp;amp; git reset --hard origin/main &amp;amp;&amp;amp; git log --oneline -1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 定期瘦身&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; alias.slim&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;!git reflog expire --expire=now --all &amp;amp;&amp;amp; git gc --prune=now --quiet &amp;amp;&amp;amp; git count-objects -vH&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：Git 没有持久化的“默认浅深度“配置项（fetch.depth 不是有效键，我查了本机 git 2.55 的配置文档确认过）。&lt;br/&gt;
+所以 –depth 1 必须每次 fetch 时显式带上——这正是 git update 别名帮你固化的事，&lt;br/&gt;
+别直接敲裸 &lt;code&gt;git pull&lt;/code&gt;。&lt;br/&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;hou-xu-geng-xin-yong-yuan-zhi-you-yi-fen-kuai-zhao&quot;&gt;后续更新：永远只有一份快照&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; update&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; = fetch --depth 1 + reset --hard，等价于下面两行&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;yan-zheng-que-shi-mei-zai-zan-li-shi&quot;&gt;验证“确实没在攒历史“&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 任何时候三条命令自检：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; rev-parse&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-is-shallow-repository&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须是 true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; rev-list&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-count&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; HEAD&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;               #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须恒等于 1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; tag&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; wc&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;l&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;                         #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须恒等于 0&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; count-objects&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;vH&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;                   #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; size-pack 明显膨胀时跑一次 git slim&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果 is-shallow-repository 变成 false，说明中间某次更新用了不带 –depth 的命令（或镜像不支持 shallow 而返回了全量），最省事的处理是删掉重克隆一次。&lt;br/&gt;
+额外网络优化（可选）：git config –global http.version HTTP/1.1 和 git config –global http.postBuffer 524288000 能缓解大包传输偶发卡死；如果你本机有代理（看到你装过 Geph），可以只给 GitHub 走代理、国内镜像直连&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;dai-ma-ti-jiao-gen-zong-guan-li-gitignore&quot;&gt;代码提交跟踪管理 - .gitignore&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;忽略整个文件夹‌：logs/ 或 logs/**，匹配该目录及子目录下的所有文件。&lt;/li&gt;
+&lt;li&gt;仅忽略文件夹内文件，保留文件夹本身‌：logs/*，不会忽略空目录，但会忽略其直接子文件和子目录。&lt;/li&gt;
+&lt;li&gt;取消对已跟踪文件的忽略‌：.gitignore 只对未跟踪文件生效；若文件已提交，需先执行 git rm –cached &amp;lt;路径&amp;gt;，再提交删除记录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;build/*&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;  #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;cmake搭建的C++项目，编译文件不提交，但该空目录是编译构建路径，建议提交，可采用该写法&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;logs/**&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 日志在项目运行实时产生，无需提交到仓库中进行跟踪管理&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;add-tian-jia-dao-cang-ku&quot;&gt;add - 添加到仓库&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;commit-ti-jiao&quot;&gt;commit - 提交&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; commit&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;m&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Update File md&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;push-tui-song&quot;&gt;push - 推送&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; push&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; origin&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; mian&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;status-zhuang-tai&quot;&gt;status - 状态&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; status&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;e-wai-chang-jian-ming-ling&quot;&gt;额外常见命令&lt;/h1&gt;
+&lt;h2 id=&quot;cloc-tong-ji-dai-ma-liang&quot;&gt;cloc - 统计代码量&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cloc&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 在当前目录下按文件类型进行代码量统计&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      </item>
+      <item>
+          <title>C++26 反射注解：自动成员验证</title>
+          <pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CXX20/reflection-annotations-validation/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CXX20/reflection-annotations-validation/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/reflection-annotations-validation/">&lt;p&gt;在探索 C++26 系列的过程中，我之前的文章已经介绍了如何在 Ubuntu 上搭建 C++26 构建环境。之后，我探索了另一个名为模板的特性，并通过一个简单的示例讲解了反射的用法，并进一步学习了如何使用反射进行 JSON 序列化。在本文中，我将解释另一个极其强大的 C++26 特性，它叫做……注释以及它们与反思相结合如何使我们的生活更轻松。&lt;/p&gt;
+&lt;p&gt;首先，让我们来看下面这个假设的MotorConfig班级：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; MotorConfig&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; double&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    double&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; max_temperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;    const&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; device_name&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span&gt; m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    double&lt;/span&gt;&lt;span&gt; m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span&gt; m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个类有一些私有成员m_rpm，m_maxTemperature这些m_deviceName成员在构造函数创建对象时会被初始化为特定的值。现在，假设你不希望类实例创建时使用超出某个范围的值，并且你想确保在构造时进行验证。你有哪些选择呢？你可以在构造函数中执行类似下面的操作：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;int&lt;/span&gt;&lt;span&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;                         double&lt;/span&gt;&lt;span&gt; maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                         std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt; deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    : &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span&gt;rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span&gt;maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;move&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 10000&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;m_rpm is outside the permitted range [0, 10000]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; -&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 150&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;m_maxTemperature is outside the permitted range [-40, 150]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;invalid_argument&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;m_deviceName is required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;太好了！但是，如果向类中添加了另一个类成员，而该成员的值也需要验证，那么您必须在构造函数中手动添加验证代码来处理新成员。手动添加很容易出错。在 C++26 中，我们可以使用注解等特性，并结合反射等特性来自动化此验证过程。&lt;/p&gt;
+&lt;p&gt;使用注释
+C++26 引入了注解的概念。注解的一般语法如下：&lt;/p&gt;
+&lt;p&gt;[[=constant-expression]]
+declaration
+这意味着您可以将常量表达式与声明关联起来，然后在编译时检索这些值。我们稍后会详细介绍。此类注解的示例如下所示：&lt;/p&gt;
+&lt;p&gt;[[=42]]
+int value;
+我们还可以使用用户自定义数据类型来定义更个性化的注释。&lt;/p&gt;
+&lt;p&gt;注解的用户自定义类型
+您还可以使用已定义的类型作为声明的注解，如下所示：&lt;/p&gt;
+&lt;p&gt;[[=AnnotationType{arguments…}]]
+declaration
+例如，在我们的示例代码中，我们可以声明类型为 &lt;code&gt;and&lt;/code&gt; 的注解Range，Required如下所示：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;struct Range&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    double minimum;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    double maximum;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;struct Required&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;};&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;声明完成后，我们现在可以使用用户定义的类型注解将 MotorConfig 类重写如下：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; MotorConfig&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; double&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    double&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; max_temperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;nodiscard&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;    const&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; device_name&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; noexcept&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        return&lt;/span&gt;&lt;span&gt; m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;z-l-5 z-l-i z-d-4 z-d-i&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;= &lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span&gt;{&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 10000&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span&gt; m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;= &lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span&gt;{-&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 150&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    double&lt;/span&gt;&lt;span&gt; m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    [[&lt;/span&gt;&lt;span&gt;= &lt;/span&gt;&lt;span&gt;Required&lt;/span&gt;&lt;span&gt;{}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]]&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;string&lt;/span&gt;&lt;span&gt; m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;仔细阅读声明：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[[= Range{0.0, 10000.0}]] &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;int m_rpm;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;它表示成员变量的允许取值范围m_rpm为0.00 到10000.01。然而，目前该注解仅提供附加信息，它本身并不强制执行取值范围，除非后续代码强制执行，否则可以忽略。&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;现在反思一下&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;如上文代码所示，一旦注释就位，我们现在就可以利用反射来提取它们并在代码中使用它们。&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;首先，我们将编写一个循环来遍历类中的所有非静态成员MotorConfig：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;```C++&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;template for (constexpr std::meta::info member : &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;              std::define_static_array(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;              std::meta::nonstatic_data_members_of(^^T,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                              std::meta::access_context::unchecked())))&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我在本文template for中详细讨论了这一点。简而言之，它表示类型为的反射，在本例中为。它返回一个包含所有非静态成员反射的向量。但由于该向量使用动态存储，因此不能用作的范围。要将其与一起使用，我们需要将其复制到静态数组中，这可以通过来实现。^^TTMotorConfigstd::meta::nonstatic_data_members_oftemplate fortemplate forstd::define_static_array&lt;/p&gt;
+&lt;p&gt;然后，在每次迭代中，我们提取每个成员的注释：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; ranges&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;            std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                                     member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;该函数std::meta::annotations_of_with_type返回一个向量，其中包含所有类型为 &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; 的注解的反射Range。std::define_static_array它将这些反射复制到一个静态存储的数组中，并返回一个std::span指向该数组的引用。&lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; 通常将其元素存储在动态分配的内存中，因此其内容不能直接存储在constexpr变量中ranges。&lt;/p&gt;
+&lt;p&gt;单注与多注
+请记住，每种类型中只能有一个注解：&lt;/p&gt;
+&lt;p&gt;[[= Range{0.0, 10000.0}]]
+int m_rpm;
+但是，也可以在一个类型中包含多个注解：&lt;/p&gt;
+&lt;p&gt;[[=Range{0.0, 10000.0}, =Range{1000.0, 8000.0}]]
+int m_rpm;
+你可以用以下任何一种方式表达：&lt;/p&gt;
+&lt;p&gt;[[=Range{0.0, 3000.0},
+=Range{7000.0, 10000.0}]]
+int m_rpm;
+或者分别如下：&lt;/p&gt;
+&lt;p&gt;[[=Range{0.0, 3000.0}]]
+[[=Range{7000.0, 10000.0}]]
+int m_rpm;
+因此，在以下表达式中，ranges表示span引用注解的静态反射数组：&lt;/p&gt;
+&lt;p&gt;constexpr auto ranges =
+std::define_static_array(std::meta::annotations_of_with_type(
+member, ^^Range));
+在我们的例子中，我们只有一个注解，其反射可以用 表示ranges[0]。为了提取可用范围，我们可以这样做：&lt;/p&gt;
+&lt;p&gt;constexpr Range range = std::meta::extract&lt;Range&gt;(ranges[0]);
+剪接表达
+我们即将能够访问每个成员的当前值并将其与允许的范围进行比较。可以使用以下拼接表达式访问成员值：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;constexpr&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;info&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; :&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                      std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;nonstatic_data_members_of&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;T&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                      std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;access_context&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;unchecked&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;     ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;     constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; ranges&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;            std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;!&lt;/span&gt;&lt;span&gt;ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;            ...&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; object&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;[:member:]这是一个 C++26 拼接表达式。它将反射转换回该反射所代表的实体。因此，在第一次迭代中object.[:member:]，它将给出 的值object.m_rpm，现在我们可以进行如下比较：&lt;/p&gt;
+&lt;p&gt;if (value &amp;lt; range.minimum || value &amp;gt; range.maximum)
+{
+throw std::out_of_range(std::string{name}
++ “ is outside the permitted range [“
++ std::to_string(range.minimum) + “, “
++ std::to_string(range.maximum) + “]”);
+}
+在下一次迭代中，它将object.[:member:]给出值，object.m_maxTemperature依此类推。以下代码片段实现了所有这些功能：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; T&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; validate_or_throw&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; T&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; object&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    template&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;constexpr&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;info&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; :&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                      std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;nonstatic_data_members_of&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;T&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                      std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;access_context&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;unchecked&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;        constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; ranges&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;            std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;!&lt;/span&gt;&lt;span&gt;ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            constexpr&lt;/span&gt;&lt;span&gt; Range&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;extract&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; object&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;            if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;minimum&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;maximum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt;{&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt;} &lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                                    +&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; is outside the permitted range [&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                                    +&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;minimum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; +&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                                    +&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;maximum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; +&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注解的处理方式Required非常相似，可以大致按如下方式实现：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; required&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;!&lt;/span&gt;&lt;span&gt;required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;    const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; object&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;requires&lt;/span&gt;&lt;span&gt; { &lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; }&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;            throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;invalid_argument&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt;{&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt;} &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; is required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    else&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        static_assert&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;            requires&lt;/span&gt;&lt;span&gt; { &lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; }&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Required annotation can only be applied to a type &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;that provides empty()&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;施工阶段验证
+验证功能在以下模板函数中实现：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; T&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; validate_or_throw&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt; T&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; object&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    template&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;constexpr&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;info&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; :&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                      std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;nonstatic_data_members_of&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;T&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;                                                           std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;access_context&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;unchecked&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;        constexpr&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string_view&lt;/span&gt;&lt;span&gt; name&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;identifier_of&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;        std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;cout&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Validating member: &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span&gt; name&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;        constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; ranges&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;            std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;        constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; range_count&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;        std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;cout&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Found &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span&gt; range_count&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; range annotations for member: &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span&gt; name&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;!&lt;/span&gt;&lt;span&gt;ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            constexpr&lt;/span&gt;&lt;span&gt; Range&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;extract&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;z-l-1 z-d-3&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;ranges&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; object&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;            if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;minimum&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;maximum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt;{&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt;} &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; is outside the permitted range [&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                                        +&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;minimum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; +&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                                        +&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;maximum&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; +&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;        constexpr&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span&gt; required&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;            std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;define_static_array&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;annotations_of_with_type&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ^&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;^&lt;/span&gt;&lt;span&gt;Required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;!&lt;/span&gt;&lt;span&gt;required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;            const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; auto&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span&gt; value&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; object&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span&gt;member&lt;/span&gt;&lt;span&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;            if&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; constexpr&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;requires&lt;/span&gt;&lt;span&gt; { &lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; }&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;                {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                    throw&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;invalid_argument&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt;{&lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span&gt;} &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; is required&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;                }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;            else&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;                static_assert&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;                    requires&lt;/span&gt;&lt;span&gt; { &lt;/span&gt;&lt;span&gt;value&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; }&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;                    &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Required annotation can only be applied to a type &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;                    &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;that provides empty()&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;            }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;完整的源代码可在 GitHub 链接中找到。要编译代码，请在命令行中执行以下操作：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;g&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; -&lt;/span&gt;&lt;span&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;=&lt;/span&gt;&lt;span&gt;c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    -&lt;/span&gt;&lt;span&gt;freflection&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    -&lt;/span&gt;&lt;span&gt;Wall&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    -&lt;/span&gt;&lt;span&gt;Wextra&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    -&lt;/span&gt;&lt;span&gt;Wpedantic&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    reflection_validation&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;.&lt;/span&gt;&lt;span&gt;cpp&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    -&lt;/span&gt;&lt;span&gt;o&lt;/span&gt;&lt;span&gt; reflection_validation&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;/&lt;/span&gt;&lt;span&gt;reflection_validation&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Validating&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Found&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span&gt; annotations&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Construction&lt;/span&gt;&lt;span&gt; failed&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;span&gt; is&lt;/span&gt;&lt;span&gt; outside&lt;/span&gt;&lt;span&gt; the&lt;/span&gt;&lt;span&gt; permitted&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; [&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 10000&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Validating&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Found&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span&gt; annotations&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Validating&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_maxTemperature&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Found&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span&gt; annotations&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_maxTemperature&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Validating&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_deviceName&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Found&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span&gt; range&lt;/span&gt;&lt;span&gt; annotations&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; for&lt;/span&gt;&lt;span&gt; member&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;m_deviceName&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Valid&lt;/span&gt;&lt;span&gt; configuration&lt;/span&gt;&lt;span&gt; created&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;RPM&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;5000&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Maximum&lt;/span&gt;&lt;span&gt; temperature&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;85&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Device&lt;/span&gt;&lt;span&gt; name&lt;/span&gt;&lt;span&gt;: &lt;/span&gt;&lt;span&gt;motor&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;-&lt;/span&gt;&lt;span&gt;controller&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了在程序启动时就启用验证，我们可以按如下方式在类validate_or_throw的构造函数中调用验证函数模板：MotorConfig&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;MotorConfig&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;int&lt;/span&gt;&lt;span&gt; rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; double&lt;/span&gt;&lt;span&gt; maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span&gt;string&lt;/span&gt;&lt;span&gt; deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    : &lt;/span&gt;&lt;span&gt;m_rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span&gt;rpm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      m_maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span&gt;maxTemperature&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      m_deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;move&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span&gt;deviceName&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;{&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;    validate_or_throw&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;z-l-4 z-l-i z-d-7 z-d-i&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样可以确保当传递给构造函数的MotorConfig参数值超出允许范围时，构造函数会抛出异常。手动检查传递的参数值的麻烦就此消失了！&lt;/p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

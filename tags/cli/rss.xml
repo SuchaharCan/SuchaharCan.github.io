@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - CLI</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/cli/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sun, 11 Oct 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Tealdeer v1.8安装教程</title>
+          <pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/03Share_blog/tealdeer-mac-config/</link>
+          <guid>https://suchaharcan.github.io/03Share_blog/tealdeer-mac-config/</guid>
+          <description xml:base="https://suchaharcan.github.io/03Share_blog/tealdeer-mac-config/">&lt;h1 id=&quot;tldr&quot;&gt;TLDR&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tealdeer 是Rust版的TLDR工具；
+个人感觉 比tldr(tlrc) 更好用；
+但 文档 不清晰，现有教程落后，补充当前可用操作；&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;an-zhuang-he-tong-yong-pei-zhi-ming-ling&quot;&gt;安装和通用配置命令&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; install&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; tealdeer&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;通过Homebrew  安装tealdeer&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;tldr&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-seed-config&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 创建默认配置 必须要操作&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;https://docs.tealdeer.org/stable/
+简单查看配置中 节点说明
+默认配置中会直接设置在线文档的URL，既往搜索记录均是错误 这是一个踩坑点 &lt;br/&gt;
+默认配置中手动指定语言，与tlrc和既往版本不一致 &lt;br/&gt;
+若 仓库已经安装过tldr 或 tlrc ,必须先 brew unlink tldr/tlrc&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;chang-jian-ming-ling&quot;&gt;常见命令&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;tldr&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-show-paths&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;tldr&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; git&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-edit-page&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 修改自定义页面&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;tldr&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; git&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-edit-patch&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 修改 自定义补丁页面&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;chang-jian-chang-jing&quot;&gt;常见场景：&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;上游现有页面&lt;/li&gt;
+&lt;li&gt;自定义页面（覆盖同名1） &lt;command&gt;.page.md&lt;/li&gt;
+&lt;li&gt;扩展现有页面 (追加 1 ) &lt;command&gt;.patch.md  警告 ，扩展不对 自定义页面服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;后期 定期 将 自定义路径中 扩展页面上传到仓库中归档保存备份&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;wei-he-yao-yong-tldr&quot;&gt;为何要用TLDR ?&lt;/h1&gt;
+&lt;p&gt;tldr 在日常开发和系统管理工作中扮演着重要的角色，极大地提升了效率：&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;尊重时间： 用户普遍认为 tldr 在最短时间内提供了最直接、可操作的命令示例，极大地提升了日常工作效率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;极高的易用性和记忆效率： 简洁的格式不仅易于快速消化，也更容易被用户记住。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;社区驱动的活力： 开放的贡献模式使得内容能够持续更新和完善。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;灵活的跨平台支持： 多样化的客户端满足了不同用户和环境的需求。
+缺点与权衡：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;深度和全面性不足： 这是最常被提及的缺点。tldr 为了简洁而牺牲了全面性，对于不常见的用例或需要理解命令底层工作原理的场景，用户仍需回归 man 页面。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;覆盖范围有限： 对于一些较新、较小众或特定领域的命令行工具，可能不存在对应的 tldr 页面。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例可能过于简化： 在某些情况下，tldr 提供的示例可能无法满足中高级用户的复杂需求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;潜在的依赖风险： 一些经验丰富的用户担忧，过度依赖 tldr 可能会让新手养成“只知其然，不知其所以然”的习惯，从而阻碍他们深入学习和理解 shell 命令及操作系统。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;以实例为中心&lt;/strong&gt;： 这是 tldr 最受赞誉的特点。它不解释命令的每一个参数，而是直接展示 80% 最常见的用例。例如，对于 tar 或 ffmpeg 等拥有大量复杂参数的命令，tldr 直接提供“解压一个 .tar.gz 文件”或“从视频中提取音频”等具体示例，让用户能够快速上手。 &lt;code&gt;比手册man更快&lt;/code&gt; &lt;br/&gt;
+&lt;strong&gt;简洁易读的格式&lt;/strong&gt;： tldr 的信息结构简洁明了，通常只包含几行文字和几个代码示例。输出通常带有语法高亮，格式清晰统一，非常适合快速扫读和复制粘贴。&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;离线访问能力&lt;/strong&gt;： 大多数 tldr 客户端在首次运行时会下载并缓存所有页面到本地。这意味着一旦页面被缓存，即使在没有网络连接的环境下，用户也能快速查询命令用法，确保了工作流的连续性&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自定义页面/补丁扩展页面&lt;/strong&gt;: 解决在线文档没有覆盖但个人需要的部分&lt;/p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

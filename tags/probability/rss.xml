@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - Probability</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/probability/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 18 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>概率论 · 核心章节</title>
+          <pubDate>Tue, 18 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_Math/plan/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_Math/plan/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_Math/plan/">&lt;p&gt;目标分数拆解
+科目	满分	目标	底线	说明
+数学二	150	125	110	决定上限，最大变量
+408	150	115	105	你有 CS 底子，重点是捡起来
+英语二	100	78	72	相对友好，稳住阅读
+政治	100	70	65	后期突击为主
+合计	500	388	352	目标冲 390+，底线分不够稳&lt;/p&gt;
+&lt;p&gt;按 388 来拆：政治 70 + 英二 78 + 数学 125 + 408 115。数学和 408 是主战场，政治英语不能拖后腿。
+总体时间轴
+8.19–9.30（约 6 周）：基础强化期，数学一轮 + 408 一轮 + 英语单词阅读。
+10.1–11.15（约 6.5 周）：强化提升期，数学二轮真题 + 408 二轮大题 + 英语真题 + 政治启动。
+11.16–12.18（约 4.5 周）：冲刺期，全科限时成套真题/模拟 + 背诵。
+12.14–12.18：收尾调整，按考试时间全真模拟 2–3 次。
+分阶段详细计划
+阶段一：8.19–9.30，把底子捡起来
+这一阶段目标很明确：数学完成一轮，408 完成一轮选择题，英语恢复词汇和长难句，政治先不碰。
+数学二（每天 5 小时，优先级最高）
+第 1–2 周：高数——极限与连续、一元微分、一元积分。这是数二绝对核心，题量要足。
+第 3 周：多元函数微分、二重积分、常微分方程。
+第 4–5 周：线性代数——行列式、矩阵、向量组、线性方程组、特征值特征向量、二次型。
+第 6 周：查漏 + 阶段小测，重点把「极限、导数、积分、方程组、特征值」这几块做扎实。
+注意数二范围比数一少：不考概率、不考无穷级数、三重积分、曲线曲面积分和空间解析几何，别浪费时间在这些上。
+408（每天 2.5–3 小时）
+数据结构和计组各 2 周，操作系统 1.5 周，计算机网络 1 周。
+顺序建议：数据结构 → 计算机组成原理 → 操作系统 → 计算机网络。
+用王道四本书过一轮，只做选择题，配合看王道视频/讲义。计组的存储、CPU、指令系统是重灾区，要慢一点。
+英语二（每天 1–1.5 小时）
+每天背单词，用「墨墨/不背单词」刷核心词，目标 9 月底把核心词过一遍。
+每周精读 3 篇英二阅读真题，逐句翻译长难句，不追求速度，先找回语感。
+政治：本阶段不开，最多每天 10 分钟翻翻框架。
+阶段二：10.1–11.15，上强度和真题
+数学二（每天 4.5 小时）
+开始做分章节真题，从较近的年份往前做，建立错题本。
+薄弱模块做专题：中值定理、积分计算、线代综合题等。
+10 月底至少完成近 10 年真题的分章版。
+408（每天 3 小时）
+二轮 + 大题专项：数据结构算法题、计组大题、OS 的 PV 操作和内存管理、网络 TCP/IP。
+开始成套做 408 真题，先不限时，重点是「会分析、能写出过程」。
+建立自己的背诵笔记：计组、OS、网络的概念型考点很多，后期靠它反复看。
+英语二（每天 1.5 小时）
+真题阅读每天 1–2 篇，二刷重点段落，总结题型套路。
+10 月下旬开始练翻译和新题型。
+作文 10 月底起步：先背结构和常用句式，每周写 1 篇小作文 + 1 篇大作文。
+政治（10 月启动，每天 1–1.5 小时）
+徐涛强化课倍速过一遍（马原、史纲、毛中特、思修），配合肖秀荣 1000 题。
+目标 11 月 15 日前完成一轮选择题。
+阶段三：11.16–12.18，全真冲刺
+这个阶段每天基本按考试节奏练，重点变成「限时、成套、复盘」。
+数学二（每天上午 4 小时）
+成套真题近 10 年 + 李林 6+4 等模拟卷，严格 3 小时限时。
+错题本反复看，公式卡片随身背。目标考前稳定在 120 以上。
+408（每天下午 3 小时）
+成套 408 真题反复做，近 8 年至少 2 遍，王道模拟挑着做。
+用笔记背诵计组、OS、网络的常考点。
+英语二（每天 1.5 小时）
+成套真题模拟 + 作文模板定稿并背熟。
+阅读保持每天手感，作文是性价比最高的提分点。
+政治（每天 2 小时，逐渐加到 3 小时）
+肖八 11 月出来后做选择题，反复刷错题。
+肖四 12 月出来后，大题背到考前，腿姐背诵手册/肖秀荣冲刺手册二选一。
+阶段四：12.14–12.18，收尾
+按真实考试时间做 2–3 次全真模拟：上午政治、下午英语；第二天上午数学、下午 408。
+数学只看公式和错题，408 只背笔记，英语只背作文模板，政治集中背肖四大题。
+调作息到早睡早起，不要再开新的大块内容。
+每日作息模板（脱产）
+07:30 起床
+08:00–09:00 英语单词 / 后期政治背诵
+09:00–12:00 数学
+12:00–14:00 午饭 + 午休
+14:00–15:30 408
+15:50–17:20 英语
+17:20–18:30 晚饭 + 活动
+18:30–20:30 数学刷题 / 408 错题
+20:40–22:00 复盘 + 错题本 + 政治（后期）
+每天有效学习 9–10 小时即可，关键是持续，不要熬夜换时长。
+各科资料和要点
+数学二：武忠祥高数 + 李永乐线代为主，张宇或李林模拟卷；真题优先。每天都要动手算，不能只看视频。
+408：王道四本 + 王道真题和模拟。你有计算机基础，不要陷进教材细枝末节，以考纲和王道为准，重点是反复刷题。
+英语二：英二真题（黄皮书）+ 唐迟阅读 + 田静语法长难句 + 王江涛/石雷鹏作文。单词背到考前。
+政治：肖秀荣精讲精练/1000题/肖八/肖四 + 徐涛强化课 + 腿姐冲刺背诵手册。政治是后期拉分成本最低的一科，但别太早花大块时间。
+报名和关键节点
+9 月：关注中科大研招网和研招网，确认最新招生简章、拟招生人数和考试科目。
+10 月 9 日左右：预报名。
+10 月中旬：正式报名，登录研招网（yz.chsi.com.cn）填写信息。
+11 月上旬：网上确认，务必按时完成，否则不能考试。
+12 月 19–20 日：初试（以准考证为准）。
+每周复盘规则
+每周日晚上固定做四件事：统计本周各科完成率、把错题归类、判断下周是否要调整时间分配、检查有没有掉进「只看课不做题」的坑。数学和 408 用「做题量」而不是「看课量」来验收进度，这是脱产 4 个月最需要盯住的一点。
+一句话总结你的策略：数学二每天雷打不动 4 小时以上，408 靠真题反复滚，英语保住阅读和作文，政治 10 月后逐步加码、最后靠肖四收口。按这个节奏冲 390，比单纯堆资料和堆时长更重要&lt;/p&gt;
+</description>
+      </item>
+      <item>
+          <title>概率论 · 核心章节</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/00Read_blog_Math/math-probability/</link>
+          <guid>https://suchaharcan.github.io/00Read_blog_Math/math-probability/</guid>
+          <description xml:base="https://suchaharcan.github.io/00Read_blog_Math/math-probability/">&lt;h1 id=&quot;gai-lu-lun-he-xin-zhang-jie&quot;&gt;概率论 · 核心章节&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;概率主线：&lt;strong&gt;事件概率 → 随机变量分布 → 数字特征 → 极限定理 → 数理统计&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;1-sui-ji-shi-jian-yu-gai-lu&quot;&gt;1. 随机事件与概率&lt;/h2&gt;
+&lt;h3 id=&quot;gai-lu-gong-li&quot;&gt;概率公理&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;0 ≤ P(A) ≤ 1；P(Ω)=1；互斥可加&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;gu-dian-gai-xing&quot;&gt;古典概型&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(A) = A 包含的基本事件数 / 总基本事件数（等可能）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;tiao-jian-gai-lu-yu-gong-shi&quot;&gt;条件概率与公式&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(A|B) = P(AB)/P(B)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;乘法公式：P(AB) = P(A|B)·P(B)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;全概率公式：P(B) = Σ P(B|Aᵢ)·P(Aᵢ)（Aᵢ 完备划分）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;贝叶斯公式：P(Aᵢ|B) = P(B|Aᵢ)P(Aᵢ) / Σ P(B|Aⱼ)P(Aⱼ)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;du-li&quot;&gt;独立&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(AB) = P(A)·P(B) ⇔ A、B 独立&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;互斥 ≠ 独立（互斥通常不独立，除非概率为 0）。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;2-yi-wei-sui-ji-bian-liang&quot;&gt;2. 一维随机变量&lt;/h2&gt;
+&lt;h3 id=&quot;fen-bu-han-shu&quot;&gt;分布函数&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;F(x) = P(X ≤ x)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;性质：单调不减、右连续、F(−∞)=0、F(+∞)=1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(a &amp;lt; X ≤ b) = F(b) − F(a)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;chi-san-xing-chang-jian-fen-bu&quot;&gt;离散型：常见分布&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;分布&lt;/th&gt;&lt;th&gt;参数&lt;/th&gt;&lt;th&gt;P(X=k)&lt;/th&gt;&lt;th&gt;期望&lt;/th&gt;&lt;th&gt;方差&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;0-1&lt;/td&gt;&lt;td&gt;p&lt;/td&gt;&lt;td&gt;p^k(1−p)^(1−k)&lt;/td&gt;&lt;td&gt;p&lt;/td&gt;&lt;td&gt;p(1−p)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;二项 B(n,p)&lt;/td&gt;&lt;td&gt;n,p&lt;/td&gt;&lt;td&gt;C(n,k)p^k(1−p)^(n−k)&lt;/td&gt;&lt;td&gt;np&lt;/td&gt;&lt;td&gt;np(1−p)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;泊松 P(λ)&lt;/td&gt;&lt;td&gt;λ&lt;/td&gt;&lt;td&gt;λ^k e^(−λ)/k!&lt;/td&gt;&lt;td&gt;λ&lt;/td&gt;&lt;td&gt;λ&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;几何&lt;/td&gt;&lt;td&gt;p&lt;/td&gt;&lt;td&gt;(1−p)^(k−1)p&lt;/td&gt;&lt;td&gt;1/p&lt;/td&gt;&lt;td&gt;(1−p)/p²&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;lian-xu-xing-chang-jian-fen-bu&quot;&gt;连续型：常见分布&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;分布&lt;/th&gt;&lt;th&gt;密度&lt;/th&gt;&lt;th&gt;期望&lt;/th&gt;&lt;th&gt;方差&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;均匀 U(a,b)&lt;/td&gt;&lt;td&gt;1/(b−a)&lt;/td&gt;&lt;td&gt;(a+b)/2&lt;/td&gt;&lt;td&gt;(b−a)²/12&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;指数 E(λ)&lt;/td&gt;&lt;td&gt;λe^(−λx) (x≥0)&lt;/td&gt;&lt;td&gt;1/λ&lt;/td&gt;&lt;td&gt;1/λ²&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;正态 N(μ,σ²)&lt;/td&gt;&lt;td&gt;1/(σ√2π)·e^(−(x−μ)²/2σ²)&lt;/td&gt;&lt;td&gt;μ&lt;/td&gt;&lt;td&gt;σ²&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;正态标准化&lt;/strong&gt;：&lt;code&gt;Z = (X−μ)/σ ~ N(0,1)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;指数分布无记忆性&lt;/strong&gt;：&lt;code&gt;P(X&amp;gt;s+t | X&amp;gt;s) = P(X&amp;gt;t)&lt;/code&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;3-er-wei-sui-ji-bian-liang&quot;&gt;3. 二维随机变量&lt;/h2&gt;
+&lt;h3 id=&quot;lian-he-bian-yuan-tiao-jian&quot;&gt;联合 / 边缘 / 条件&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;边缘分布：fₓ(x) = ∫ f(x,y) dy&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;条件密度：f(y|x) = f(x,y)/fₓ(x)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;X、Y 独立 ⇔ f(x,y) = fₓ(x)·fᵧ(y)（连续型）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;sui-ji-bian-liang-han-shu-fen-bu&quot;&gt;随机变量函数分布&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;离散和分布：卷积公式；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Z = X+Y&lt;/code&gt;（连续独立）：&lt;code&gt;f_z(z) = ∫ fₓ(x)·fᵧ(z−x) dx&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;正态可加性&lt;/strong&gt;：独立正态之和仍正态；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max(X,Y)&lt;/code&gt; / &lt;code&gt;min(X,Y)&lt;/code&gt; 分布函数法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;4-shu-zi-te-zheng&quot;&gt;4. 数字特征&lt;/h2&gt;
+&lt;h3 id=&quot;qi-wang&quot;&gt;期望&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;离散：E(X) = Σ xᵢpᵢ&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;连续：E(X) = ∫ x·f(x) dx&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;性质：E(aX+bY+c) = aE(X)+bE(Y)+c（线性）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;fang-chai&quot;&gt;方差&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;D(X) = E(X²) − [E(X)]²&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;D(aX+b) = a²D(X)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;X、Y 独立：D(X±Y) = D(X)+D(Y)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;xie-fang-chai-yu-xiang-guan-xi-shu&quot;&gt;协方差与相关系数&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Cov(X,Y) = E(XY) − E(X)E(Y)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ρ = Cov(X,Y) / (√D(X)·√D(Y))，|ρ| ≤ 1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ρ = 0 ⇔ 不相关（独立 ⇒ 不相关，反之不一定）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;ju&quot;&gt;矩&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;k 阶原点矩：E(X^k)；k 阶中心矩：E[(X−E(X))^k]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;5-da-shu-ding-lu-yu-zhong-xin-ji-xian-ding-li&quot;&gt;5. 大数定律与中心极限定理&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;定理&lt;/th&gt;&lt;th&gt;条件&lt;/th&gt;&lt;th&gt;结论&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;切比雪夫不等式&lt;/td&gt;&lt;td&gt;存在 E(X)、D(X)&lt;/td&gt;&lt;td&gt;`P(&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;辛钦大数定律&lt;/td&gt;&lt;td&gt;独立同分布，E(X)=μ&lt;/td&gt;&lt;td&gt;样本均值依概率收敛于 μ&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;伯努利大数定律&lt;/td&gt;&lt;td&gt;n 次独立重复&lt;/td&gt;&lt;td&gt;频率依概率收敛于 p&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;独立同分布中心极限定理&lt;/td&gt;&lt;td&gt;方差有限&lt;/td&gt;&lt;td&gt;&lt;code&gt;(ΣXᵢ − nμ)/(σ√n) → N(0,1)&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;棣莫弗–拉普拉斯&lt;/td&gt;&lt;td&gt;二项 B(n,p)&lt;/td&gt;&lt;td&gt;二项近似正态 N(np, npq)&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;6-shu-li-tong-ji-ji-chu&quot;&gt;6. 数理统计基础&lt;/h2&gt;
+&lt;h3 id=&quot;tong-ji-liang-yu-chou-yang-fen-bu&quot;&gt;统计量与抽样分布&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;样本均值 X̄ = (1/n)ΣXᵢ；样本方差 S² = 1/(n−1)·Σ(Xᵢ−X̄)²&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;总体 N(μ,σ²)：X̄ ~ N(μ, σ²/n)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;χ² 分布：Σ[(Xᵢ−μ)/σ]² ~ χ²(n)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;t 分布：(X̄−μ)/(S/√n) ~ t(n−1)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;F 分布：两独立 χ² 之比&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;can-shu-gu-ji&quot;&gt;参数估计&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;矩估计&lt;/strong&gt;：用样本矩估计总体矩；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;最大似然估计&lt;/strong&gt;：构造似然函数 &lt;code&gt;L(θ)=∏f(xᵢ;θ)&lt;/code&gt;，取对数求导令 0；&lt;/li&gt;
+&lt;li&gt;无偏性：&lt;code&gt;E(θ̂)=θ&lt;/code&gt;；有效性：方差小者优；一致性：依概率收敛。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;jia-she-jian-yan-liao-jie&quot;&gt;假设检验（了解）&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;原假设 H₀ / 备择 H₁，显著性水平 α&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;拒绝域：|z| &amp;gt; z_(α/2)（正态总体均值双侧检验）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;两类错误：拒真（α）与取伪（β）&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;7-kao-yan-chang-kao-ti-xing&quot;&gt;7. 考研常考题型&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;全概率 / 贝叶斯应用题；&lt;/li&gt;
+&lt;li&gt;分布函数与密度互求、分段讨论；&lt;/li&gt;
+&lt;li&gt;二维联合分布求边缘、条件、独立性；&lt;/li&gt;
+&lt;li&gt;期望方差计算（用性质拆解）；&lt;/li&gt;
+&lt;li&gt;切比雪夫不等式估概率；&lt;/li&gt;
+&lt;li&gt;中心极限定理近似计算（二项/独立同分布）；&lt;/li&gt;
+&lt;li&gt;矩估计与最大似然估计。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;li-ti-su-lan&quot;&gt;例题速览&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;/strong&gt;：&lt;code&gt;X ~ N(2, 4)&lt;/code&gt;，求 &lt;code&gt;P(|X−2| &amp;lt; 2)&lt;/code&gt;。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;P(|X−2| &amp;lt; 2) = P(|Z| &amp;lt; 1) = 2Φ(1) − 1 ≈ 0.6826&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;/strong&gt;：&lt;code&gt;X ~ U(0,1)&lt;/code&gt;，求 &lt;code&gt;E(X²)&lt;/code&gt;。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;E(X²) = ∫(0..1) x² dx = 1/3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;8-yi-cuo-dian-qing-dan&quot;&gt;8. 易错点清单&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;独立 ⇒ 不相关，不相关 ⇏ 独立（正态联合除外）；&lt;/li&gt;
+&lt;li&gt;方差无线性可加（需独立）；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;D(X) = E(X²) − [E(X)]²&lt;/code&gt; 别算错 E(X²)；&lt;/li&gt;
+&lt;li&gt;指数分布无记忆性常考；&lt;/li&gt;
+&lt;li&gt;矩估计 vs 最大似然估计方法别混；&lt;/li&gt;
+&lt;li&gt;样本方差分母是 n−1。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上一篇：&lt;a href=&quot;https://suchaharcan.github.io/00Read_blog_Math/math-linear-algebra/&quot;&gt;线性代数&lt;/a&gt; ｜ 下一篇：&lt;a href=&quot;https://suchaharcan.github.io/00Read_blog_Math/math-discrete/&quot;&gt;离散数学&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>
