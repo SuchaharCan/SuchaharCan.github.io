@@ -1,0 +1,64 @@
+/* 1. 顶部进度条 */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0070f3; /* 进度条颜色 */
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* 2. 圆形按钮容器 */
+.top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 完美圆形 */
+  background: #ffffff;
+  cursor: pointer;
+  z-index: 9998;
+  border: 1px solid #eaeaea;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.top-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. 环形进度条 SVG */
+.progress-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* 从顶部开始绘制 */
+  pointer-events: none; /* 让点击穿透到按钮 */
+}
+
+.progress-circle circle {
+  fill: none;
+  stroke: #0070f3; /* 环形进度颜色 */
+  stroke-width: 4;
+  stroke-dasharray: 283; /* 2 * PI * 45 (半径) ≈ 283 */
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* 4. 内部箭头图标 */
+#arrowIcon {
+  color: #333;
+  transition: transform 0.3s ease; /* 实现箭头旋转动画 */
+}

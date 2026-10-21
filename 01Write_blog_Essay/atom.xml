@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - 随笔</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/01Write_blog_Essay/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_Essay/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-10-21T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/01Write_blog_Essay/atom.xml</id>
+    <entry xml:lang="en">
+        <title>求真 求实</title>
+        <published>2026-10-21T00:00:00+00:00</published>
+        <updated>2026-10-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_Essay/qiu-zhen-qiu-shi/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_Essay/qiu-zhen-qiu-shi/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_Essay/qiu-zhen-qiu-shi/">&lt;p&gt;&lt;span style = &#39; font-size:20px;&#39;&gt; 谮言 并非是 空洞的 务虚的口号， 而是 一个人 踩过的坑&lt;/span&gt;，&lt;br/&gt;
+&lt;strong&gt;或许 只有 亲身经历才能理解谮言本身的含义&lt;/strong&gt;，&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style = &#39; color:red; font-size:26px;&#39;&gt; 人教人教不会，事教人一遍就成。 人只能教谮言， 但谮言本身的含义需要受教人亲自去领会才可以 ；&lt;/span&gt; &lt;br/&gt; &lt;br/&gt; &lt;br/&gt;
+再多的言语 和 再多的细节 都是苍白无力的，在这之前，求真求实 是 受教人的基础，也是尽可能的降低受损；&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;狂妄自负 在清醒后的代价 ，在领悟谮言后 会变得 可笑 &lt;br/&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自己 拥有过的，自己亲眼见过的 才可宣之于口， 吹嘘 就是一种虚荣的表现， 在 恋人 朋友之前 吹嘘
+能带来什么呢？ 什么都不会有，因为时间的暴露你的本质，恋人朋友迟早会直到你的本质
+但 惧怕暴露 并非是 拒绝虚荣的理由，与其说 拒绝虚荣，不如 直面自己来的正当 ；&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;—— 记 失恋后 反思自己过错的 小总结&lt;/p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>谮言 · 滞后性</title>
+        <published>2026-10-11T00:00:00+00:00</published>
+        <updated>2026-10-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_Essay/zhi-hou-xing/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_Essay/zhi-hou-xing/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_Essay/zhi-hou-xing/">&lt;p&gt;结果有滞后性， 习惯培养有滞后性， 法律本身就是滞后性，
+可 我们有时候 就很简单直接的 没有预见这个问题， 将失败当作结果， 没有坚持下去。&lt;/p&gt;
+&lt;p&gt;我在这里并非是 去 歌颂坚持或 解构 放弃， 而是 站在 事物发展的角度上思考 ，如何具体的审视 是否存在滞后性，若存在该如何判断&lt;/p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>谮言 · 简单的总结</title>
+        <published>2026-06-22T00:00:00+00:00</published>
+        <updated>2026-06-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_Essay/placeholder/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_Essay/placeholder/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_Essay/placeholder/">&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;人不能活在别人的评价里&lt;/strong&gt; &lt;br/&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;沉默成本 不参与重大决策&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        
+    </entry>
+</feed>

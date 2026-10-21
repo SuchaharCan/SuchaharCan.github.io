@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-10-21T12:33:44.186Z",
+  "repos": {
+    "https://github.com/SuchaharCan/dotfiles": {
+      "time": "2026-07-19T03:34:32Z",
+      "message": "Sync live machine configs into dotfiles.\n\nMirror current zsh/paths/aliases/functions, Brewfile, atuin, skhd, and git settings from the local Mac.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/dotfiles/commit/68a5646bf07b7304a8dfd8d7c9419f8f8dc1c63f"
+    },
+    "https://codeberg.org/SuzhaharCan/sc-cmake": {
+      "time": "2026-10-21T19:31:50+08:00",
+      "message": "Update README\n",
+      "author": "SuchaharCan",
+      "url": "https://codeberg.org/SuzhaharCan/sc-cmake/commit/cf6aa639bf9de53328eed78250a00562e1e4b42c"
+    },
+    "https://github.com/SuchaharCan/AlfredWorkflows_Collection": {
+      "time": "2026-10-21T12:16:15Z",
+      "message": "Create README.md",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/AlfredWorkflows_Collection/commit/e230416df49e11f06c425dc07e705507e678a35e"
+    }
+  }
+}

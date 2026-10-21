@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Git</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/tags/git/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-10-15T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/tags/git/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Git</title>
+        <published>2026-09-29T00:00:00+00:00</published>
+        <updated>2026-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/01Write_blog_CXX20/git/"/>
+        <id>https://suchaharcan.github.io/01Write_blog_CXX20/git/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/01Write_blog_CXX20/git/">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;定期更新 该博客&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;日常开发中遇到的 git场景 ，在搜索应用后，总结到这里来，便于后续积累迁移&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;clone-chu-ci-la-qu&quot;&gt;clone - 初次拉取&lt;/h1&gt;
+&lt;h2 id=&quot;dan-fen-zhi-wu-li-shi-ti-jiao-shi&quot;&gt;单分支无历史提交式&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;场景描述：只获取最新，分支标签关联仓库历史提交全部舍弃&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;git clone --depth 1 --single-branch --branch main --no-tags \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  https://mirrors.tuna.tsinghua.edu.cn/git/llvm-project.git \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;–depth 1 只取最新一条提交&lt;/li&gt;
+&lt;li&gt;–single-branch 不抓其它分支（LLVM 有几千个分支，不限制会多几百 MB）&lt;/li&gt;
+&lt;li&gt;–no-tags 不抓 tag（LLVM 的 tag 极多，这是体积大头之一）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;hao-xi-guan&quot;&gt;好习惯&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;克隆完立刻把“只更新 main、永不抓 tag、自动清理“固化进本地配置：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# 良好习惯，后续每次拉取都要针对该本地仓库的基础配置进行优先设置&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# bat .git/config ##进行查看该本地仓库的配置&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; remote.origin.fetch&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;+refs/heads/main:refs/remotes/origin/main&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; remote.origin.tagOpt&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-tags&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; fetch.prune&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; fetch.pruneTags&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; gc.pruneExpire&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; now&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;chang-yong-bie-ming&quot;&gt;常用别名&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 一条命令完成&amp;quot;取最新快照 + 丢弃本地提交/改动&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; alias.update&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;!git fetch --depth 1 --no-tags --prune origin main &amp;amp;&amp;amp; git reset --hard origin/main &amp;amp;&amp;amp; git log --oneline -1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 定期瘦身&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; config&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-local&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; alias.slim&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;!git reflog expire --expire=now --all &amp;amp;&amp;amp; git gc --prune=now --quiet &amp;amp;&amp;amp; git count-objects -vH&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：Git 没有持久化的“默认浅深度“配置项（fetch.depth 不是有效键，我查了本机 git 2.55 的配置文档确认过）。&lt;br/&gt;
+所以 –depth 1 必须每次 fetch 时显式带上——这正是 git update 别名帮你固化的事，&lt;br/&gt;
+别直接敲裸 &lt;code&gt;git pull&lt;/code&gt;。&lt;br/&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;hou-xu-geng-xin-yong-yuan-zhi-you-yi-fen-kuai-zhao&quot;&gt;后续更新：永远只有一份快照&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; ~/00CXX_GitRes/llvm-project&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; update&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; = fetch --depth 1 + reset --hard，等价于下面两行&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;yan-zheng-que-shi-mei-zai-zan-li-shi&quot;&gt;验证“确实没在攒历史“&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 任何时候三条命令自检：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; rev-parse&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-is-shallow-repository&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;   #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须是 true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; rev-list&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-count&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; HEAD&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;               #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须恒等于 1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; tag&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; wc&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;l&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;                         #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 必须恒等于 0&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; count-objects&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;vH&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;                   #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; size-pack 明显膨胀时跑一次 git slim&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果 is-shallow-repository 变成 false，说明中间某次更新用了不带 –depth 的命令（或镜像不支持 shallow 而返回了全量），最省事的处理是删掉重克隆一次。&lt;br/&gt;
+额外网络优化（可选）：git config –global http.version HTTP/1.1 和 git config –global http.postBuffer 524288000 能缓解大包传输偶发卡死；如果你本机有代理（看到你装过 Geph），可以只给 GitHub 走代理、国内镜像直连&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;dai-ma-ti-jiao-gen-zong-guan-li-gitignore&quot;&gt;代码提交跟踪管理 - .gitignore&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;忽略整个文件夹‌：logs/ 或 logs/**，匹配该目录及子目录下的所有文件。&lt;/li&gt;
+&lt;li&gt;仅忽略文件夹内文件，保留文件夹本身‌：logs/*，不会忽略空目录，但会忽略其直接子文件和子目录。&lt;/li&gt;
+&lt;li&gt;取消对已跟踪文件的忽略‌：.gitignore 只对未跟踪文件生效；若文件已提交，需先执行 git rm –cached &amp;lt;路径&amp;gt;，再提交删除记录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;build/*&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;  #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;cmake搭建的C++项目，编译文件不提交，但该空目录是编译构建路径，建议提交，可采用该写法&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;logs/**&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 日志在项目运行实时产生，无需提交到仓库中进行跟踪管理&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;add-tian-jia-dao-cang-ku&quot;&gt;add - 添加到仓库&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;commit-ti-jiao&quot;&gt;commit - 提交&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; commit&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;m&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Update File md&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;push-tui-song&quot;&gt;push - 推送&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; push&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; origin&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; mian&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;status-zhuang-tai&quot;&gt;status - 状态&lt;/h1&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; status&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;e-wai-chang-jian-ming-ling&quot;&gt;额外常见命令&lt;/h1&gt;
+&lt;h2 id=&quot;cloc-tong-ji-dai-ma-liang&quot;&gt;cloc - 统计代码量&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cloc&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 在当前目录下按文件类型进行代码量统计&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+        
+    </entry>
+</feed>
