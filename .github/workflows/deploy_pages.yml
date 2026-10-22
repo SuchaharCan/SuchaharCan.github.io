@@ -71,7 +71,7 @@ jobs:
           # 【核心修复】创建并清理主题目录，强制把开源主题 clone 进来
           rm -rf themes/ametrine
           git clone https://codeberg.org/SuzhaharCan/ametrine.git themes/ametrine
-          git submodule update --init --recursive
+          # git submodule update --init --recursive
           # 💡 验证：看一眼主题配置文件到底在不在
           echo "=== 检查主题文件是否成功下载 ==="
           ls -la themes/ametrine/
