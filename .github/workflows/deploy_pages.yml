@@ -1,113 +1,87 @@
 name: Build Zola and Deploy to GitHub Pages
 
 permissions:
-  contents: write # 强行开启读写权限
+  contents: write
 
 on:
-  workflow_dispatch: # 开启手动触发按钮
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-      # ---------------------------------------------------------
-      # 1. 从 Codeberg 安全拉取你的私有源码
-      # ---------------------------------------------------------
-      - name: Checkout Codeberg Private Source
+      - name: Checkout Codeberg source
         env:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
         run: |
-         # 1. 确保目标目录干净（可选，防止冲突）
-          rm -rf zola_source
-
-          # 2. 使用 Token 进行原生 git clone
-          # 这里的路径根据你的报错日志，克隆到了指定的 zola_source 目录
+          set -euo pipefail
+          : "${CODEBERG_TOKEN:?CODEBERG_TOKEN secret is required}"
           git clone "https://SuzhaharCan:${CODEBERG_TOKEN}@codeberg.org/SuzhaharCan/SuzhaharCan.codeberg.page.git" zola_source
-
-          # 3. (可选) 如果后续步骤需要在这个目录下执行，可以验证是否克隆成功
-          ls -la zola_source
-
-      # 🛠️ 步骤 2 验证：检查私有源码是否成功拉取下来
-      - name: Verify Codeberg Source Checkout
-        run: |
-          echo "=== 正在验证 Codeberg 私有源码拉取情况 ==="
-          if [ -d "zola_source" ] && [ -f "zola_source/zola.toml" ]; then
-            echo "✅ 验证通过：源码文件夹存在，且成功找到了 zola.toml 配置文件！"
-            echo "源码目录列表结构如下："
-            ls -la zola_source
-          else
-            echo "❌ 验证失败：没有找到 zola_source 文件夹或 zola.toml 文件！"
-            echo "请检查你的 CODEBERG_TOKEN 是否配置正确，或者 Codeberg 仓库里是否有源码。"
-            exit 1
-          fi
-
           test -f zola_source/zola.toml
-          ls -la zola_source/content/kanban/
+          test -f zola_source/scripts/sync-theme.mjs
+          test -f zola_source/build-site.sh
 
-      # ---------------------------------------------------------
-      # 3. 原生命令安装 Zola (v0.23.6) 暂时锁定该版本
-      # ---------------------------------------------------------
       - name: Install Zola v0.23.6
         run: |
-          echo "=== 正在从 Zola 官方 GitHub 镜像下载 v0.23.6 ==="
-          curl -L https://github.com/getzola/zola/releases/download/v0.23.6/zola-v0.23.6-x86_64-unknown-linux-gnu.tar.gz -o zola.tar.gz
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            https://github.com/getzola/zola/releases/download/v0.23.6/zola-v0.23.6-x86_64-unknown-linux-gnu.tar.gz \
+            -o zola.tar.gz
           tar -xzf zola.tar.gz
           chmod +x zola
           sudo mv zola /usr/local/bin/zola
-          echo "✅ Zola 安装成功！当前版本验证："
           zola --version
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      # ---------------------------------------------------------
-      # 4. 切换到源码目录，编译出静态网页
-      # ---------------------------------------------------------
-      - name: Init theme submodule and build
-        run: |
-          cd zola_source
-          # 【核心修复】创建并清理主题目录，强制把开源主题 clone 进来
-          rm -rf themes/ametrine
-          git clone https://codeberg.org/daudix/ametrine.git themes/ametrine
-          git submodule update --init --recursive
-          # 💡 验证：看一眼主题配置文件到底在不在
-          echo "=== 检查主题文件是否成功下载 ==="
-          ls -la themes/ametrine/
 
-          # 执行编译，并将输出目录指定到上层的 public_html
+      - name: Init configured theme submodules and build
+        run: |
+          set -euo pipefail
+          cd zola_source
+
+          THEME="$(node scripts/sync-theme.mjs --print-theme)"
+          test -n "$THEME"
+          echo "Configured theme: $THEME"
+
+          git submodule sync --recursive -- "themes/$THEME"
+          git submodule update --init --recursive -- "themes/$THEME"
+          test -f "themes/$THEME/theme.toml"
+          git submodule status --recursive "themes/$THEME"
+
           chmod +x build-site.sh
           ./build-site.sh --output-dir ../public_html
-      # ---------------------------------------------------------
-      # 5. 验证：检查 zola build 是否正常输出了网页文件夹
-      # ---------------------------------------------------------
-      - name: Verify Kanban build output
-        run: |
-          cd zola_source
-          ZOLA_OUTPUT_DIR=../public_html node scripts/verify-kanban-build.mjs
 
-          echo "=== 正在验证 Zola 静态网页编译输出情况 ==="
-          if [ -d "../public_html" ] && [ -f "../public_html/index.html" ]; then
-            echo "✅ 验证通过：public_html 静态网页文件夹顺利生成，且包含主页 index.html！"
-            echo "生成的纯网页静态文件列表如下："
-            ls -la ../public_html
-          else
-            echo "❌ 验证失败：zola build 编译异常，public_html 文件夹为空或未生成 index.html！"
-            echo "请检查你的本地模板语法或 zola.toml 中的配置是否正确。"
-            exit 1
-          fi
-
-      # ---------------------------------------------------------
-      # 6. 精确推送纯 HTML 网页到 GitHub 的 gh-pages 分支
-      # ---------------------------------------------------------
-      - name: Deploy Pure HTML to gh-pages
+      - name: Verify deployment output
         run: |
+          set -euo pipefail
+          test -f public_html/index.html
+          test -f public_html/style.css
+          echo "Deployment output verified."
+
+      - name: Deploy pure HTML to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
           cd public_html
           git init
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
-          git commit -m "Automated deploy from Codeberg (Pure HTML)"
-          # 强行覆盖推送到远程的 gh-pages 分支
-          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:gh-pages --force
+          if git diff --cached --quiet; then
+            echo "No deployment changes."
+            exit 0
+          fi
+          git commit -m "Deploy generated site from Codeberg source"
+          git push \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            HEAD:gh-pages --force
