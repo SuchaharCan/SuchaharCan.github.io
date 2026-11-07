@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-11-07T11:29:14.900Z",
+  "repos": {
+    "https://github.com/SuchaharCan/dotfiles": {
+      "time": "2026-11-02T20:41:08Z",
+      "message": "Some New",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/dotfiles/commit/555ad4b233cb0b103e05c99face8962dac30b564"
+    },
+    "https://github.com/SuchaharCan/CXX-CMake-template": {
+      "time": "2026-11-06T19:46:24Z",
+      "message": "新增固定项目看板; 新增同步任务到苹果日历默认分配30min;优化s i ,s v 进入任务详情页的交互; 优化s 合法枚举列表,非合法 进入创建任务的六行面板中;",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/CXX-CMake-template/commit/125776a798cb3ec21b00212833023e9ce072afa1"
+    },
+    "https://codeberg.org/SuzhaharCan/sc-cmake": {
+      "time": "2026-11-01T14:23:52+08:00",
+      "message": "chore(formula): set sha256 for v0.2.2\n",
+      "author": "SuchaharCan",
+      "url": "https://codeberg.org/SuzhaharCan/sc-cmake/commit/ad215ed142ab2d7224fc35b68cc8693c8633ac42"
+    },
+    "https://codeberg.org/daudix/ametrine": {
+      "time": "2026-10-18T16:37:56+02:00",
+      "message": "Merge pull request 'Point mod imports at Citrine' (#149) from michi-onl/mod-imports into main\n\nReviewed-on: https://codeberg.org/daudix/ametrine/pulls/149\n",
+      "author": "David Lapshin",
+      "url": "https://codeberg.org/daudix/ametrine/commit/71b925c30384a42c7e7d3f4da8a5f225697fe772"
+    },
+    "https://github.com/SuchaharCan/AlfredWorkflows_Collection/releases#release-Yabai": {
+      "time": "2026-11-04T08:04:12Z",
+      "message": "chore: publish Omni-Stacks 2.1.0 Alfred update metadata",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/AlfredWorkflows_Collection/commit/c6a31f256bb6a54e5ddcddabdbff6f9c330191a6"
+    },
+    "https://github.com/SuchaharCan/AlfredWorkflows_Collection/releases#release-Stacks2": {
+      "time": "2026-11-04T08:04:12Z",
+      "message": "chore: publish Omni-Stacks 2.1.0 Alfred update metadata",
+      "author": "SuchaharCan",
+      "url": "https://github.com/SuchaharCan/AlfredWorkflows_Collection/commit/c6a31f256bb6a54e5ddcddabdbff6f9c330191a6"
+    }
+  }
+}

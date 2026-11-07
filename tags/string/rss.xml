@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - String</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/string/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 11 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>考研 408 · 字符串核心知识点</title>
+          <pubDate>Tue, 11 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-string/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-string/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-string/">&lt;h1 id=&quot;kao-yan-408-zi-fu-chuan-he-xin-zhi-shi-dian&quot;&gt;考研 408 · 字符串核心知识点&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;408 中字符串以 &lt;strong&gt;模式匹配（朴素 / KMP）&lt;/strong&gt; 为绝对重点，配合字符串存储与基本操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;1-zi-fu-chuan-de-cun-chu&quot;&gt;1. 字符串的存储&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;顺序存储：char s[MAXLEN]，用 &amp;#39;\0&amp;#39; 或 length 记录长度&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;堆分配：char* s，长度动态管理&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;块链存储：链表每个结点存多个字符（块），省指针空间&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;408 约定&lt;/strong&gt;：字符数组下标常从 1 开始（&lt;code&gt;s[1..n]&lt;/code&gt;），便于 next 数组推导；下标 0 存长度或不用。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;2-po-su-mo-shi-pi-pei-bf&quot;&gt;2. 朴素模式匹配（BF）&lt;/h2&gt;
+&lt;p&gt;主串 &lt;code&gt;s&lt;/code&gt;（长 n）、模式串 &lt;code&gt;p&lt;/code&gt;（长 m）：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;从主串每个位置 i 起，与 p 逐位比较；&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;失配则 i 回退到 i+1，j 回到 1，继续。&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;时间复杂度&lt;/strong&gt;：最坏 O(n·m)；平均 O(n+m)。&lt;/p&gt;
+&lt;h3 id=&quot;tu-shi&quot;&gt;图示&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;主串: a b a b c a b&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;模式: a b c&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第 1 趟: a b a  失配于 c vs a → 主串从第 2 位再来&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第 2 趟:   a b a&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;第 3 趟:     a b c ✓ 匹配成功，位置 3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;3-kmp-suan-fa&quot;&gt;3. KMP 算法&lt;/h2&gt;
+&lt;h3 id=&quot;he-xin-si-xiang&quot;&gt;核心思想&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;失配时主串不回溯，模式串沿 next 数组滑动&lt;/strong&gt;，把已匹配前缀的信息利用起来。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; KMP&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; char&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; s&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt; const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; char&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span&gt; i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span&gt; j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    while&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;=&lt;/span&gt;&lt;span&gt; s&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;amp;&amp;amp;&lt;/span&gt;&lt;span&gt; j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;=&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ==&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; s&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ==&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;span&gt; i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        else&lt;/span&gt;&lt;span&gt; j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; next&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; return&lt;/span&gt;&lt;span&gt; i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; -&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;  //&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 匹配位置&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    return&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;next-shu-zu-ding-yi-next-1-0&quot;&gt;next 数组定义（next[1] = 0）&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;next[j] = 模式串 p[1..j-1] 中&amp;quot;最长相等前后缀长度 + 1&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;失配时 j = next[j] 再比。&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;qiu-jie-next-di-tui&quot;&gt;求解 next（递推）&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; getNext&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; char&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt; int&lt;/span&gt;&lt;span class=&quot;z-l-10 z-l-i z-d-8 z-d-i&quot;&gt; next&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-1 z-l-i z-d-3 z-d-i&quot;&gt;    int&lt;/span&gt;&lt;span&gt; j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span&gt; k&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    next&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    while&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;lt;&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        if&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; (&lt;/span&gt;&lt;span&gt;k&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ==&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ||&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; ==&lt;/span&gt;&lt;span&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;k&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;            j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; k&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span&gt; next&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; k&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; else&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;            k&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; =&lt;/span&gt;&lt;span&gt; next&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;span&gt;k&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;        }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;tu-shi-p-a-b-a-b-a-a&quot;&gt;图示（p = a b a b a a）&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;j   : 1  2  3  4  5  6  7&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;p   : a  b  a  b  a  a  -&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;next: 0  1  1  2  3  4  2&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;例：j=5 时 p[1..4] = a b a b，最长相等前后缀 &amp;quot;ab&amp;quot; 长 2 ⇒ next[5] = 3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;nextval-you-hua-next&quot;&gt;nextval（优化 next）&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;若 p[j] == p[next[j]]，则 nextval[j] = nextval[next[j]]，进一步跳过相同字符比较。&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;时间复杂度&lt;/strong&gt;：O(n+m)；空间 O(m)。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;4-chang-yong-ti-xing&quot;&gt;4. 常用题型&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;题型&lt;/th&gt;&lt;th&gt;解法要点&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;求 next / nextval 数组&lt;/td&gt;&lt;td&gt;手算“最长相等前后缀“&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;主串定位&lt;/td&gt;&lt;td&gt;KMP 主循环 + next&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;循环节问题&lt;/td&gt;&lt;td&gt;周期 = m − next[m]（若整除）&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;字符串相等判断&lt;/td&gt;&lt;td&gt;长度 + 逐位比较&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;模式串滑动次数&lt;/td&gt;&lt;td&gt;每趟失配后 j=next[j] 计数&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;5-li-ti-su-lan&quot;&gt;5. 例题速览&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;例 1&lt;/strong&gt;：主串 &lt;code&gt;ababcabcacbab&lt;/code&gt;，模式 &lt;code&gt;abcac&lt;/code&gt;，求 next 数组并用 KMP 找首次匹配。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;p   : a b c a c&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;next: 0 1 1 1 2&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;比较过程：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  a b a b c a b c a c a b&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  a b c        失配(c vs a) → j = next[3] = 1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    a b c a c  匹配成功，位置 6&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;例 2&lt;/strong&gt;：&lt;code&gt;next[7]&lt;/code&gt; 语义 = 当第 7 位失配时，模式串从第 &lt;code&gt;next[7]&lt;/code&gt; 位继续比较。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;6-yi-cuo-dian&quot;&gt;6. 易错点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;next 数组下标从 1 开始、&lt;code&gt;next[1]=0&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;前缀/后缀都是真子串（不含自身）；&lt;/li&gt;
+&lt;li&gt;KMP 主串指针&lt;strong&gt;只增不减&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;朴素匹配最坏情况如 &lt;code&gt;s=aaaaab, p=aaab&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下一篇：&lt;a href=&quot;https://suchaharcan.github.io/01Write_blog_AlgorithmDesign/408-tree/&quot;&gt;树&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+      </item>
+    </channel>
+</rss>

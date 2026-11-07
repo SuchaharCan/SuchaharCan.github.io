@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - clang-tidy</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/clang-tidy/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 20 Jul 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>CMake 接入 clang-tidy：从开关到可维护门禁</title>
+          <pubDate>Mon, 20 Jul 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/</link>
+          <guid>https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/</guid>
+          <description xml:base="https://suchaharcan.github.io/01Write_blog_CMake/clang-tidy-cmake/">&lt;h1 id=&quot;cmake-jie-ru-clang-tidy&quot;&gt;CMake 接入 clang-tidy&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;clang-tidy&lt;/code&gt; 适合当工程的&lt;strong&gt;静态门禁&lt;/strong&gt;：比编译器警告更靠近「现代 C++ 习惯」和「API 误用」。难点通常不在「能不能跑」，而在 &lt;strong&gt;CMake 怎么挂、配置怎么钉死、本地与 CI 怎么一致&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;本文按「能开关 → 能复现 → 能长期维护」三条线整理。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;1-xian-nong-qing-liang-chong-gua-fa&quot;&gt;1. 先弄清两种挂法&lt;/h2&gt;
+&lt;h3 id=&quot;1-1-bian-yi-shi-zi-dong-pao-cmake-cxx-clang-tidy&quot;&gt;1.1 编译时自动跑（&lt;code&gt;CMAKE_CXX_CLANG_TIDY&lt;/code&gt;）&lt;/h3&gt;
+&lt;p&gt;CMake 会把 tidy 绑到每个编译命令上：改一个 &lt;code&gt;.cpp&lt;/code&gt;，编译时顺带分析。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cmake&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;option&lt;/span&gt;&lt;span&gt;(CXX_ENABLE_CLANG_TIDY &lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Attach clang-tidy to CXX compile&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; OFF&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;if&lt;/span&gt;&lt;span&gt;(CXX_ENABLE_CLANG_TIDY)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  find_program&lt;/span&gt;&lt;span&gt;(CLANG_TIDY_EXE &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;NAMES&lt;/span&gt;&lt;span&gt; clang-tidy REQUIRED)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  set&lt;/span&gt;&lt;span&gt;(CMAKE_CXX_CLANG_TIDY&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;    &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;${CLANG_TIDY_EXE};-warnings-as-errors=*&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    CACHE&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; STRING&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt; FORCE)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;endif&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;适合：&lt;strong&gt;小目标 / 模块化工程 / 想强制「脏代码编不过」&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;代价：全量编译变慢；增量时只扫改过的 TU。&lt;/p&gt;
+&lt;h3 id=&quot;1-2-du-li-mu-biao-jiao-ben-sao-bu-bang-bian-yi&quot;&gt;1.2 独立目标 / 脚本扫（不绑编译）&lt;/h3&gt;
+&lt;p&gt;用 &lt;code&gt;compile_commands.json&lt;/code&gt; + 自己的 &lt;code&gt;clang-tidy&lt;/code&gt; 调用：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cmake&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;S&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;DCMAKE_EXPORT_COMPILE_COMMANDS=ON&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;clang-tidy&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; src/&lt;/span&gt;&lt;span class=&quot;z-l-4 z-l-i z-d-7 z-d-i&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;z-l-4 z-l-i z-d-7 z-d-i&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;z-l-4 z-l-i z-d-7 z-d-i&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.cpp&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;适合：&lt;strong&gt;大仓库、只想在 PR 跑、或 tidy 与构建解耦&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;2-pei-zhi-wen-jian-ba-gui-ze-ding-zai-cang-ku-li&quot;&gt;2. 配置文件：把规则钉在仓库里&lt;/h2&gt;
+&lt;p&gt;优先放仓库根或 &lt;code&gt;cmake/&lt;/code&gt; 旁的 &lt;code&gt;.clang-tidy&lt;/code&gt;，避免每人本机「默认检查集」不一致。&lt;/p&gt;
+&lt;p&gt;最小可用示例：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;hecks&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; &amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  -*,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  bugprone-*,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  modernize-use-nullptr,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  modernize-use-override,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  readability-identifier-naming,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  performance-unnecessary-copy-initialization&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;arningsAsErrors&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;eaderFilterRegex&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ormatStyle&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;one&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;经验：&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;做法&lt;/th&gt;&lt;th&gt;建议&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;一上来开 &lt;code&gt;*&lt;/code&gt;&lt;/td&gt;&lt;td&gt;噪音爆炸，团队会关掉 tidy&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;从 &lt;code&gt;bugprone-*&lt;/code&gt; + 少量 modernize 起步&lt;/td&gt;&lt;td&gt;易落地&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;WarningsAsErrors: &#39;*&#39;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;适合 CI 门禁；本地可先关&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;第三方头文件&lt;/td&gt;&lt;td&gt;用 &lt;code&gt;HeaderFilterRegex&lt;/code&gt; 限定自己的源码树&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;3-yu-cmake-fen-ceng-ji-jian-de-chang-jian-jie-fa&quot;&gt;3. 与 CMake 分层基建的常见接法&lt;/h2&gt;
+&lt;p&gt;现代工程常把开关放在 &lt;code&gt;CompilerWarnings.cmake&lt;/code&gt; / &lt;code&gt;ProjectSetup.cmake&lt;/code&gt; 一类文件里，例如：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;cmake&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;# cmake/CompilerWarnings.cmake（示意）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;function&lt;/span&gt;&lt;span&gt;(cxx_enable_clang_tidy &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;target&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  if&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;NOT&lt;/span&gt;&lt;span&gt; CXX_ENABLE_CLANG_TIDY)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    return&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  endif&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  find_program&lt;/span&gt;&lt;span&gt;(CLANG_TIDY_EXE &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;NAMES&lt;/span&gt;&lt;span&gt; clang-tidy)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  if&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;NOT&lt;/span&gt;&lt;span&gt; CLANG_TIDY_EXE)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    message&lt;/span&gt;&lt;span&gt;(WARNING &lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;clang-tidy not found; skip&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    return&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  endif&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  set_target_properties&lt;/span&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;${target}&lt;/span&gt;&lt;span&gt; PROPERTIES&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    CXX_CLANG_TIDY &lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;${CLANG_TIDY_EXE};--config-file=${CMAKE_SOURCE_DIR}/.clang-tidy&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;endfunction&lt;/span&gt;&lt;span&gt;()&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;对 &lt;strong&gt;C++23 modules / &lt;code&gt;import std&lt;/code&gt;&lt;/strong&gt; 工程：确认 tidy 用的 clang 版本与编译器同源（Homebrew LLVM 场景尤其常见），否则会出现「编译过、tidy 解析失败」。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;4-ben-di-gong-zuo-liu-tui-jian&quot;&gt;4. 本地工作流（推荐）&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-d-9 z-d-i&quot;&gt;export&lt;/span&gt;&lt;span&gt; PATH&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/opt/homebrew/opt/llvm/bin:&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;&lt;span&gt;PATH&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 默认关闭 tidy，日常编译快&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cmake&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;S&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;G&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; Ninja&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cmake&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-build&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 需要门禁时显式打开&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cmake&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;S&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;G&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; Ninja&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;DCXX_ENABLE_CLANG_TIDY=ON&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;cmake&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-build&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; build&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;把「默认 OFF、CI ON」写进 README / preset，比强迫人人开 tidy 更可持续。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;5-ci-men-jin-qing-dan&quot;&gt;5. CI 门禁清单&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+&lt;code&gt;CMAKE_EXPORT_COMPILE_COMMANDS=ON&lt;/code&gt;（若用独立扫）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+固定 &lt;code&gt;clang-tidy&lt;/code&gt; 版本（或固定 LLVM formula 大版本）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+&lt;code&gt;.clang-tidy&lt;/code&gt; 进仓库&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+PR 必跑；main 上偶发全量&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+第三方目录进 &lt;code&gt;.clang-tidy&lt;/code&gt; 忽略或 &lt;code&gt;HeaderFilterRegex&lt;/code&gt; 排除&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h2 id=&quot;6-xiao-jie&quot;&gt;6. 小结&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;目标&lt;/th&gt;&lt;th&gt;做法&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;开发时提醒&lt;/td&gt;&lt;td&gt;本机可选 &lt;code&gt;CXX_ENABLE_CLANG_TIDY=ON&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;合入质量&lt;/td&gt;&lt;td&gt;CI 打开 + &lt;code&gt;warnings-as-errors&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;长期可维护&lt;/td&gt;&lt;td&gt;仓库内 &lt;code&gt;.clang-tidy&lt;/code&gt; + 窄检查集逐步加宽&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;下一篇会写 &lt;strong&gt;&lt;code&gt;.cmake&lt;/code&gt; 模块拆分与 &lt;code&gt;CMakePresets.json&lt;/code&gt; 的使用技巧&lt;/strong&gt;，和 tidy 开关如何一起放进 preset。&lt;/p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

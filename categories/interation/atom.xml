@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Rocky‘s Blog - Interation</title>
+    <subtitle>月更 技术博客 CXX优先</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://suchaharcan.github.io/categories/interation/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-11-05T00:00:00+00:00</updated>
+    <id>https://suchaharcan.github.io/categories/interation/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Homebrew Cask 定时自动发版：livecheck + bump-cask-pr 的成熟方案</title>
+        <published>2026-10-26T00:00:00+00:00</published>
+        <updated>2026-10-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/homebrew-cask-auto-bump/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/homebrew-cask-auto-bump/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/homebrew-cask-auto-bump/">&lt;h1 id=&quot;homebrew-cask-ding-shi-zi-dong-fa-ban-livecheck-bump-cask-pr-de-cheng-shou-fang-an&quot;&gt;Homebrew Cask 定时自动发版：livecheck + bump-cask-pr 的成熟方案&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;#heading-ids&quot;&gt;TL;DR - 点击跳转到结论&lt;/a&gt; &lt;br/&gt; &lt;br/&gt;
+第三方 Homebrew tap 想要“上游发版 → cask 自动更新 → 用户 &lt;code&gt;brew upgrade&lt;/code&gt; 可用”，
+不需要手写 SHA-256。让 &lt;code&gt;brew livecheck&lt;/code&gt; 负责检测. &lt;br/&gt;
+让&lt;code&gt;brew bump-cask-pr --write-only&lt;/code&gt; 负责下载、计算双架构 SHA-256 和改写 cask，
+再用 GitHub Actions / Forgejo Actions 的 &lt;code&gt;schedule&lt;/code&gt; 做定时器即可。&lt;/p&gt;
+&lt;p&gt;本文以 &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/MoekaProject/community&quot;&gt;MoekaProject/community&lt;/a&gt;
+和 &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/MoekaProject/homebrew-moeka&quot;&gt;MoekaProject/homebrew-moeka&lt;/a&gt; 为实例，
+给出可直接复用的 cask 与 workflow、完整验证步骤，以及 GitHub / Codeberg 上值得借鉴的定时发布项目。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote class=&quot;markdown-alert-note&quot;&gt;
+&lt;p&gt;&lt;strong&gt;验证环境&lt;/strong&gt;：macOS 27.2（Apple Silicon）、Homebrew &lt;code&gt;7.0.10-108-g8d79935&lt;/code&gt;、
+示例上游最新正式版 &lt;code&gt;v0.1.29&lt;/code&gt;（2026-10-25 发布）。Homebrew 各版本的命令细节可能变化，
+建议先 &lt;code&gt;brew update&lt;/code&gt; 再按本文验证。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;overflow-auto overshoot-row&quot;&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;本文实测值&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;系统&lt;/td&gt;&lt;td&gt;macOS 27.2 / Apple Silicon&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;&lt;code&gt;Homebrew&lt;/code&gt;&lt;/td&gt;&lt;td&gt;7.0.10-108-g8d79935&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;上游仓库&lt;/td&gt;&lt;td&gt;&lt;code&gt;MoekaProject/community&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;Tap&lt;/td&gt;&lt;td&gt;&lt;code&gt;MoekaProject/homebrew-moeka&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;示例版本&lt;/td&gt;&lt;td&gt;&lt;code&gt;0.1.29&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;调度频率&lt;/td&gt;&lt;td&gt;每小时（可改为每天/每周&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;0-jie-lun-xian-xing&quot;&gt;0. 结论先行&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;问题&lt;/th&gt;&lt;th&gt;结论&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;官方 cask 为什么能自动更新？&lt;/td&gt;&lt;td&gt;Homebrew 官方仓库由 BrewTestBot 每 3 小时检查并开 PR；&lt;strong&gt;只覆盖官方仓库&lt;/strong&gt;。&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;第三方 tap 能只靠 cask 的 &lt;code&gt;.rb&lt;/code&gt; 自动更新吗？&lt;/td&gt;&lt;td&gt;不能。&lt;code&gt;.rb&lt;/code&gt; 是声明式安装配方，不会自己定时运行，也不会自己提交。&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;当前 Homebrew 的成熟做法是什么？&lt;/td&gt;&lt;td&gt;调度器 + &lt;code&gt;brew livecheck&lt;/code&gt; + &lt;code&gt;brew bump-cask-pr --write-only&lt;/code&gt;。&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;SHA-256 谁算？&lt;/td&gt;&lt;td&gt;Homebrew 官方工具在下载 DMG 后计算，不要手写校验和逻辑。&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;自动发布怎么落地？&lt;/td&gt;&lt;td&gt;低风险 tap 可直推 &lt;code&gt;main&lt;/code&gt;；需要审核则开 PR + auto-merge。&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Codeberg 能做吗？&lt;/td&gt;&lt;td&gt;Forgejo Actions 支持 cron；Woodpecker 也支持 cron。需要注意托管 runner 多为 Linux，而 Homebrew Cask 面向 macOS。&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h2 id=&quot;1-wen-ti-wei-shen-me-di-san-fang-tap-hui-ting-zai-jiu-ban-ben&quot;&gt;1. 问题：为什么第三方 tap 会停在旧版本&lt;/h2&gt;
+&lt;p&gt;Homebrew 官方文档对 &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Autobump&quot;&gt;Autobump&lt;/a&gt; 的说明很明确：
+在官方仓库中，BrewTestBot 每 3 小时检查一次 autobump list，必要时自动开 PR。
+这套能力&lt;strong&gt;不覆盖第三方 tap&lt;/strong&gt;，所以像 &lt;code&gt;MoekaProject/homebrew-moeka&lt;/code&gt;
+这样的独立 tap，如果没有自己的调度器，就会一直停在上一次手动提交的版本。&lt;/p&gt;
+&lt;p&gt;本文开始时，tap 里还是 &lt;code&gt;0.1.11&lt;/code&gt;，而 &lt;code&gt;MoekaProject/community&lt;/code&gt;
+已经发布到 &lt;code&gt;0.1.29&lt;/code&gt;。README 里描述的“源码仓库发版流程同步 cask”
+并没有实际运行，最终表现就是用户通过 &lt;code&gt;brew&lt;/code&gt; 永远拿不到新版本。&lt;/p&gt;
+&lt;p&gt;第三方 tap 需要补齐的链路是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;检测&lt;/strong&gt;：知道上游出现了一个新的正式版本；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;计算&lt;/strong&gt;：下载 arm64 / x86_64 资产，分别计算 SHA-256；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;改写&lt;/strong&gt;：更新 cask 的 &lt;code&gt;version&lt;/code&gt; 与两个 &lt;code&gt;sha256&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发布&lt;/strong&gt;：提交到 tap，让 &lt;code&gt;brew update&lt;/code&gt; 能拉到；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;复用&lt;/strong&gt;：没有新版本时安静退出，不产生空提交。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这五步里，只有“调度”和“提交”需要自己写；中间的版本、下载、校验和都可以交给 Homebrew。&lt;/p&gt;
+&lt;h2 id=&quot;2-dang-qian-homebrew-gong-ju-lian&quot;&gt;2. 当前 Homebrew 工具链&lt;/h2&gt;
+&lt;h3 id=&quot;2-1-san-ge-guan-jian-ming-ling&quot;&gt;2.1 三个关键命令&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 1) 检测：读取 cask 的 livecheck 策略&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; livecheck&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; OWNER/TAP/CASK&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-json&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 2) 更新：官方工具下载资产、计算 SHA-256、改写 cask&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; bump-cask-pr&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-write-only&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-audit&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-style&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  -&lt;/span&gt;&lt;span&gt;-version&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0.1.29&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; OWNER/TAP/CASK&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; 3) 本地/CI 注册第三方 tap 后，Homebrew 7 需要信任 tap&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; trust&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; OWNER/TAP&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;brew bump-cask-pr&lt;/code&gt; 的 &lt;code&gt;--write-only&lt;/code&gt; 很关键：它只做文件修改，不执行 fork、PR 或 Git 操作。
+这样可以把“计算与改写”交给 Homebrew，把“提交与推送”留给 workflow 控制。&lt;/p&gt;
+&lt;p&gt;需要特别注意：&lt;strong&gt;当前版本的 &lt;code&gt;bump-cask-pr&lt;/code&gt; 不会自动 livecheck 出版本&lt;/strong&gt;。
+如果既没有 &lt;code&gt;--version&lt;/code&gt;，也没有 &lt;code&gt;--url&lt;/code&gt;/&lt;code&gt;--sha256&lt;/code&gt;，它会报错要求显式指定。
+因此调度器需要先运行 &lt;code&gt;brew livecheck&lt;/code&gt;，再把 &lt;code&gt;latest&lt;/code&gt; 传给 &lt;code&gt;--version&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;2-2-wei-shen-me-bu-yong-shou-xie-shasum&quot;&gt;2.2 为什么不用手写 &lt;code&gt;shasum&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;手写脚本当然能下载两个 DMG 并 &lt;code&gt;shasum -a 256&lt;/code&gt;，但会引入额外的维护面：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;资产 URL、文件名和架构矩阵变化时要同步修改；&lt;/li&gt;
+&lt;li&gt;不同 Homebrew 版本的 cask DSL、审计规则和格式要求可能变化；&lt;/li&gt;
+&lt;li&gt;需要自己处理 404、断流、部分下载和错误资产；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bump-cask-pr&lt;/code&gt; 已经是 Homebrew 官方维护的实现，能直接处理多架构 cask。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文的方案只在“检测失败”时用 GitHub API 做兜底，不重新实现 SHA-256。&lt;/p&gt;
+&lt;h3 id=&quot;2-3-guan-fang-autobump-yu-di-san-fang-tap-de-bian-jie&quot;&gt;2.3 官方 autobump 与第三方 tap 的边界&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;场景&lt;/th&gt;&lt;th&gt;是否自动更新&lt;/th&gt;&lt;th&gt;说明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;homebrew/cask&lt;/code&gt; 官方 cask&lt;/td&gt;&lt;td&gt;是&lt;/td&gt;&lt;td&gt;BrewTestBot 每约 3 小时检查并开 PR&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;第三方 tap（本文）&lt;/td&gt;&lt;td&gt;需要自建&lt;/td&gt;&lt;td&gt;官方 bot 不会替你维护&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;应用内自动更新&lt;/td&gt;&lt;td&gt;与应用有关&lt;/td&gt;&lt;td&gt;cask 的 &lt;code&gt;auto_updates true&lt;/code&gt; 不等于 tap 版本自动前进&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;auto_updates true&lt;/code&gt; 只表示应用自身可能自动更新；新用户安装、&lt;code&gt;brew upgrade --cask&lt;/code&gt;
+以及 cask 的版本元数据仍然需要 tap 里的 cask 文件保持最新。&lt;/p&gt;
+&lt;h2 id=&quot;3-cask-ce-rang-livecheck-zhen-zheng-ke-yong&quot;&gt;3. cask 侧：让 livecheck 真正可用&lt;/h2&gt;
+&lt;p&gt;Moeka 的 cask 有 arm64 和 x86_64 两个 DMG，因此使用多架构 &lt;code&gt;sha256&lt;/code&gt;
+声明。完整示例：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cask &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; do&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  arch &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;arm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;arm64&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; intel&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;x86_64&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  version &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;0.1.29&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  sha256 &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;arm&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;   &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;c579ed1b2909d730ed390f6efcf469095808ff00f92821939fde5963eaacdeae&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;         intel&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;da1f7dfdadea684551280e6c34c656bdaec3d800ea6c378d69bb69c5769c4acc&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  url &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://github.com/MoekaProject/community/releases/download/v&lt;/span&gt;&lt;span class=&quot;z-l-10 z-d-8&quot;&gt;#{&lt;/span&gt;&lt;span&gt;version&lt;/span&gt;&lt;span class=&quot;z-l-10 z-d-8&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Moeka-macos-&lt;/span&gt;&lt;span class=&quot;z-l-10 z-d-8&quot;&gt;#{&lt;/span&gt;&lt;span&gt;arch&lt;/span&gt;&lt;span class=&quot;z-l-10 z-d-8&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.dmg&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  name &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  desc &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Markdown editor&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  homepage &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://moeka.app/&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  livecheck &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;do&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    url &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://github.com/MoekaProject/community&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    strategy &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;github_releases&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  end&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  auto_updates &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  depends_on &lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;macos&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; :&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;monterey&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  app &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Moeka.app&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;3-1-xian-shi-livecheck-kuai&quot;&gt;3.1 显式 livecheck 块&lt;/h3&gt;
+&lt;p&gt;最初的 cask 没有 &lt;code&gt;livecheck&lt;/code&gt; 块。实测 &lt;code&gt;brew livecheck&lt;/code&gt; 会使用默认策略，
+在本机走了 &lt;code&gt;git ls-remote&lt;/code&gt;，最终返回：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Error: moeka: Unable to get versions&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;git ls-remote timed out after 20 seconds.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;加上下面的块之后，Homebrew 才会明确地查询 GitHub Releases：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;livecheck &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;do&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  url &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://github.com/MoekaProject/community&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  strategy &lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;github_releases&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;官方文档对 livecheck 的完整写法见
+&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Brew-Livecheck&quot;&gt;Brew Livecheck&lt;/a&gt; 和
+&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Cask-Cookbook#stanza-livecheck&quot;&gt;Cask Cookbook 的 livecheck 章节&lt;/a&gt;。
+如果上游不是 GitHub Releases，而是 Sparkle、Electron、普通网页或 Git tag，
+可以换成对应的 strategy；不要直接照抄 &lt;code&gt;:github_releases&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;3-2-duo-jia-gou-xiao-yan-he&quot;&gt;3.2 多架构校验和&lt;/h3&gt;
+&lt;p&gt;cask 中两个 &lt;code&gt;sha256&lt;/code&gt; 与 &lt;code&gt;arch&lt;/code&gt; 变量对应：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;arch arm: &amp;quot;arm64&amp;quot;, intel: &amp;quot;x86_64&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;bump-cask-pr&lt;/code&gt; 会分别下载 &lt;code&gt;Moeka-macos-arm64.dmg&lt;/code&gt; 和
+&lt;code&gt;Moeka-macos-x86_64.dmg&lt;/code&gt;，再改写对应的 &lt;code&gt;sha256 arm:&lt;/code&gt; / &lt;code&gt;intel:&lt;/code&gt;。
+因此 cask 的 URL 模板必须保持稳定；如果资产改名，需要先改 cask 的 &lt;code&gt;url&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;3-3-yong-brew-livecheck-yan-zheng&quot;&gt;3.3 用 &lt;code&gt;brew livecheck&lt;/code&gt; 验证&lt;/h3&gt;
+&lt;p&gt;在一个临时 tap 中注册 checkout 后执行：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;mkdir&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-repository&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Library/Taps/moeka-review&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;ln&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;sfn&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;&lt;span&gt;PWD&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-repository&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Library/Taps/moeka-review/homebrew-moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; trust&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka-review/moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; livecheck&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka-review/moeka/moeka&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-json&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果 cask 还是旧版本，会得到类似：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;[&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    &amp;quot;&lt;/span&gt;&lt;span&gt;cask&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    &amp;quot;&lt;/span&gt;&lt;span&gt;version&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      &amp;quot;&lt;/span&gt;&lt;span&gt;current&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;0.1.11&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      &amp;quot;&lt;/span&gt;&lt;span&gt;latest&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;0.1.29&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;,&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      &amp;quot;&lt;/span&gt;&lt;span&gt;outdated&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;outdated: true&lt;/code&gt; 才是触发 bump 的条件；&lt;code&gt;false&lt;/code&gt; 或空数组应当安静退出。&lt;/p&gt;
+&lt;h2 id=&quot;4-workflow-ding-shi-jian-ce-guan-fang-geng-xin-zi-dong-tui-song&quot;&gt;4. workflow：定时检测、官方更新、自动推送&lt;/h2&gt;
+&lt;p&gt;下面是本文按同一命令链在本机验证过，并做了 YAML / shell 静态检查的完整
+GitHub Actions 文件。它使用 &lt;code&gt;macos-latest&lt;/code&gt; 是因为 Homebrew Cask 面向 macOS；
+首次上线请先跑 &lt;code&gt;dry_run=true&lt;/code&gt;。若改成 Forgejo/Woodpecker，需要把平台替换成
+支持 Homebrew 的 macOS runner（见第 6 节）。&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; A&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;uto-bump Moeka cask&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  s&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;chedule&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt;    #&lt;/span&gt;&lt;span class=&quot;z-l-6 z-l-i z-d-2 z-d-i&quot;&gt; Hourly. Adjust as needed, e.g. &amp;quot;0 */6 * * *&amp;quot; for every 6 hours.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ron&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;0 * * * *&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  w&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;orkflow_dispatch&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nputs&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;      d&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ry_run&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        d&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;escription&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;Detect the latest release only; do not bump or push&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        t&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ype&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; b&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;oolean&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        d&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;efault&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; false&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;oncurrency&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  g&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;roup&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;uto-bump-moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ancel-in-progress&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ermissions&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ontents&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; w&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;rite&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nv&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  H&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;OMEBREW_NO_AUTO_UPDATE&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  H&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;OMEBREW_GITHUB_API_TOKEN&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; $&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;{{ github.token }}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  C&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ASK_TOKEN&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; m&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;oekaproject/moeka/moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;obs&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  b&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ump&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;uns-on&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; m&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;acos-latest&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    t&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;imeout-minutes&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 30&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    s&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;teps&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; C&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;heck out repository&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ctions/checkout@v4&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; S&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;et up Homebrew&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; H&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;omebrew/actions/setup-homebrew@main&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; R&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;egister checkout as a tap&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git checkout -B &amp;quot;${GITHUB_REF_NAME}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          tap_dir=&amp;quot;$(brew --repository)/Library/Taps/moekaproject&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          mkdir -p &amp;quot;$tap_dir&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          ln -sfn &amp;quot;$GITHUB_WORKSPACE&amp;quot; &amp;quot;$tap_dir/homebrew-moeka&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          if brew help trust &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            brew trust moekaproject/moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; D&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;etect latest release&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; d&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;etect&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        e&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nv&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;          G&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ITHUB_TOKEN&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; $&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;{{ github.token }}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          set -euo pipefail&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          cask=&amp;quot;$CASK_TOKEN&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          file_version=&amp;quot;$(sed -nE &amp;#39;s/^[[:space:]]*version[[:space:]]*&amp;quot;([^&amp;quot;]*)&amp;quot;/\1/p&amp;#39; Casks/moeka.rb)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          if [[ -z &amp;quot;$file_version&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            echo &amp;quot;::error::Could not parse the current version from Casks/moeka.rb&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            exit 1&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          current=&amp;quot;$file_version&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          is_newer() {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            awk -v a=&amp;quot;$1&amp;quot; -v b=&amp;quot;$2&amp;quot; &amp;#39;BEGIN {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              na = split(a, av, /[^0-9]+/)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              nb = split(b, bv, /[^0-9]+/)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              n  = (na &amp;gt; nb ? na : nb)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              for (i = 1; i &amp;lt;= n; i++) {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                x = (i &amp;lt;= na ? av[i] + 0 : 0)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                y = (i &amp;lt;= nb ? bv[i] + 0 : 0)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                if (x &amp;gt; y) { print &amp;quot;true&amp;quot;;  exit }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                if (x &amp;lt; y) { print &amp;quot;false&amp;quot;; exit }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              print &amp;quot;false&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            }&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          latest=&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          livecheck_ok=false&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          if livecheck_json=&amp;quot;$(brew livecheck --cask &amp;quot;$cask&amp;quot; --json --quiet 2&amp;gt;/dev/null)&amp;quot;; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            status=&amp;quot;$(jq -r &amp;#39;.[0].status // &amp;quot;ok&amp;quot;&amp;#39; &amp;lt;&amp;lt;&amp;lt;&amp;quot;$livecheck_json&amp;quot; 2&amp;gt;/dev/null || echo error)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            outdated=&amp;quot;$(jq -r &amp;#39;.[0].version.outdated // false&amp;#39; &amp;lt;&amp;lt;&amp;lt;&amp;quot;$livecheck_json&amp;quot; 2&amp;gt;/dev/null || echo false)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            if [[ &amp;quot;$status&amp;quot; == &amp;quot;ok&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              livecheck_ok=true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              current=&amp;quot;$(jq -r &amp;#39;.[0].version.current // empty&amp;#39; &amp;lt;&amp;lt;&amp;lt;&amp;quot;$livecheck_json&amp;quot; 2&amp;gt;/dev/null || true)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              current=&amp;quot;${current:-$file_version}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              if [[ &amp;quot;$outdated&amp;quot; == &amp;quot;true&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                latest=&amp;quot;$(jq -r &amp;#39;.[0].version.latest&amp;#39; &amp;lt;&amp;lt;&amp;lt;&amp;quot;$livecheck_json&amp;quot;)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          # Fallback for the case where the source repository&amp;#39;s release&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          # workflow overwrites this cask and drops its livecheck block.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          if [[ &amp;quot;$livecheck_ok&amp;quot; != &amp;quot;true&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            api_url=&amp;quot;${GITHUB_API_URL:-https://api.github.com}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            auth=()&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            if [[ -n &amp;quot;${GITHUB_TOKEN:-}&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              auth=(-H &amp;quot;Authorization: Bearer ${GITHUB_TOKEN}&amp;quot;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            latest=&amp;quot;$(curl -fsSL --retry 3 \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              -H &amp;quot;Accept: application/vnd.github+json&amp;quot; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              &amp;quot;${auth[@]}&amp;quot; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              &amp;quot;${api_url}/repos/MoekaProject/community/releases/latest&amp;quot; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              | jq -r &amp;#39;.tag_name&amp;#39; | sed &amp;#39;s/^v//&amp;#39;)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            if [[ &amp;quot;$(is_newer &amp;quot;$latest&amp;quot; &amp;quot;$current&amp;quot;)&amp;quot; != &amp;quot;true&amp;quot; ]]; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;              latest=&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          echo &amp;quot;current=${current}&amp;quot; &amp;gt;&amp;gt; &amp;quot;$GITHUB_OUTPUT&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          echo &amp;quot;latest=${latest}&amp;quot; &amp;gt;&amp;gt; &amp;quot;$GITHUB_OUTPUT&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          echo &amp;quot;Current version: ${current}; latest version: ${latest:-none}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; R&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;eport dry run&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; s&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;teps.detect.outputs.latest != &amp;#39;&amp;#39; &amp;amp;&amp;amp; inputs.dry_run == true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        e&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nv&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;          L&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ATEST&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; $&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;{{ steps.detect.outputs.latest }}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          echo &amp;quot;Dry run: would bump Moeka to ${LATEST}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; B&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ump cask using Homebrew&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; s&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;teps.detect.outputs.latest != &amp;#39;&amp;#39; &amp;amp;&amp;amp; inputs.dry_run != true&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        e&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nv&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;          V&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ERSION&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; $&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;{{ steps.detect.outputs.latest }}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; b&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;rew bump-cask-pr --write-only --no-audit --no-style --version &amp;quot;$VERSION&amp;quot; &amp;quot;$CASK_TOKEN&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; C&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ommit and push if changed&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          if git diff --quiet -- Casks/moeka.rb; then&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            echo &amp;quot;Cask unchanged; nothing to push.&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;            exit 0&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          fi&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          new_version=&amp;quot;$(sed -nE &amp;#39;s/^[[:space:]]*version[[:space:]]*&amp;quot;([^&amp;quot;]*)&amp;quot;/\1/p&amp;#39; Casks/moeka.rb)&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git config user.name &amp;quot;github-actions[bot]&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git config user.email &amp;quot;41898282+github-actions[bot]@users.noreply.github.com&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git add -- Casks/moeka.rb&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git commit -m &amp;quot;moeka: bump to ${new_version}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          # Rebase in case another process (e.g. the source repo&amp;#39;s release&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          # workflow) updated the tap while this job was running.&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git pull --rebase origin &amp;quot;${GITHUB_REF_NAME}&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;          git push origin &amp;quot;HEAD:${GITHUB_REF_NAME}&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;4-1-mei-yi-bu-zai-zuo-shen-me&quot;&gt;4.1 每一步在做什么&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;步骤&lt;/th&gt;&lt;th&gt;作用&lt;/th&gt;&lt;th&gt;关键点&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;schedule&lt;/code&gt;&lt;/td&gt;&lt;td&gt;每小时自动触发&lt;/td&gt;&lt;td&gt;GitHub cron 使用 UTC；也保留 &lt;code&gt;workflow_dispatch&lt;/code&gt; 手动触发&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;setup-homebrew&lt;/code&gt;&lt;/td&gt;&lt;td&gt;安装/准备 Homebrew&lt;/td&gt;&lt;td&gt;使用官方 action；高安全场景建议把 action 固定到 commit SHA&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;注册 tap&lt;/td&gt;&lt;td&gt;让 &lt;code&gt;brew&lt;/code&gt; 认识当前 checkout&lt;/td&gt;&lt;td&gt;用 symlink 而不是复制，保证改动落在工作区&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;brew trust&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Homebrew 7 信任第三方 tap&lt;/td&gt;&lt;td&gt;旧版本没有该命令时用 &lt;code&gt;brew help trust&lt;/code&gt; 判断并跳过&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;livecheck&lt;/code&gt;&lt;/td&gt;&lt;td&gt;检测最新正式版&lt;/td&gt;&lt;td&gt;读取 &lt;code&gt;outdated&lt;/code&gt; 和 &lt;code&gt;latest&lt;/code&gt;，而不是自己猜 tag&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;API 兜底&lt;/td&gt;&lt;td&gt;livecheck 不可用时继续工作&lt;/td&gt;&lt;td&gt;防止源码模板覆盖 cask 后 livecheck 块丢失&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;bump-cask-pr --write-only&lt;/code&gt;&lt;/td&gt;&lt;td&gt;下载、算 SHA、改写 cask&lt;/td&gt;&lt;td&gt;不执行 Git 操作，由下一步统一提交&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;commit/push&lt;/td&gt;&lt;td&gt;发布到 tap&lt;/td&gt;&lt;td&gt;只提交 &lt;code&gt;Casks/moeka.rb&lt;/code&gt;；push 前 rebase&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;4-2-wei-shen-me-bao-liu-api-dou-di&quot;&gt;4.2 为什么保留 API 兜底&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;MoekaProject&lt;/code&gt; 的 cask 模板还可能由源码仓库的发版流程覆盖。如果模板覆盖时丢掉
+&lt;code&gt;livecheck&lt;/code&gt; 块，&lt;code&gt;brew livecheck&lt;/code&gt; 会失败。workflow 在这种情况下回退到
+GitHub 的 &lt;code&gt;releases/latest&lt;/code&gt;，仍然只做“检测版本”，SHA-256 继续交给
+&lt;code&gt;bump-cask-pr&lt;/code&gt;，不会退化成手写校验和。&lt;/p&gt;
+&lt;p&gt;兜底使用语义化数字比较，避免 &lt;code&gt;0.1.9 &amp;gt; 0.1.10&lt;/code&gt; 这类字符串比较错误。&lt;/p&gt;
+&lt;h3 id=&quot;4-3-zhi-tui-huan-shi-pr&quot;&gt;4.3 直推还是 PR&lt;/h3&gt;
+&lt;p&gt;本文默认直接 push &lt;code&gt;main&lt;/code&gt;，适合个人/小团队 tap，用户只需 &lt;code&gt;brew update&lt;/code&gt; 就能拿到更新。
+如果 tap 开启了分支保护，直接 push 会失败，此时有两个选择：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 Settings 中放行 GitHub Actions bot；&lt;/li&gt;
+&lt;li&gt;把最后一步改成“开 PR + auto-merge”，由维护者审核。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;官方 autobump 选择的是 PR 模式，适合官方仓库和需要人工判断的高风险更新。&lt;/p&gt;
+&lt;h3 id=&quot;4-4-yong-hu-ce-ru-he-na-dao-geng-xin&quot;&gt;4.4 用户侧如何拿到更新&lt;/h3&gt;
+&lt;p&gt;发布成功后，用户侧只需要让 tap 更新，再显式升级 cask：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; update&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; upgrade&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;新用户则是：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; tap&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; MoekaProject/homebrew-moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; install&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;brew update&lt;/code&gt; 会拉取 tap 的最新提交；&lt;code&gt;brew upgrade --cask moeka&lt;/code&gt; 会按最新 cask
+下载对应架构的 DMG。cask 的 &lt;code&gt;auto_updates true&lt;/code&gt; 仍然保留应用自身的更新能力，
+但它不能替代 tap 的版本元数据更新。&lt;/p&gt;
+&lt;h2 id=&quot;5-yan-zheng-bu-yao-zhi-kan-workflow-lu-deng&quot;&gt;5. 验证：不要只看 workflow 绿灯&lt;/h2&gt;
+&lt;h3 id=&quot;5-1-jing-tai-jian-cha&quot;&gt;5.1 静态检查&lt;/h3&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;ruby&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;c&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; Casks/moeka.rb&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;ruby&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;ryaml&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;e&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;YAML.load_file(&amp;quot;.github/workflows/auto-bump-moeka.yml&amp;quot;); puts &amp;quot;yaml ok&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果要把 workflow 中的所有 &lt;code&gt;run&lt;/code&gt; 片段单独做 shell 语法检查，可以抽出后执行：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;ruby&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;ryaml&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;e&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  y = YAML.load_file(&amp;quot;.github/workflows/auto-bump-moeka.yml&amp;quot;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  y[&amp;quot;jobs&amp;quot;][&amp;quot;bump&amp;quot;][&amp;quot;steps&amp;quot;].each_with_index do |step, i|&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;    next unless step[&amp;quot;run&amp;quot;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;    File.write(&amp;quot;/tmp/wf-step-#{i}.sh&amp;quot;, step[&amp;quot;run&amp;quot;])&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;  end&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;for&lt;/span&gt;&lt;span&gt; f&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; in&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; /&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; do&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; bash&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;n&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;&lt;span&gt;f&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; |&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; exit&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 1&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; done&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;5-2-ben-di-lin-shi-tap-yan-zheng-livecheck-yu-bump&quot;&gt;5.2 本地临时 tap：验证 livecheck 与 bump&lt;/h3&gt;
+&lt;p&gt;先准备一个版本为 &lt;code&gt;0.1.11&lt;/code&gt; 的临时副本，避免修改当前工作区。下面的命令假设
+当前改动已经提交；在 PR checkout 上直接运行即可：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;review_parent&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;mktemp&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;d&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;review_dir&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;review_parent&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/homebrew-moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; clone&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;review_dir&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;sed&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;i&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;E&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;s/^([[:space:]]*version[[:space:]]*)&amp;quot;[^&amp;quot;]*&amp;quot;/\1&amp;quot;0.1.11&amp;quot;/&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;review_dir&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Casks/moeka.rb&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;mkdir&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-repository&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Library/Taps/moeka-review&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;ln&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;sfn&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;review_dir&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;  &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-repository&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/Library/Taps/moeka-review/homebrew-moeka&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; trust&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka-review/moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; livecheck&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka-review/moeka/moeka&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-json&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果旧版本没有 &lt;code&gt;brew trust&lt;/code&gt; 子命令，可以跳过这一步；本文 workflow 会用
+&lt;code&gt;brew help trust&lt;/code&gt; 自动判断。&lt;/p&gt;
+&lt;p&gt;预期能看到 &lt;code&gt;current: 0.1.11&lt;/code&gt;、&lt;code&gt;latest: 0.1.29&lt;/code&gt;、&lt;code&gt;outdated: true&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;然后验证 Homebrew 官方更新：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; bump-cask-pr&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-write-only&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-audit&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-no-style&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  -&lt;/span&gt;&lt;span&gt;-version&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 0.1.29&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka-review/moeka/moeka&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;git&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;C&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;review_dir&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; diff&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; Casks/moeka.rb&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;预期 diff 只改 &lt;code&gt;version&lt;/code&gt; 和两个 &lt;code&gt;sha256&lt;/code&gt;，并保留 livecheck 块。&lt;/p&gt;
+&lt;blockquote class=&quot;markdown-alert-tip&quot;&gt;
+&lt;p&gt;第一次运行 &lt;code&gt;bump-cask-pr&lt;/code&gt; 时，Homebrew 可能会安装自己的 Ruby gem，
+并下载约 44 MB 的两个 DMG。这是 Homebrew 官方工具的正常行为，不是本方案额外引入的依赖。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;5-3-du-li-fu-suan-sha-256&quot;&gt;5.3 独立复算 SHA-256&lt;/h3&gt;
+&lt;p&gt;不要只相信 workflow 的日志。下载同一版本的资产并独立复算：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;for&lt;/span&gt;&lt;span&gt; arch&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; in&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; x&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; do&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;  curl&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;fsSL&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;    &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://github.com/MoekaProject/community/releases/download/v0.1.29/Moeka-macos-&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;{&lt;/span&gt;&lt;span&gt;arch&lt;/span&gt;&lt;span class=&quot;z-l-4 z-d-7&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.dmg&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    |&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; shasum&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;a&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; 256&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;done&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;本次 Moeka &lt;code&gt;v0.1.29&lt;/code&gt; 的实测值：&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;架构&lt;/th&gt;&lt;th&gt;SHA-256&lt;/th&gt;&lt;th&gt;大小&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;arm64&lt;/td&gt;&lt;td&gt;&lt;code&gt;c579ed1b2909d730ed390f6efcf469095808ff00f92821939fde5963eaacdeae&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;21304110&lt;/code&gt; 字节&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;x86_64&lt;/td&gt;&lt;td&gt;&lt;code&gt;da1f7dfdadea684551280e6c34c656bdaec3d800ea6c378d69bb69c5769c4acc&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;23181634&lt;/code&gt; 字节&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;5-4-yan-zheng-workflow-de-dry-run&quot;&gt;5.4 验证 workflow 的 dry-run&lt;/h3&gt;
+&lt;p&gt;在 fork 的 Actions 页面选择 &lt;strong&gt;Auto-bump Moeka cask → Run workflow&lt;/strong&gt;，
+把 &lt;code&gt;dry_run&lt;/code&gt; 设为 &lt;code&gt;true&lt;/code&gt;。预期日志显示当前版本和 latest，但不产生提交。
+手动触发同样要求 workflow 文件已经存在于该 fork 的默认分支，并确认 Actions
+没有被禁用。&lt;/p&gt;
+&lt;p&gt;第一次上线时，建议连续观察两三次：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;没有新版本时是否安静退出；&lt;/li&gt;
+&lt;li&gt;有新版本时是否只产生一个 cask 提交；&lt;/li&gt;
+&lt;li&gt;分支保护和 token 权限是否正确；&lt;/li&gt;
+&lt;li&gt;Homebrew 下载失败时是否能看到明确错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;6-chang-jian-keng-yu-she-ji-qu-she&quot;&gt;6. 常见坑与设计取舍&lt;/h2&gt;
+&lt;h3 id=&quot;6-1-cron-shi-qu-yu-zan-ting&quot;&gt;6.1 cron、时区与暂停&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub Actions 的 cron 使用 &lt;strong&gt;UTC&lt;/strong&gt;，不是本地时区；&lt;/li&gt;
+&lt;li&gt;最小间隔是 5 分钟，但没必要这么频繁；&lt;/li&gt;
+&lt;li&gt;仓库 60 天无活动后，scheduled workflow 可能被暂停，需要手动恢复；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;schedule&lt;/code&gt; 只会在默认分支上运行，fork 里的定时任务也可能需要在 Actions 中手动启用。&lt;/li&gt;
+&lt;li&gt;macOS runner 的分钟数通常比 Linux runner 更贵；公开仓库一般免费，
+private/自托管仓库要按实际计费策略评估频率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对 cask 更新来说，每小时或每 6 小时通常足够；如果上游一天只发布一次，每天一次也可以。&lt;/p&gt;
+&lt;h3 id=&quot;6-2-token-fen-zhi-bao-hu-yu-xia-you-workflow&quot;&gt;6.2 token、分支保护与下游 workflow&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;permissions: contents: write&lt;/code&gt; 是 push 回仓库的最低权限；&lt;/li&gt;
+&lt;li&gt;Settings → Actions → General → Workflow permissions 需要选择 &lt;strong&gt;Read and write permissions&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;分支保护禁止直接 push 时，改为 PR + auto-merge；&lt;/li&gt;
+&lt;li&gt;用 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 产生的 push 不会触发新的 workflow；如果下游发布依赖 tap 提交，需要使用 GitHub App token 或 PAT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;6-3-homebrew-7-de-tap-trust&quot;&gt;6.3 Homebrew 7 的 tap trust&lt;/h3&gt;
+&lt;p&gt;Homebrew 7 会拒绝加载未受信任的第三方 tap cask：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Error: Refusing to load cask ... from untrusted tap ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在本地或 CI 中先执行 &lt;code&gt;brew trust OWNER/TAP&lt;/code&gt;。本文 workflow 已包含
+&lt;code&gt;brew help trust&lt;/code&gt; 判断，兼容没有 &lt;code&gt;trust&lt;/code&gt; 子命令的旧版本。&lt;/p&gt;
+&lt;h3 id=&quot;6-4-guan-fang-autobump-bu-gua-yong-yu-di-san-fang-tap&quot;&gt;6.4 官方 autobump 不适用于第三方 tap&lt;/h3&gt;
+&lt;p&gt;Homebrew 官方的 autobump 只在官方仓库中运行。第三方 tap 不能把“官方每 3 小时
+自动开 PR”当成现成服务；你需要自己的调度器和 token。&lt;/p&gt;
+&lt;h3 id=&quot;6-5-prerelease-yu-zi-chan-ming-ming&quot;&gt;6.5 prerelease 与资产命名&lt;/h3&gt;
+&lt;p&gt;本文的 API 兜底使用 GitHub 的 &lt;code&gt;releases/latest&lt;/code&gt;，它只返回正式版。
+如果项目要跟踪 nightly / beta / RC，需要改用 releases 列表并显式过滤；
+同时要确认 &lt;code&gt;livecheck&lt;/code&gt; 策略是否包含预发布版本。&lt;/p&gt;
+&lt;p&gt;资产文件名也要稳定。例如 &lt;code&gt;Moeka-macos-#{arch}.dmg&lt;/code&gt; 一旦改名，
+cask 的 &lt;code&gt;url&lt;/code&gt; 和 &lt;code&gt;bump-cask-pr&lt;/code&gt; 都会找不到资产。本文选择在资产缺失时失败，
+而不是静默发布错误的 checksum。&lt;/p&gt;
+&lt;h3 id=&quot;6-6-auto-updates-true-bu-shi-zi-dong-fa-ban&quot;&gt;6.6 &lt;code&gt;auto_updates true&lt;/code&gt; 不是自动发版&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;auto_updates true&lt;/code&gt; 只说明应用自身可能自动更新。cask 的版本、架构和 checksum
+仍然是新安装和 &lt;code&gt;brew upgrade --cask&lt;/code&gt; 的依据，所以 tap 侧仍要更新 cask。&lt;/p&gt;
+&lt;h3 id=&quot;6-7-no-audit-no-style-de-qu-she&quot;&gt;6.7 &lt;code&gt;--no-audit --no-style&lt;/code&gt; 的取舍&lt;/h3&gt;
+&lt;p&gt;本文在定时任务里跳过审计和样式，减少每次运行的 gem 安装与耗时；
+这不是“永远不审计”。建议在 PR 或单独的 CI 中运行：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; style&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; Casks/moeka.rb&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; audit&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; moeka&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果上游变更较大，可以去掉 &lt;code&gt;--no-audit --no-style&lt;/code&gt;，让 &lt;code&gt;bump-cask-pr&lt;/code&gt;
+在提交前执行完整检查。&lt;/p&gt;
+&lt;h3 id=&quot;6-8-an-quan-xing&quot;&gt;6.8 安全性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;action 固定 tag 方便阅读，但高安全要求场景应固定到 commit SHA；&lt;/li&gt;
+&lt;li&gt;只授予 &lt;code&gt;contents: write&lt;/code&gt;，不要给无关的 &lt;code&gt;issues&lt;/code&gt;/&lt;code&gt;packages&lt;/code&gt; 权限；&lt;/li&gt;
+&lt;li&gt;不要把 PAT 写进代码，使用仓库 secrets；&lt;/li&gt;
+&lt;li&gt;只从上下游官方仓库下载资产；&lt;/li&gt;
+&lt;li&gt;失败时停止并保留日志，不要 &lt;code&gt;|| true&lt;/code&gt; 吞掉错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;7-ping-tai-xuan-ze-github-forgejo-woodpecker&quot;&gt;7. 平台选择：GitHub、Forgejo、Woodpecker&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;平台&lt;/th&gt;&lt;th&gt;定时语法&lt;/th&gt;&lt;th&gt;Homebrew Cask 适配&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;GitHub Actions&lt;/td&gt;&lt;td&gt;&lt;code&gt;on.schedule.cron&lt;/code&gt;&lt;/td&gt;&lt;td&gt;最佳；可直接用 &lt;code&gt;macos-latest&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Forgejo Actions（Codeberg）&lt;/td&gt;&lt;td&gt;&lt;code&gt;on.schedule.cron&lt;/code&gt;，如 &lt;code&gt;@daily&lt;/code&gt;&lt;/td&gt;&lt;td&gt;托管 runner 多为 Linux；建议自托管 macOS runner，或用等价 Ruby 脚本&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Woodpecker&lt;/td&gt;&lt;td&gt;&lt;code&gt;when: event: cron&lt;/code&gt;，cron 在 UI 配置&lt;/td&gt;&lt;td&gt;Linux 为主；适合检测/通知，cask 更新需 macOS 环境&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Renovate&lt;/td&gt;&lt;td&gt;&lt;code&gt;schedule&lt;/code&gt; 配置&lt;/td&gt;&lt;td&gt;适合依赖更新，不负责 cask 的 SHA-256&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;blockquote class=&quot;markdown-alert-important&quot;&gt;
+&lt;p&gt;Homebrew Cask 面向 macOS。Codeberg 的托管 runner 通常没有 macOS 环境，
+因此不能把 GitHub 的 &lt;code&gt;macos-latest&lt;/code&gt; workflow 原样搬过去；可以保留检测逻辑，
+把“计算与改写”放到自托管 macOS runner，或用 Ruby/curl/shasum 实现等价逻辑。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;8-you-xiu-xiang-mu-can-kao&quot;&gt;8. 优秀项目参考&lt;/h2&gt;
+&lt;p&gt;下面这些项目都来自实际仓库，重点看它们如何组合“定时器 + 幂等 + 发布/更新”，
+而不是只抄 cron 表达式。&lt;/p&gt;
+&lt;h3 id=&quot;8-1-github&quot;&gt;8.1 GitHub&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;值得借鉴&lt;/th&gt;&lt;th&gt;链接&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Homebrew Autobump&lt;/td&gt;&lt;td&gt;官方 cask 每约 3 小时检查一次，有更新才开 PR；是 PR 模式的黄金标准&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Autobump&quot;&gt;文档&lt;/a&gt; · &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/Homebrew/brew/blob/main/docs/Autobump.md&quot;&gt;源码&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Homebrew/actions&lt;/td&gt;&lt;td&gt;官方的 &lt;code&gt;setup-homebrew&lt;/code&gt;、发布与 CI 基础设施；本文使用其 setup action&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/Homebrew/actions&quot;&gt;Homebrew/actions&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;nushell/nushell&lt;/td&gt;&lt;td&gt;&lt;code&gt;nightly-build.yml&lt;/code&gt; 每天 00:15 UTC 构建 nightly；如果上游 commit 未变化就跳过&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/nushell/nushell/blob/main/.github/workflows/nightly-build.yml&quot;&gt;nightly-build.yml&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;NixOS/nixpkgs-update&lt;/td&gt;&lt;td&gt;大规模自动包更新：r-ryantm 机器人持续开 PR；基础设施用 6/12 小时和每日 timer&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/NixOS/nixpkgs-update&quot;&gt;更新器&lt;/a&gt; · &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/NixOS/infra/tree/main/non-critical-infra/modules/nixpkgs-update&quot;&gt;基础设施配置&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;renovatebot/renovate&lt;/td&gt;&lt;td&gt;成熟的 schedule / PR / automerge 模型；适合依赖和版本文件更新&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/renovatebot/renovate&quot;&gt;Renovate&lt;/a&gt; · &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.renovatebot.com/configuration-options/#schedule&quot;&gt;schedule 选项&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h4 id=&quot;zhe-xie-xiang-mu-de-gong-tong-dian&quot;&gt;这些项目的共同点&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;检测到变化才工作&lt;/strong&gt;：Nushell 会比较最新 nightly 的 hash，Homebrew autobump 会先 livecheck；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;幂等&lt;/strong&gt;：没有变化时退出，不制造空提交；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可观测&lt;/strong&gt;：日志和 PR/commit 能说明为什么更新；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;权限最小化&lt;/strong&gt;：只给发布/写入需要的 token；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;历史可回滚&lt;/strong&gt;：通过 Git 提交或 PR 保留变更记录。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;8-2-codeberg&quot;&gt;8.2 Codeberg&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;值得借鉴&lt;/th&gt;&lt;th&gt;链接&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;forgejo/forgejo &lt;code&gt;mirror.yml&lt;/code&gt;&lt;/td&gt;&lt;td&gt;使用 &lt;code&gt;schedule: - cron: &#39;@daily&#39;&lt;/code&gt; 每天同步镜像；最直接的 Forgejo Actions 定时示例&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows/mirror.yml&quot;&gt;mirror.yml&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;forgejo/forgejo &lt;code&gt;publish-release.yml&lt;/code&gt;&lt;/td&gt;&lt;td&gt;tag 触发的正式发布：复制、签名、升级实验环境；把“定时检测”和“发布动作”分开&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows/publish-release.yml&quot;&gt;publish-release.yml&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Codeberg-Infrastructure/renovate-config&lt;/td&gt;&lt;td&gt;Woodpecker 的 &lt;code&gt;event: cron&lt;/code&gt; + Renovate；配置 &lt;code&gt;schedule:automergeDaily&lt;/code&gt;、周末窗口和 automerge&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://codeberg.org/Codeberg-Infrastructure/renovate-config&quot;&gt;配置仓库&lt;/a&gt; · &lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://codeberg.org/Codeberg-Infrastructure/renovate-config/src/branch/main/.woodpecker/renovate.yml&quot;&gt;renovate.yml&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Codeberg/Documentation&lt;/td&gt;&lt;td&gt;实际项目直接 extends Codeberg 的 Renovate 配置，是“组织级统一更新策略”的落地例子&lt;/td&gt;&lt;td&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://codeberg.org/Codeberg/Documentation/src/branch/main/renovate.json&quot;&gt;renovate.json&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h4 id=&quot;codeberg-fang-an-de-guan-jian-chai-bie&quot;&gt;Codeberg 方案的关键差别&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Forgejo Actions 的 schedule 语法与 GitHub 类似，但认证、runner 和权限模型不同；&lt;/li&gt;
+&lt;li&gt;Woodpecker 的 cron 是 &lt;code&gt;event: cron&lt;/code&gt;，具体 cron 名称/时间在 Woodpecker 中管理，不是全部写在仓库文件里；&lt;/li&gt;
+&lt;li&gt;Codeberg 的 Renovate 配置使用 automerge 和“每日/周末”策略，适合依赖更新，
+但不负责 Homebrew cask 的双架构 SHA-256；&lt;/li&gt;
+&lt;li&gt;若要在 Codeberg 上更新 cask，优先准备自托管 macOS runner，或把 Homebrew 的计算步骤放到 GitHub 的 macOS runner。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;9-fu-yong-dao-qi-ta-xiang-mu&quot;&gt;9. 复用到其他项目&lt;/h2&gt;
+&lt;p&gt;以本文为模板，替换下面几个位置即可：&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;位置&lt;/th&gt;&lt;th&gt;Moeka 示例&lt;/th&gt;&lt;th&gt;替换为&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;cask token&lt;/td&gt;&lt;td&gt;&lt;code&gt;moekaproject/moeka/moeka&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;OWNER/TAP/CASK&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;cask 文件&lt;/td&gt;&lt;td&gt;&lt;code&gt;Casks/moeka.rb&lt;/code&gt;&lt;/td&gt;&lt;td&gt;你的 &lt;code&gt;Casks/&amp;lt;name&amp;gt;.rb&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;上游&lt;/td&gt;&lt;td&gt;&lt;code&gt;MoekaProject/community&lt;/code&gt;&lt;/td&gt;&lt;td&gt;你的 Release 仓库&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;livecheck URL&lt;/td&gt;&lt;td&gt;&lt;code&gt;https://github.com/MoekaProject/community&lt;/code&gt;&lt;/td&gt;&lt;td&gt;你的仓库/发布页&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;commit message&lt;/td&gt;&lt;td&gt;&lt;code&gt;moeka: bump to ...&lt;/code&gt;&lt;/td&gt;&lt;td&gt;你的 cask 名称&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;资产 URL&lt;/td&gt;&lt;td&gt;&lt;code&gt;Moeka-macos-#{arch}.dmg&lt;/code&gt;&lt;/td&gt;&lt;td&gt;你的实际资产命名&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;如果上游不是 GitHub，livecheck 策略可能不同，先运行：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;brew&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; livecheck&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-cask&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; OWNER/TAP/CASK&lt;/span&gt;&lt;span&gt; -&lt;/span&gt;&lt;span&gt;-verbose&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;确认 Homebrew 能识别版本后，再把 &lt;code&gt;brew livecheck --json&lt;/code&gt; 的输出接到
+&lt;code&gt;brew bump-cask-pr --version&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;10-zui-xiao-luo-di-qing-dan&quot;&gt;10. 最小落地清单&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+在 cask 中补上可用的 &lt;code&gt;livecheck&lt;/code&gt; 块；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+用 &lt;code&gt;brew livecheck --cask ... --json&lt;/code&gt; 验证 &lt;code&gt;outdated&lt;/code&gt; 结果；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+用 &lt;code&gt;brew bump-cask-pr --write-only --version X&lt;/code&gt; 在临时 tap 验证 SHA-256 与格式；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+加入 scheduled workflow，先跑 &lt;code&gt;dry_run=true&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+配置 &lt;code&gt;contents: write&lt;/code&gt; 权限；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+决定直推 main 还是 PR + auto-merge；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+观察第一次真实更新和无更新两种情况；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+固定 action 版本/commit SHA，收紧 token 权限；&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot;/&gt;
+在上游资产改名、平台切换或 pre-release 策略变化时复查 livecheck。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;heading-ids&quot;&gt;11. 结论&lt;/h2&gt;
+&lt;p&gt;“自动生成 SHA-256 并更新 cask”最成熟的做法不是再写一个下载脚本，而是把职责拆开：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;cask 负责声明&lt;/strong&gt;：版本、架构、URL、livecheck；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Homebrew 负责计算&lt;/strong&gt;：&lt;code&gt;bump-cask-pr --write-only&lt;/code&gt; 下载并生成两个 SHA-256；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调度器负责节奏&lt;/strong&gt;：GitHub Actions / Forgejo Actions / Woodpecker 的 schedule；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Git 负责发布&lt;/strong&gt;：commit/push 或 PR + auto-merge；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;兜底负责可用性&lt;/strong&gt;：livecheck 失败时用 API 检测，仍然不手写 checksum。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对第三方 tap 来说，这套组合比“等待仓库所有者手动发版”更可靠，也比自己维护
+一套多架构下载逻辑更容易审计。MoekaProject 的实例已经验证了
+&lt;code&gt;0.1.11 -&amp;gt; 0.1.29&lt;/code&gt; 的检测、双架构 SHA-256 计算和 cask 改写；
+把它复制到下一个 tap 时，只需要替换 token、路径和上游地址。&lt;/p&gt;
+&lt;h2 id=&quot;can-kao-lian-jie-hui-zong&quot;&gt;参考链接汇总&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Homebrew 官方文档：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Autobump&quot;&gt;Autobump&lt;/a&gt;、&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Brew-Livecheck&quot;&gt;Brew Livecheck&lt;/a&gt;、&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.brew.sh/Cask-Cookbook&quot;&gt;Cask Cookbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Homebrew Actions：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/Homebrew/actions&quot;&gt;github.com/Homebrew/actions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub schedule 文档：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule&quot;&gt;Events that trigger workflows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Forgejo Actions：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://forgejo.org/docs/latest/user/actions/&quot;&gt;forgejo.org/docs/latest/user/actions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Woodpecker cron：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://woodpecker-ci.org/docs/usage/cron&quot;&gt;woodpecker-ci.org/docs/usage/cron&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Moeka 上游：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/MoekaProject/community&quot;&gt;MoekaProject/community&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Moeka Tap：&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://github.com/MoekaProject/homebrew-moeka&quot;&gt;MoekaProject/homebrew-moeka&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ASCII - 表情符号在博客文章</title>
+        <published>2026-10-15T00:00:00+00:00</published>
+        <updated>2026-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/ascii-mac/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/ascii-mac/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/ascii-mac/">&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;rocket&lt;/code&gt;菜单栏常驻 双击``触发 可模糊搜索&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;博客文章编写， 代码注释， 聊天通讯 均可使用 ，但含义必须明确通用&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;技术性博客 编写： 基于 场景 需求 约束 目标 步骤 验证 复现 这6点顺序编写&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;zi-dian-ying-she-gui-ze-ji-he&quot;&gt;字典映射规则集合&lt;/h1&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;关键字&lt;/th&gt;&lt;th&gt;图标含义&lt;/th&gt;&lt;th&gt;图标&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;star&lt;/td&gt;&lt;td&gt;重点醒目提示&lt;/td&gt;&lt;td&gt;⭐&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;white-check-mark&lt;/td&gt;&lt;td&gt;可行性提醒 完成状态 安全&lt;/td&gt;&lt;td&gt;✅&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;interrobang&lt;/td&gt;&lt;td&gt;有疑问&lt;/td&gt;&lt;td&gt;⁉️&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;pushpin&lt;/td&gt;&lt;td&gt;置顶提醒&lt;/td&gt;&lt;td&gt;📌&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;gear&lt;/td&gt;&lt;td&gt;配置 规则&lt;/td&gt;&lt;td&gt;⚙️&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;warning&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;⚠️&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Fast Open CodeProject</title>
+        <published>2026-07-12T00:00:00+00:00</published>
+        <updated>2026-11-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/fast-open-codeproject/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/fast-open-codeproject/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/fast-open-codeproject/">&lt;blockquote&gt;
+&lt;p&gt;进入项目目录， 按照指定编辑器打开&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;❯&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; pwd&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                                                                                            ─╯&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;//00BlogZola&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;❯&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; zed&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;                                                                                          ─╯&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;Found&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; existing&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; alias&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; for&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; You&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; should&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; use:&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;zd&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Habit Rebuild</title>
+        <published>2026-06-25T00:00:00+00:00</published>
+        <updated>2026-11-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>Suchaharcan</name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://suchaharcan.github.io/03Share_blog/habit-rebuild/"/>
+        <id>https://suchaharcan.github.io/03Share_blog/habit-rebuild/</id>
+        
+        <content type="html" xml:base="https://suchaharcan.github.io/03Share_blog/habit-rebuild/">&lt;blockquote class=&quot;markdown-alert-note&quot;&gt;
+&lt;p&gt;抛去 旧习惯， 在 立刻行动  中 寻找 意义&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;bo-ke-kan-ban-blog-kanban&quot;&gt;博客看板 - Blog Kanban&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;每天主动编写博客， 根据你的活动 和 规划， 有意识的去 编写看板，
+看板并非 随意编写，请 郑重对待， 那是 你的承诺， 言之有物，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自己做了什么，就写什么。
+量化 自己的行为， 直观的感受 自己的变化；&lt;/p&gt;
+&lt;p&gt;每天在 kanban/中 进行更新 当日的完成的核心事项；&lt;/p&gt;
+&lt;h2 id=&quot;ruan-jian-kan-ban-stacks&quot;&gt;软件看板 - Stacks&lt;/h2&gt;
+&lt;p&gt;自己主动的有意识 推进和 记录 进步地方， 后续 可 进行 整理复盘；&lt;/p&gt;
+&lt;h2 id=&quot;focus-zhuan-zhu-mo-shi&quot;&gt;Focus - 专注模式&lt;/h2&gt;
+&lt;p&gt;自己在 SnippetsLab -&amp;gt; DevonThink 中 基于 专注模式的产品想法
+自己就 培养 这样的 工作习惯，
+精简自己的工作环境。&lt;/p&gt;
+&lt;h2 id=&quot;zai-hou-xu-dong-yao-shi-can-yu-lao-dong&quot;&gt;在后续 动摇时 参与劳动&lt;/h2&gt;
+&lt;p&gt;去跑个外卖 或 出门 跑一跑 ，清醒下脑袋&lt;/p&gt;
+&lt;h2 id=&quot;xi-guan-zhu-dong-qu-yue-du-kai-yuan-dai-ma&quot;&gt;习惯： 主动去阅读开源代码&lt;/h2&gt;
+&lt;p&gt;搜狗C++后台项目， 腾讯广告C++ 项目， 等都是优秀的项目 去阅读吸收理解， 提高自己的代码架构理解和设计；&lt;/p&gt;
+&lt;h2 id=&quot;xi-guan-yin-le-tao-ye-xin-xu-pi-bei-shi-lian-lian-ji-ta&quot;&gt;习惯： 音乐， 陶冶心绪， 疲惫时 练练吉他&lt;/h2&gt;
+</content>
+        
+    </entry>
+</feed>

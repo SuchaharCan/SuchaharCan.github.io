@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-07T11:29:00.015Z",
+  "pages": [
+    {
+      "content": "00Read_blog_Math/2026-06-03-First Base Chater/index.md",
+      "payload": "encryption/pages/00Read_blog_Math/2026-06-03-First Base Chater.json"
+    },
+    {
+      "content": "01Write_blog_AlgorithmDesign/2026-06-22-placeholder/index.md",
+      "payload": "encryption/pages/01Write_blog_AlgorithmDesign/2026-06-22-placeholder.json"
+    },
+    {
+      "content": "01Write_blog_CXX20/2026-11-02-Focus-Plan/index.md",
+      "payload": "encryption/pages/01Write_blog_CXX20/2026-11-02-Focus-Plan.json"
+    },
+    {
+      "content": "02Engineer_blog_Debug/2026-06-20-Deny-WebSite-LittleSnitch/index.md",
+      "payload": "encryption/pages/02Engineer_blog_Debug/2026-06-20-Deny-WebSite-LittleSnitch.json"
+    },
+    {
+      "content": "03Share_blog/2026-11-03-Admin-Mode-Guide/index.md",
+      "payload": "encryption/pages/03Share_blog/2026-11-03-Admin-Mode-Guide.json"
+    },
+    {
+      "content": "av-library/index.md",
+      "payload": "encryption/pages/av-library.json"
+    }
+  ]
+}

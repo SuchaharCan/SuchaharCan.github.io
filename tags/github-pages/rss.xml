@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rocky‘s Blog - GitHub Pages</title>
+      <link>https://suchaharcan.github.io/</link>
+      <description>月更 技术博客 CXX优先</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://suchaharcan.github.io/tags/github-pages/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 02 Nov 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>私有源码、公开部署与模板文档：GitHub Pages Artifact 实践</title>
+          <pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate>
+          <author>Suchaharcan</author>
+          <link>https://suchaharcan.github.io/03Share_blog/private-source-public-deploy/</link>
+          <guid>https://suchaharcan.github.io/03Share_blog/private-source-public-deploy/</guid>
+          <description xml:base="https://suchaharcan.github.io/03Share_blog/private-source-public-deploy/">&lt;p&gt;当前这套结构最重要的设计不是“用了几个 Git 平台”，而是把&lt;strong&gt;源码所有权、构建过程、
+部署产物和公开展示&lt;/strong&gt;拆成独立层次：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Codeberg 私有仓库           GitHub 公开仓库               公网&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;博客源码（私有）    ──CI──&amp;gt;  静态部署产物 / Pages   ──CDN──&amp;gt; 博客网站&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GitHub 公开仓库             GitHub Actions                 公网&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;模板源码（公开）    ──CI──&amp;gt;  Doxygen Pages Artifact  ──CDN──&amp;gt; 模板文档&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这套方案可以做到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;博客 Markdown、草稿、私有配置放在 Codeberg 私有仓库；&lt;/li&gt;
+&lt;li&gt;博客最终 HTML 通过 GitHub Pages 公开访问；&lt;/li&gt;
+&lt;li&gt;C++ 模板源码保持公开，Doxygen 由模板仓库自己的 CI 自动更新；&lt;/li&gt;
+&lt;li&gt;博客不复制模板源码，也不保存模板生成后的 HTML；&lt;/li&gt;
+&lt;li&gt;博客菜单只保存一个相对路径，由 &lt;code&gt;base_url&lt;/code&gt; 动态拼接完整 URL。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;stacks-ye-wu-ceng-ji-yu-jie-tu&quot;&gt;Stacks 业务层级与截图&lt;/h2&gt;
+&lt;p&gt;下图中的红框标识了 Stacks 2 的工作区、项目、看板和任务位置：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://suchaharcan.github.io/03Share_blog/private-source-public-deploy/stacks-business-hierarchy.png&quot; alt=&quot;Stacks 2 工作区、项目、看板和任务层级&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Stacks 页面标题可能显示“项目 - Projekt”。本文和持久化模型统一称它为 Project，
+避免与看板中的任务 Task 混淆；Task 只表示最小任务卡片。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这张图应从“一个任务向哪里归属”来理解。一个普通任务从自身向上查找，最多会有三个
+上级节点：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Workspace 工作区&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;└── Project 项目（左侧 Documents / File）&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    └── Stack 看板&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        └── Task 任务&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;workspace-gong-zuo-qu&quot;&gt;Workspace 工作区&lt;/h3&gt;
+&lt;p&gt;截图左上角的“工作区 - Space”是 Stacks 的工作区根目录，例如
+&lt;code&gt;/System/Volumes/Data/data&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;在插件中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个工作区路径对应 &lt;code&gt;Project.json.library_paths&lt;/code&gt; 中的一项；&lt;/li&gt;
+&lt;li&gt;工作区可以包含多个项目、一个 Inbox、&lt;code&gt;tasks/&lt;/code&gt; 和 &lt;code&gt;people&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;路径重载扫描的就是工作区及其下级文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;project-xiang-mu&quot;&gt;Project 项目&lt;/h3&gt;
+&lt;p&gt;截图左下方 Documents/File 区域中的“项目 - Projekt”以及右侧页面标题，都是 Stacks
+项目入口。&lt;/p&gt;
+&lt;p&gt;在文件层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;项目对应工作区中的 &lt;code&gt;.project&lt;/code&gt; 文件；&lt;/li&gt;
+&lt;li&gt;插件索引保存 &lt;code&gt;projectid&lt;/code&gt; 和 &lt;code&gt;project_path&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;项目可以有多个 &lt;code&gt;backlog&lt;/code&gt; 任务和多个 &lt;code&gt;stacks&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;项目中未放入具体看板的任务通常进入 &lt;code&gt;backlog&lt;/code&gt;。调试时可以把它理解成一个虚拟的
+Backlog 看板，但 Stacks 文件里它位于项目顶层的 &lt;code&gt;backlog&lt;/code&gt; 数组。&lt;/p&gt;
+&lt;h3 id=&quot;stack-kan-ban&quot;&gt;Stack 看板&lt;/h3&gt;
+&lt;p&gt;截图右侧灰色标题栏“0% 看板 - Stack”对应项目下的一个 Stack。&lt;/p&gt;
+&lt;p&gt;在文件层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Stack 保存在 &lt;code&gt;.project&lt;/code&gt; 文件的 &lt;code&gt;stacks[]&lt;/code&gt; 数组中；&lt;/li&gt;
+&lt;li&gt;每个 Stack 有独立 ID、标题和 &lt;code&gt;tasks&lt;/code&gt; 数组；&lt;/li&gt;
+&lt;li&gt;一个项目可以有多个 Stack；&lt;/li&gt;
+&lt;li&gt;插件 &lt;code&gt;Stack.json&lt;/code&gt; 中的 &lt;code&gt;kind=stack&lt;/code&gt; 节点用于扁平查询和导航。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;task-ren-wu&quot;&gt;Task 任务&lt;/h3&gt;
+&lt;p&gt;截图看板中的“任务 - Task”卡片是 Stack 下的一个任务。&lt;/p&gt;
+&lt;p&gt;在文件层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个任务保存为 &lt;code&gt;tasks/&amp;lt;task-id&amp;gt;.task&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.project&lt;/code&gt; 文件只保存任务 ID，不保存任务完整正文；&lt;/li&gt;
+&lt;li&gt;任务正文包含标题、描述、开始日期、截止日期、优先级、完成和计时字段；&lt;/li&gt;
+&lt;li&gt;从 Stack 下的任务向上查找，三层上级依次是 Stack → Project → Workspace。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;inbox-shou-jian-xiang&quot;&gt;Inbox 收件箱&lt;/h3&gt;
+&lt;p&gt;Inbox 是工作区级特殊入口，不属于普通项目，也不经过 Stack。&lt;/p&gt;
+&lt;p&gt;在文件层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Inbox 任务的 &lt;code&gt;project&lt;/code&gt; 固定为 &lt;code&gt;inbox&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;任务文件仍然位于当前工作区的 &lt;code&gt;tasks/&lt;/code&gt; 下；&lt;/li&gt;
+&lt;li&gt;不写入项目 &lt;code&gt;backlog&lt;/code&gt; 或 &lt;code&gt;stacks[].tasks&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;Inbox 任务向上查找只有 Workspace → Inbox 两层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;wei-zhi-he-guan-xi-dui-zhao&quot;&gt;位置和关系对照&lt;/h3&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;术语&lt;/th&gt;&lt;th&gt;截图位置&lt;/th&gt;&lt;th&gt;文件或字段&lt;/th&gt;&lt;th&gt;上级关系&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Workspace 工作区&lt;/td&gt;&lt;td&gt;左上角“工作区 - Space”&lt;/td&gt;&lt;td&gt;&lt;code&gt;Project.json.library_paths&lt;/code&gt;&lt;/td&gt;&lt;td&gt;根节点&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Project 项目&lt;/td&gt;&lt;td&gt;左侧 Documents/File 和页面标题&lt;/td&gt;&lt;td&gt;&lt;code&gt;&amp;lt;project-id&amp;gt;.project&lt;/code&gt;、&lt;code&gt;Project.json.nodes&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Workspace&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Stack 看板&lt;/td&gt;&lt;td&gt;右侧灰色看板标题&lt;/td&gt;&lt;td&gt;&lt;code&gt;.project&lt;/code&gt; 的 &lt;code&gt;stacks[]&lt;/code&gt;、&lt;code&gt;Stack.json.nodes&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Project → Workspace&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Task 任务&lt;/td&gt;&lt;td&gt;看板中的任务卡片&lt;/td&gt;&lt;td&gt;&lt;code&gt;tasks/&amp;lt;task-id&amp;gt;.task&lt;/code&gt;、&lt;code&gt;backlog&lt;/code&gt; 或 &lt;code&gt;stacks[].tasks&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Stack → Project → Workspace&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Inbox 收件箱&lt;/td&gt;&lt;td&gt;左侧 General → Inbox&lt;/td&gt;&lt;td&gt;任务文件 &lt;code&gt;project=&quot;inbox&quot;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Workspace（特殊两层结构）&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;这张图也会作为业务术语参考图，被模板仓库的 Doxygen 业务文档引用。&lt;/p&gt;
+&lt;h2 id=&quot;san-ge-cang-ku-fen-bie-fu-ze-shen-me&quot;&gt;三个仓库分别负责什么&lt;/h2&gt;
+&lt;h3 id=&quot;codeberg-si-you-bo-ke-yuan-ma&quot;&gt;Codeberg 私有博客源码&lt;/h3&gt;
+&lt;p&gt;Codeberg 仓库保存 Zola 的真源：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;00BlogZola/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── content/          Markdown 文章&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── templates/        站点级模板覆盖&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── sass/             样式源码&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── static/           公开静态资源&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── scripts/          加密、搜索索引、部署前处理&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── build-site.sh     正式构建入口&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;└── zola.toml         全站配置&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;私有源码不等于私有网站。Markdown 可以是私有资产，但构建出来的 &lt;code&gt;public/&lt;/code&gt; 会发布为
+公开静态站点。&lt;/p&gt;
+&lt;p&gt;需要注意：&lt;strong&gt;公开部署产物会暴露其中所有内容&lt;/strong&gt;。即使源码仓库私有，只要错误地把密钥、
+日志、真实用户数据放进 &lt;code&gt;public/&lt;/code&gt;，访问者仍可以下载。因此构建产物的白名单和敏感文件
+清理必须由 CI 保证。&lt;/p&gt;
+&lt;h3 id=&quot;github-gong-kai-bu-shu-cang-ku&quot;&gt;GitHub 公开部署仓库&lt;/h3&gt;
+&lt;p&gt;GitHub 仓库承担两类职责：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;保存或者接收博客构建产物；&lt;/li&gt;
+&lt;li&gt;使用 GitHub Pages 托管静态网站。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;采用 GitHub Pages Artifact 时，部署仓库自身不需要保存生成后的 HTML 历史。Actions
+可以 checkout Codeberg 源码，构建 &lt;code&gt;public/&lt;/code&gt;，然后上传为 Pages artifact。&lt;/p&gt;
+&lt;h3 id=&quot;gong-kai-mo-ban-cang-ku&quot;&gt;公开模板仓库&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;CXX-CMake-template&lt;/code&gt; 是独立的公开源码仓库。模板的 Doxygen 由模板仓库自己维护：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;CXX-CMake-template/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── single-exe-classic/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── single-exe-modules/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── single-exe-static-modules/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── ci/build-pages-docs.sh&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── ci/pages-templates.tsv&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;└── .github/workflows/docs-pages.yml&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;每次模板、文档构建脚本或说明变化时，模板仓库重新生成全部 Doxygen，再一次性发布到：&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;external&quot; rel=&quot;external&quot; href=&quot;https://suchaharcan.github.io/CXX-CMake-template/&quot;&gt;https://suchaharcan.github.io/CXX-CMake-template/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;博客不需要知道 Doxygen 是怎样构建的，只链接这个公开入口。&lt;/p&gt;
+&lt;h2 id=&quot;github-pages-artifact-de-yuan-li&quot;&gt;GitHub Pages Artifact 的原理&lt;/h2&gt;
+&lt;p&gt;传统 Pages 经常把生成文件推送到 &lt;code&gt;gh-pages&lt;/code&gt; 分支，再由 Pages 从该分支发布。
+GitHub 当前更推荐的方式：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;mermaid&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;flowchart&lt;/span&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt; LR&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  A&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;源码仓库&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; --&amp;gt;&lt;/span&gt;&lt;span&gt; B&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  B &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span&gt; C&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;安装依赖&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  C &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span&gt; D&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;zola build / doxygen&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  D &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span&gt; E&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;upload&lt;/span&gt;&lt;span&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;pages&lt;/span&gt;&lt;span&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;artifact&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  E &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span&gt; F&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;deploy&lt;/span&gt;&lt;span&gt;-&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;pages&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  F &lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;--&amp;gt;&lt;/span&gt;&lt;span&gt; G&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;GitHub Pages CDN&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;1-github-actions-gou-jian-jing-tai-mu-lu&quot;&gt;1. GitHub Actions 构建静态目录&lt;/h3&gt;
+&lt;p&gt;Zola 或 Doxygen 的输出本质上都是静态文件：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;public/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── index.html&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── style.css&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── script.js&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;├── 03Share_blog/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;└── ...&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pages 不需要数据库或应用服务器，只需要完整、可直接访问的静态文件树。&lt;/p&gt;
+&lt;h3 id=&quot;2-upload-pages-artifact-da-bao&quot;&gt;2. &lt;code&gt;upload-pages-artifact&lt;/code&gt; 打包&lt;/h3&gt;
+&lt;p&gt;Action 会把输出目录打成 GitHub Pages 专用 artifact。artifact 中包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HTML、CSS、JavaScript；&lt;/li&gt;
+&lt;li&gt;图片、字体和 Doxygen SVG；&lt;/li&gt;
+&lt;li&gt;根路径下的 &lt;code&gt;.nojekyll&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;所有需要公开下载的静态资源。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;.nojekyll&lt;/code&gt; 用于避免 GitHub Pages 再经过 Jekyll 处理，尤其适合 Doxygen、Zola 或包含
+下划线目录的静态站点。&lt;/p&gt;
+&lt;h3 id=&quot;3-deploy-pages-chuang-jian-deployment&quot;&gt;3. &lt;code&gt;deploy-pages&lt;/code&gt; 创建 deployment&lt;/h3&gt;
+&lt;p&gt;部署 Job 使用 GitHub OIDC 身份和临时 token，请求 GitHub Pages 发布刚才上传的
+artifact。成功后得到官方 &lt;code&gt;page_url&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;部署过程不依赖长期保存的仓库写 token，也不需要把 HTML commit 到分支。&lt;/p&gt;
+&lt;h3 id=&quot;4-pages-cdn-yuan-zi-qie-huan&quot;&gt;4. Pages CDN 原子切换&lt;/h3&gt;
+&lt;p&gt;GitHub Pages 将 artifact 作为完整站点发布。对外表现为一次原子切换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新版本构建成功，整站切换；&lt;/li&gt;
+&lt;li&gt;构建或上传失败，旧站点继续在线；&lt;/li&gt;
+&lt;li&gt;不需要“先生成 HTML，再逐个推送文件”的中间状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这也是为什么模板 Pages CI 每次构建&lt;strong&gt;全部模板&lt;/strong&gt;，而不是只上传发生变化的一个子目录。
+artifact 是整站快照，如果只上传一个模板，其他模板就会消失。&lt;/p&gt;
+&lt;h2 id=&quot;zui-xiao-actions-jie-gou&quot;&gt;最小 Actions 结构&lt;/h2&gt;
+&lt;p&gt;博客和模板仓库可以使用同一套 Pages 模型。核心 YAML 结构如下：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ermissions&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  c&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ontents&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; r&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ead&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  p&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ages&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; w&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;rite&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;d-token&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; w&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;rite&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;obs&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  b&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;uild&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;uns-on&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; u&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;buntu-24.04&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    s&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;teps&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ctions/checkout@v4&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;un&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;/build-site.sh&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ctions/configure-pages@v5&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ctions/upload-pages-artifact@v3&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        w&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ith&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;          p&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ath&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; p&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ublic&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;  d&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;eploy&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;eeds&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; b&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;uild&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    r&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;uns-on&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; u&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;buntu-24.04&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    e&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;nvironment&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;      n&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ame&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; g&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ithub-pages&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;      u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;rl&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; $&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;{{ steps.deployment.outputs.page_url }}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;    s&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;teps&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;      -&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt; i&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; d&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;eployment&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;        u&lt;/span&gt;&lt;span class=&quot;z-l-9 z-d-9&quot;&gt;ses&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; a&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;ctions/deploy-pages@v4&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果博客源码在 Codeberg，代码检出步骤可以改成公开的 Codeberg 拉取，或者由你在本地／
+中间 CI 构建后把 &lt;code&gt;public/&lt;/code&gt; 传到 GitHub artifact 流程。关键是：&lt;strong&gt;GitHub 发布动作只接收
+静态目录，不需要博客源码长期存放在 GitHub。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;bo-ke-yuan-ma-si-you-zhan-dian-gong-kai-de-guan-jian-bian-jie&quot;&gt;博客源码私有、站点公开的关键边界&lt;/h2&gt;
+&lt;h3 id=&quot;si-you-de-shi-yuan-ma-fang-wen-quan-xian&quot;&gt;私有的是源码访问权限&lt;/h3&gt;
+&lt;p&gt;Codeberg 私有仓库可以阻止别人直接读取：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Markdown 原稿；&lt;/li&gt;
+&lt;li&gt;草稿；&lt;/li&gt;
+&lt;li&gt;模板和 Sass；&lt;/li&gt;
+&lt;li&gt;构建脚本；&lt;/li&gt;
+&lt;li&gt;Git 历史。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;gong-kai-de-shi-zui-zhong-html&quot;&gt;公开的是最终 HTML&lt;/h3&gt;
+&lt;p&gt;GitHub Pages 是公开静态托管。发布后，浏览器必须能够下载：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;index.html&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;CSS、JS、图片；&lt;/li&gt;
+&lt;li&gt;文章正文；&lt;/li&gt;
+&lt;li&gt;Doxygen HTML；&lt;/li&gt;
+&lt;li&gt;任何你明确放入 artifact 的文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此不要把这些内容放入 Pages artifact：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.env&lt;/code&gt;、token、私钥；&lt;/li&gt;
+&lt;li&gt;构建机日志；&lt;/li&gt;
+&lt;li&gt;用户数据库；&lt;/li&gt;
+&lt;li&gt;本地绝对路径索引；&lt;/li&gt;
+&lt;li&gt;未准备公开的草稿；&lt;/li&gt;
+&lt;li&gt;加密密钥。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;真正的敏感数据应该留在私有服务端，不能靠“HTML 不好找”来保密。&lt;/p&gt;
+&lt;h2 id=&quot;bo-ke-cai-dan-ru-he-dong-tai-lian-jie-mo-ban-wen-dang&quot;&gt;博客菜单如何动态链接模板文档&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-9 z-l-i z-l-u z-d-9 z-d-i z-d-u&quot;&gt;{ &lt;/span&gt;&lt;span&gt;url&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;CXX-CMake-template/&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-l-u z-d-9 z-d-i z-d-u&quot;&gt;, &lt;/span&gt;&lt;span&gt;name&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;模板文档&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-l-u z-d-9 z-d-i z-d-u&quot;&gt;, &lt;/span&gt;&lt;span&gt;icon&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;../simple/doxygen&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-l-u z-d-9 z-d-i z-d-u&quot;&gt;, &lt;/span&gt;&lt;span&gt;base_relative&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-3 z-d-6&quot;&gt; true&lt;/span&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;z-l-9 z-l-i z-l-u z-d-9 z-d-i z-d-u&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;站点级 &lt;code&gt;templates/partials/sidebar.html&lt;/code&gt; 对 &lt;code&gt;base_relative = true&lt;/code&gt; 的菜单项使用：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;link_url = config.base_url ~ link.url&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因此结果是：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;config.base_url + &amp;quot;CXX-CMake-template/&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当前结果是：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;https://suchaharcan.github.io/CXX-CMake-template/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果以后把站点迁移到：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;base_url&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;https://new.example.com/&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;菜单会自动变成：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;https://new.example.com/CXX-CMake-template/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;博客正文和菜单中都不需要硬编码 GitHub Pages 完整域名。&lt;/p&gt;
+&lt;p&gt;这里没有修改 &lt;code&gt;themes/ametrine-pre&lt;/code&gt; 子模块，而是使用 Zola 的模板覆盖机制，在博客
+仓库自己的 &lt;code&gt;templates/partials/sidebar.html&lt;/code&gt; 中增加 &lt;code&gt;base_relative&lt;/code&gt; 规则。普通站内
+链接仍然沿用主题原有的 &lt;code&gt;get_url&lt;/code&gt; 行为。&lt;/p&gt;
+&lt;h3 id=&quot;doxygen-tu-biao&quot;&gt;Doxygen 图标&lt;/h3&gt;
+&lt;p&gt;主题自带 Simple Icons 图标集，其中包含：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;themes/ametrine-pre/icons/simple/doxygen.svg&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;主题图标组件支持相对图标路径，因此：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;icon&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; =&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt;../simple/doxygen&lt;/span&gt;&lt;span class=&quot;z-l-5 z-d-4&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;会解析为 Doxygen 官方图标，而不是继续使用报纸图标。&lt;/p&gt;
+&lt;h2 id=&quot;mo-ban-cang-ku-de-pages-hui-zong-liu-cheng&quot;&gt;模板仓库的 Pages 汇总流程&lt;/h2&gt;
+&lt;p&gt;模板仓库的 &lt;code&gt;ci/build-pages-docs.sh&lt;/code&gt; 做四件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;读取 &lt;code&gt;ci/pages-templates.tsv&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;为每个模板配置独立的 Doxygen 构建目录；&lt;/li&gt;
+&lt;li&gt;把 &lt;code&gt;build/docs/doxygen/html&lt;/code&gt; 复制到 &lt;code&gt;pages-site/&amp;lt;template&amp;gt;/&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;生成根首页和 &lt;code&gt;.nojekyll&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;输出结构：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;pages-site/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;├──&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; .nojekyll&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;├──&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; index.html&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;├──&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; single-exe-classic/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;├──&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; single-exe-modules/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span class=&quot;z-l-2 z-d-5&quot;&gt;└──&lt;/span&gt;&lt;span class=&quot;z-l-8 z-d-10&quot;&gt; single-exe-static-modules/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;模板仓库工作流只运行 Doxygen，不运行测试和真实数据写操作：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;CXX_ENABLE_DOCS=ON&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;CXX_DOC_CLANGDOC=OFF&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;CXX_ENABLE_GTEST=OFF&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote class=&quot;markdown-alert-note&quot;&gt;
+&lt;p&gt;&lt;strong&gt;这能让文档发布与业务 CI 解耦。业务测试仍由模板矩阵工作流负责，Pages 工作流只关心
+“能否生成一个可公开访问的静态站点”&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;chu-wen-dang-wai-huan-neng-lian-jie-shen-me&quot;&gt;除文档外还能链接什么？&lt;/h2&gt;
+&lt;p&gt;&lt;span style = &#39; color:red; font-size:26px;&#39;&gt; GitHub Pages Artifact 不限于 API 文档。只要内容可以表达为静态文件，就能统一发布和
+从博客链接。&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&quot;1-xiang-mu-zhu-ye-he-zuo-pin-ji&quot;&gt;1. 项目主页和作品集&lt;/h3&gt;
+&lt;p&gt;每个项目可以有独立入口：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/CXX-CMake-template/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/Omni-Stacks/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/AlfredWorkflows/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;页面可以包含项目截图、功能对比、安装引导、更新日志和演示视频。&lt;/p&gt;
+&lt;h3 id=&quot;2-release-ye-mian-he-an-zhuang-shuo-ming&quot;&gt;2. Release 页面和安装说明&lt;/h3&gt;
+&lt;p&gt;Pages 可以承载：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;版本说明；&lt;/li&gt;
+&lt;li&gt;安装教程；&lt;/li&gt;
+&lt;li&gt;系统兼容矩阵；&lt;/li&gt;
+&lt;li&gt;SHA-256 校验值；&lt;/li&gt;
+&lt;li&gt;链接到 GitHub Releases 的下载地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;真正的二进制安装包建议放在 GitHub Releases；Pages 可以承担展示和引导，不必把 pages
+当大文件中转站。&lt;/p&gt;
+&lt;h3 id=&quot;3-webassembly-yan-shi&quot;&gt;3. WebAssembly 演示&lt;/h3&gt;
+&lt;p&gt;C++ 项目可以编译为 WASM，并将静态 HTML 作为 artifact 发布：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/demo/parser/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/demo/renderer/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/demo/task-core/&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;博客文章可以直接链接到可交互演示，而不是只放截图。&lt;/p&gt;
+&lt;h3 id=&quot;4-fu-gai-lu-ce-shi-he-xing-neng-bao-gao&quot;&gt;4. 覆盖率、测试和性能报告&lt;/h3&gt;
+&lt;p&gt;CI 可以生成静态报告：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HTML coverage；&lt;/li&gt;
+&lt;li&gt;Doxygen call/caller graph；&lt;/li&gt;
+&lt;li&gt;benchmark 图表；&lt;/li&gt;
+&lt;li&gt;CTest 结果摘要；&lt;/li&gt;
+&lt;li&gt;clang-tidy 报告；&lt;/li&gt;
+&lt;li&gt;二进制大小对比。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;报告同样通过一个 Pages artifact 发布，博客链接到对应目录即可。&lt;/p&gt;
+&lt;h3 id=&quot;5-api-schema-he-kai-fa-zhe-men-hu&quot;&gt;5. API Schema 和开发者门户&lt;/h3&gt;
+&lt;p&gt;静态 Pages 可以发布：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAPI JSON/YAML；&lt;/li&gt;
+&lt;li&gt;Swagger UI 静态页面；&lt;/li&gt;
+&lt;li&gt;JSON Schema；&lt;/li&gt;
+&lt;li&gt;protobuf 文档；&lt;/li&gt;
+&lt;li&gt;CLI 参数参考；&lt;/li&gt;
+&lt;li&gt;SDK 示例首页。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;6-yan-shi-wen-gao-he-ke-cheng-ye-mian&quot;&gt;6. 演示文稿和课程页面&lt;/h3&gt;
+&lt;p&gt;Reveal.js、Marp 导出的 HTML、教程目录、学习路线和实验说明都可以部署到 Pages。&lt;/p&gt;
+&lt;h3 id=&quot;7-rss-json-feed-he-ji-qi-ke-du-suo-yin&quot;&gt;7. RSS、JSON Feed 和机器可读索引&lt;/h3&gt;
+&lt;p&gt;除了给人看的 HTML，还可以发布：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/feed.json&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/index.json&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/releases.json&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;/search-index.json&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;博客或其他程序可以消费这些公开静态数据。&lt;/p&gt;
+&lt;h3 id=&quot;8-pwa-he-chi-xian-zi-yuan&quot;&gt;8. PWA 和离线资源&lt;/h3&gt;
+&lt;p&gt;Pages 可以托管 &lt;code&gt;manifest.webmanifest&lt;/code&gt;、Service Worker、图标和离线缓存资源。需要注意
+跨域 Service Worker 作用域限制；独立项目通常应部署在独立路径或域名下。&lt;/p&gt;
+&lt;h2 id=&quot;artifact-yu-release-de-qu-bie&quot;&gt;Artifact 与 Release 的区别&lt;/h2&gt;
+&lt;p&gt;两者都保存构建产物，但用途不同：&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;能力&lt;/th&gt;&lt;th&gt;Pages Artifact&lt;/th&gt;&lt;th&gt;GitHub Release&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;主要用途&lt;/td&gt;&lt;td&gt;部署静态网站&lt;/td&gt;&lt;td&gt;发布版本下载&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;是否有公网站点&lt;/td&gt;&lt;td&gt;是&lt;/td&gt;&lt;td&gt;否，需下载&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;适合 HTML&lt;/td&gt;&lt;td&gt;是&lt;/td&gt;&lt;td&gt;可以，但不适合浏览&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;适合大二进制&lt;/td&gt;&lt;td&gt;不建议&lt;/td&gt;&lt;td&gt;是&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;长期版本保存&lt;/td&gt;&lt;td&gt;deployment 历史为主&lt;/td&gt;&lt;td&gt;明确版本资产&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;CDN 浏览&lt;/td&gt;&lt;td&gt;Pages CDN&lt;/td&gt;&lt;td&gt;Release 下载&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;常见组合是：&lt;/p&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GitHub Release：保存安装包、校验文件、发布说明&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GitHub Pages：展示安装步骤、文档、演示和下载入口&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;博客：链接到稳定的 Pages 页面&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;chang-jian-wen-ti&quot;&gt;常见问题&lt;/h2&gt;
+&lt;h3 id=&quot;zhi-bu-shu-bian-geng-mo-ban-ke-yi-ma&quot;&gt;只部署变更模板可以吗？&lt;/h3&gt;
+&lt;p&gt;不建议直接用 &lt;code&gt;deploy-pages&lt;/code&gt; 只上传一个子目录。它会把 artifact 当成整站。&lt;/p&gt;
+&lt;p&gt;可选方案：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;每次构建全部模板，整站发布，最稳定；&lt;/li&gt;
+&lt;li&gt;维护一个额外的聚合仓库；&lt;/li&gt;
+&lt;li&gt;改用 &lt;code&gt;gh-pages&lt;/code&gt; 分支并配合 &lt;code&gt;keep_files&lt;/code&gt;，但要处理并发覆盖。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当前模板数量有限，采用“全部构建、整站发布”最简单。&lt;/p&gt;
+&lt;h3 id=&quot;si-you-yuan-ma-hui-bu-hui-rang-pages-ye-bu-ke-jian&quot;&gt;私有源码会不会让 Pages 也不可见？&lt;/h3&gt;
+&lt;p&gt;不会。Pages 只关心最终 artifact 是否可公开访问。源码权限和站点发布权限是两层配置。&lt;/p&gt;
+&lt;p&gt;但如果 Pages 站点被设置为私有访问，就需要符合 GitHub 套餐和组织策略；当前站点使用
+公开 Pages。&lt;/p&gt;
+&lt;h3 id=&quot;base-url-gai-bian-hou-mo-ban-lian-jie-hui-shi-xiao-ma&quot;&gt;&lt;code&gt;base_url&lt;/code&gt; 改变后模板链接会失效吗？&lt;/h3&gt;
+&lt;p&gt;不会。菜单使用相对路径，主题通过 &lt;code&gt;get_url&lt;/code&gt; 拼接当前 &lt;code&gt;base_url&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;不要重新写回 &lt;code&gt;@/CXX-CMake-template/&lt;/code&gt;。&lt;code&gt;@/&lt;/code&gt; 表示博客内部的 content 页面，而不是外部
+GitHub Pages 路径。&lt;/p&gt;
+&lt;h3 id=&quot;neng-fou-zai-bo-ke-nei-zhi-jie-qian-ru-doxygen&quot;&gt;能否在博客内直接嵌入 Doxygen？&lt;/h3&gt;
+&lt;p&gt;可以直接超链接。使用 &lt;code&gt;iframe&lt;/code&gt; 需要检查 Pages 和博客两侧的 CSP；Doxygen 内部链接很多，
+独立打开通常体验更稳定。&lt;/p&gt;
+&lt;h3 id=&quot;wen-dang-cang-ku-shi-fou-yao-bao-han-zai-bo-ke-cang-ku&quot;&gt;文档仓库是否要包含在博客仓库？&lt;/h3&gt;
+&lt;p&gt;不需要。模板源码、Doxygen 构建脚本和 Pages 工作流都保留在模板仓库。博客只保存链接。&lt;/p&gt;
+&lt;h2 id=&quot;zui-zhong-jie-gou&quot;&gt;最终结构&lt;/h2&gt;
+&lt;pre class=&quot;giallo z-l-code z-d-code&quot; &gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Codeberg 私有：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  博客 Markdown / Zola / Sass / 构建脚本&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        └── CI 构建静态 public/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GitHub 公开：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  博客 GitHub Pages Artifact&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        └── https://suchaharcan.github.io/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GitHub 公开：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  CXX-CMake-template 源码&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        │&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;        └── Doxygen Pages Artifact&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;              └── https://suchaharcan.github.io/CXX-CMake-template/&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;博客菜单：&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  url = &amp;quot;CXX-CMake-template/&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  + config.base_url&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  + ../simple/doxygen 图标&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这套方案的核心价值是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;私有源码负责“如何构建”，公开部署负责“如何展示”，模板仓库负责“维护自己的文档生命周期”。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;博客、Pages 部署和模板文档可以独立升级，不需要互相复制源码，也不需要每次迁移时重新
+写死域名。&lt;/p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
